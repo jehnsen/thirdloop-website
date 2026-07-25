@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 const tiers = [
   {
     name: "Advisory",
-    price: "From $4k",
+    price: "From $3k",
     cadence: "per engagement",
     description:
       "A fixed-scope architecture or operating-model review. You walk away with a written plan, whether or not we build it.",
@@ -26,7 +26,7 @@ const tiers = [
   },
   {
     name: "Build",
-    price: "From $18k",
+    price: "From $13k",
     cadence: "per project",
     description:
       "End-to-end delivery of a web platform, mobile app or automation suite — architected, built, deployed and documented.",
@@ -44,7 +44,7 @@ const tiers = [
   },
   {
     name: "Partner",
-    price: "From $6k",
+    price: "From $7k",
     cadence: "per month",
     description:
       "An embedded team on retainer. Continuous delivery across product, automation and AI with a roadmap we own together.",
