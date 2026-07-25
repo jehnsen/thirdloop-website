@@ -70,6 +70,9 @@ export default function TeamPage() {
                         <AvatarMonogram
                           initials={member.initials}
                           accent={member.accent}
+                          photo={member.photo}
+                          name={member.name}
+                          priority={index === 0}
                           className="w-40 lg:w-full"
                         />
                         <dl className="space-y-3">

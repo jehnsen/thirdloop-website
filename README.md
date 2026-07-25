@@ -68,9 +68,15 @@ reachable from the home page and the footer.
 `/team` renders from `src/lib/team.ts`, and a two-card teaser on the home page
 reads from the same array. Add a member by appending an entry.
 
-**Photos:** there are none. `AvatarMonogram` renders a gradient monogram from
-each member's `initials` in a reserved square — swap it for a `next/image`
-component once headshots exist and the layout won't move.
+**Photos:** `AvatarMonogram` renders a real headshot when a member has a
+`photo` path, and falls back to a gradient monogram built from their `initials`
+when they don't. Both occupy the same square, so adding a photo never shifts
+the layout.
+
+To add one: drop a square image in `public/team/`, then set `photo` on that
+member in `src/lib/team.ts`. Jehnsen's entry has the line ready and commented
+out — uncomment it once the file is in place. See `public/team/README.md` for
+sizing requirements.
 
 **`links` is empty for both members.** Add LinkedIn/GitHub entries and the
 chips appear automatically; leave it empty and nothing renders.

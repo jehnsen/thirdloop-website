@@ -6,6 +6,11 @@ export type TeamMember = {
   tagline: string;
   /** initials used by the avatar fallback */
   initials: string;
+  /**
+   * Path to a headshot under `public/` (e.g. "/team/jehnsen-enrique.jpg").
+   * Omit it and the gradient monogram renders instead.
+   */
+  photo?: string;
   accent: string;
   /** short label pairs shown under the name */
   facts: { label: string; value: string }[];
@@ -63,6 +68,7 @@ export const team: TeamMember[] = [
     tagline:
       "15+ years building software and API integrations, 2+ years in applied AI — the architecture and codebase behind every system we ship.",
     initials: "JE",
+    photo: "/team/jehnsen-enrique.jpg",
     accent: "var(--color-flux-500)",
     facts: [
       { label: "Role", value: "CTO" },

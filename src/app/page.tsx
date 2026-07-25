@@ -25,7 +25,7 @@ export default function Home() {
         <Differentiators />
         <Process />
         <GlowDivider />
-        <Work />
+        {/* <Work /> */}
         <Stack />
         <GlowDivider />
         <TeamTeaser />

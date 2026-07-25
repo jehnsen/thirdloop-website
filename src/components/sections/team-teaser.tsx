@@ -32,6 +32,9 @@ export function TeamTeaser() {
                   <AvatarMonogram
                     initials={member.initials}
                     accent={member.accent}
+                    photo={member.photo}
+                    name={member.name}
+                    sizes="96px"
                     className="w-24 shrink-0"
                   />
                   <div>
