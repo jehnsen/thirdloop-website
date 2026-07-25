@@ -34,6 +34,7 @@ export const team: TeamMember[] = [
     tagline:
       "Decades of business analysis and project management in banking — translating operations into systems that hold up under scrutiny.",
     initials: "MM",
+    photo: "/team/mc_manabat.jpg",
     accent: "var(--color-loop-500)",
     facts: [
       { label: "Role", value: "CEO" },
