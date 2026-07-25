@@ -1,0 +1,406 @@
+import type { LucideIcon } from "lucide-react";
+import {
+  Bot,
+  Car,
+  GraduationCap,
+  Leaf,
+  ScanBarcode,
+  Sparkles,
+  Truck,
+} from "lucide-react";
+
+export type ProductCategory =
+  | "Web App"
+  | "Mobile App"
+  | "AI Solution"
+  | "Internal Tool";
+
+export type ProductStatus = "Live" | "Demo" | "In development";
+
+export type Product = {
+  /** URL segment — /products/[slug] */
+  slug: string;
+  name: string;
+  tagline: string;
+  /** one-paragraph summary used on the index card */
+  summary: string;
+  category: ProductCategory;
+  status: ProductStatus;
+  /** external site, if there is one to visit */
+  url?: string;
+  icon: LucideIcon;
+  accent: string;
+  industry: string;
+  /** short label pairs shown in the detail hero */
+  facts: { label: string; value: string }[];
+  /** the situation the product was built for */
+  challenge: string;
+  /** what was built in response */
+  approach: string;
+  features: { title: string; body: string }[];
+  stack: string[];
+  outcomes: string[];
+};
+
+export const products: Product[] = [
+  {
+    slug: "samahuzai",
+    name: "Samahuzai Detailing",
+    tagline: "Appointment-only booking for a premium auto detailing studio",
+    summary:
+      "A booking and membership platform for a Biñan-based car detailing studio — live scheduling, per-service reservation flows and a VIP member portal.",
+    category: "Web App",
+    status: "Live",
+    url: "https://samahuzai.com",
+    icon: Sparkles,
+    accent: "var(--color-loop-500)",
+    industry: "Automotive services",
+    facts: [
+      { label: "Client", value: "Samahuzai Carwash & Auto Detailing" },
+      { label: "Location", value: "Biñan, Laguna" },
+      { label: "Type", value: "Booking platform" },
+    ],
+    challenge:
+      "Samahuzai runs hand-crafted detailing and ceramic coating strictly by appointment, with service times ranging from a 1-hour essential detail to a 3-day ceramic coating cure. Managing that spread over chat threads meant double-bookings, no visibility into remaining capacity, and no way to give paying members the priority they were promised.",
+    approach:
+      "We built a booking system where each service package carries its own duration and availability rules, so a 3-day coating blocks the bay correctly while quick details slot around it. Customers see live scheduling before they commit, and a member portal gates VIP benefits behind a login rather than manual tracking.",
+    features: [
+      {
+        title: "Per-service booking flows",
+        body: "Every package — essential, elite, ceramic coating, motorcycle, basic wash — has its own reservation link and duration, so the calendar reflects real bay time.",
+      },
+      {
+        title: "Live scheduling visibility",
+        body: "Customers see genuine availability before booking instead of requesting a slot and waiting for confirmation.",
+      },
+      {
+        title: "VIP membership portal",
+        body: "Members log in for priority scheduling, a standing 10% discount, lounge access and birthday-month offers.",
+      },
+      {
+        title: "Add-ons and packages",
+        body: "Extras like glass detailing and under-chassis work attach to a base booking and adjust the time estimate automatically.",
+      },
+      {
+        title: "Reviews and FAQ",
+        body: "Client review submission and a self-serve FAQ cut down repetitive pre-booking questions.",
+      },
+    ],
+    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "PostgreSQL"],
+    outcomes: [
+      "Bookings move from chat threads to a system with real capacity rules",
+      "Membership benefits enforced automatically rather than tracked by hand",
+      "Customers self-serve on availability, pricing and service scope",
+    ],
+  },
+  {
+    slug: "mekanikomo",
+    name: "Mekanikomo.R Auto Care",
+    tagline: "Job orders, service history and shop operations in one place",
+    summary:
+      "An auto care management app covering the full shop workflow — vehicle intake, job orders, parts, technician assignment and per-vehicle service history.",
+    category: "Web App",
+    status: "In development",
+    icon: Car,
+    accent: "var(--color-flux-500)",
+    industry: "Automotive services",
+    facts: [
+      { label: "Type", value: "Shop management system" },
+      { label: "Users", value: "Service advisors, technicians, owners" },
+      { label: "Focus", value: "Job order lifecycle" },
+    ],
+    challenge:
+      "Independent auto shops track job orders on carbon paper and vehicle history in the service advisor's memory. When a car returns six months later, nobody can say what was replaced, which parts were used, or what the customer was quoted — so work gets re-diagnosed and margin leaks through untracked parts.",
+    approach:
+      "A management app built around the job order as the central record. A vehicle is identified once by plate and VIN, then every visit, part, labour line and technician assignment attaches to it permanently — giving the shop a searchable history and the owner a view of where time and parts actually go.",
+    features: [
+      {
+        title: "Job order lifecycle",
+        body: "Intake, diagnosis, approval, work-in-progress and release — each stage timestamped and assignable to a technician.",
+      },
+      {
+        title: "Vehicle service history",
+        body: "Every job attaches to a vehicle record by plate and VIN, so returning customers arrive with a full history.",
+      },
+      {
+        title: "Parts and inventory",
+        body: "Parts consumed on a job deduct from stock and carry through to the invoice, closing the gap between work done and parts billed.",
+      },
+      {
+        title: "Technician assignment",
+        body: "Work is allocated per technician with visibility into current load and completed jobs.",
+      },
+      {
+        title: "Quotations and invoicing",
+        body: "Approved estimates convert into invoices without re-entry, keeping quoted and billed figures aligned.",
+      },
+    ],
+    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "PostgreSQL"],
+    outcomes: [
+      "Service history survives staff turnover",
+      "Parts usage reconciles against what was billed",
+      "Owners see job throughput and technician load without asking",
+    ],
+  },
+  {
+    slug: "rag-chatbot",
+    name: "RAG Customer Chatbot",
+    tagline: "A support assistant that answers from your documents, with citations",
+    summary:
+      "A retrieval-augmented chatbot tailored per business — it answers from your own knowledge base, cites its sources, and hands off to a human when it isn't confident.",
+    category: "AI Solution",
+    status: "Live",
+    icon: Bot,
+    accent: "var(--color-plasma-500)",
+    industry: "Cross-industry",
+    facts: [
+      { label: "Type", value: "Retrieval-augmented assistant" },
+      { label: "Deployment", value: "Tailored per business" },
+      { label: "Grounding", value: "Your own documents" },
+    ],
+    challenge:
+      "Support teams answer the same questions repeatedly from information that already exists in manuals, policies and product docs. A generic chatbot bolted onto that problem invents answers — which is worse than no chatbot, because a confident wrong answer about a refund policy or a dosage costs more than a slow reply.",
+    approach:
+      "We build the assistant around retrieval rather than raw generation. Your documents are chunked and embedded, the model answers only from what it retrieves, and every response carries a citation back to the source passage. When retrieval confidence is low, the bot escalates to a human instead of guessing.",
+    features: [
+      {
+        title: "Grounded in your content",
+        body: "Answers come from your ingested manuals, policies, product docs and FAQs — not from the model's general knowledge.",
+      },
+      {
+        title: "Citations on every answer",
+        body: "Each response links back to the source passage so staff and customers can verify what they were told.",
+      },
+      {
+        title: "Confidence-based handoff",
+        body: "Below a retrieval-confidence threshold the assistant routes to a human rather than producing a plausible guess.",
+      },
+      {
+        title: "Evaluation harness",
+        body: "A regression suite of real questions runs before any prompt or model change, so accuracy is measured rather than assumed.",
+      },
+      {
+        title: "Tailored per business",
+        body: "Tone, escalation rules, restricted topics and ingestion sources are configured to the specific operation.",
+      },
+    ],
+    stack: [
+      "Next.js",
+      "Python",
+      "OpenAI API",
+      "Vector database",
+      "PostgreSQL",
+    ],
+    outcomes: [
+      "Repetitive questions handled without a human in the loop",
+      "Answers traceable to a source, so mistakes are diagnosable",
+      "Accuracy tracked against a fixed evaluation set over time",
+    ],
+  },
+  {
+    slug: "agri-pos",
+    name: "Agri Supplies POS",
+    tagline: "Point of sale built for feed, seed and farm input retailers",
+    summary:
+      "A POS for agricultural supply stores — handling sacks and bulk units, batch and expiry tracking, farmer credit terms and fast-moving input inventory.",
+    category: "Web App",
+    status: "In development",
+    icon: ScanBarcode,
+    accent: "var(--color-flux-600)",
+    industry: "Agriculture retail",
+    facts: [
+      { label: "Type", value: "Point of sale" },
+      { label: "Users", value: "Agri supply store operators" },
+      { label: "Focus", value: "Inventory + credit terms" },
+    ],
+    challenge:
+      "Agricultural supply stores don't fit a generic retail POS. Stock moves in sacks, kilos and partial units; fertiliser and chemicals carry batch numbers and expiry dates; and a large share of sales go out on credit to farmers who settle after harvest. Off-the-shelf systems force the store to track half of that in a notebook.",
+    approach:
+      "A POS built around those realities: multiple units of measure per product with automatic conversion, batch and expiry tracking on regulated inputs, and a customer ledger that treats farmer credit as a first-class flow rather than an afterthought.",
+    features: [
+      {
+        title: "Multi-unit inventory",
+        body: "Products stock in sacks and sell by sack, kilo or partial unit, with conversion handled at the point of sale.",
+      },
+      {
+        title: "Batch and expiry tracking",
+        body: "Fertilisers, feeds and chemicals carry batch numbers and expiry dates, with alerts before stock ages out.",
+      },
+      {
+        title: "Farmer credit ledger",
+        body: "Credit sales post to a per-customer account with running balances and settlement against harvest payments.",
+      },
+      {
+        title: "Fast counter checkout",
+        body: "Barcode and quick-search entry keeps queue time down during planting and harvest peaks.",
+      },
+      {
+        title: "Stock and sales reporting",
+        body: "Movement, margin and outstanding receivables visible per product and per customer.",
+      },
+    ],
+    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "PostgreSQL"],
+    outcomes: [
+      "Credit balances tracked in the system instead of a ledger book",
+      "Expiry-dated stock flagged before it becomes a write-off",
+      "Real margin visible per product line",
+    ],
+  },
+  {
+    slug: "agrivia",
+    name: "Agrivia",
+    tagline: "Farm-to-market marketplace without the middlemen",
+    summary:
+      "A subscription marketplace connecting Philippine farmers, suppliers and buyers directly — with verified provenance, cold-chain traceability and next-day farm-gate payouts.",
+    category: "Web App",
+    status: "Live",
+    url: "https://agrivia-market.vercel.app",
+    icon: Leaf,
+    accent: "var(--color-flux-400)",
+    industry: "Agriculture / marketplace",
+    facts: [
+      { label: "Type", value: "B2B/B2C marketplace" },
+      { label: "Market", value: "Philippines" },
+      { label: "Model", value: "Subscription + commission" },
+    ],
+    challenge:
+      "Philippine farmers sell through layers of traders who capture much of the final price, while buyers have no way to verify where produce came from or how it was handled. Payment reaches the farm gate slowly, if at all, and there is no traceable record linking a delivered crate back to a harvest date.",
+    approach:
+      "A marketplace that removes the intermediary layer and makes provenance structural. Farms are verified before listing, produce carries harvest dates and cold-chain records through to delivery, and payouts settle next-day to the farm gate. Revenue comes from tiered subscriptions plus a commission that falls as volume rises.",
+    features: [
+      {
+        title: "Verified farm profiles",
+        body: "Producers are verified before they can list, so buyers transact against a known origin rather than an anonymous seller.",
+      },
+      {
+        title: "Traceable provenance",
+        body: "Harvest dates and cold-chain records follow the produce from listing through to delivery.",
+      },
+      {
+        title: "Next-day farm-gate payouts",
+        body: "Settlement reaches the producer directly rather than passing through trader layers.",
+      },
+      {
+        title: "Pre-orders on standing crops",
+        body: "Buyers commit to crops still in the field, with contract pricing options that give farmers forward certainty.",
+      },
+      {
+        title: "Logistics matching",
+        body: "Cold-chain transport is matched to shipments so smaller producers can reach distant buyers.",
+      },
+      {
+        title: "Tiered subscriptions",
+        body: "Sprout, Grower, Harvest and Cooperative tiers pair a monthly fee with commissions scaling from 8% down to 2%.",
+      },
+    ],
+    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "PostgreSQL"],
+    outcomes: [
+      "Direct farmer-to-buyer trade with transparent commission",
+      "Produce traceable to a verified farm and harvest date",
+      "Payouts that reach the farm gate on a next-day cycle",
+    ],
+  },
+  {
+    slug: "admin-suite",
+    name: "AdminSuite",
+    tagline: "School management for DepEd administrative officers",
+    summary:
+      "A school management system for administrative officers — centralising the records, reporting and day-to-day operations that otherwise live across spreadsheets.",
+    category: "Internal Tool",
+    status: "Demo",
+    url: "https://admin-suite-frontend.vercel.app",
+    icon: GraduationCap,
+    accent: "var(--color-loop-400)",
+    industry: "Education",
+    facts: [
+      { label: "Type", value: "School management system" },
+      { label: "Users", value: "School admin officers" },
+      { label: "Context", value: "DepEd schools" },
+    ],
+    challenge:
+      "Administrative officers in DepEd schools carry a heavy reporting load across enrolment, personnel and facilities — most of it assembled by hand from spreadsheets that live on individual machines. The same figures get re-keyed into multiple report formats, and nobody has a single current view of the school's records.",
+    approach:
+      "A management system that holds the records once and generates the reporting from them, so administrative staff stop rebuilding the same numbers. Access is role-gated behind a login, keeping personnel and student data restricted to the officers entitled to see it.",
+    features: [
+      {
+        title: "Centralised records",
+        body: "School records live in one system rather than scattered spreadsheets on individual machines.",
+      },
+      {
+        title: "Role-based access",
+        body: "Login-gated access keeps personnel and student information limited to authorised officers.",
+      },
+      {
+        title: "Reporting from source data",
+        body: "Required reports generate from the underlying records instead of being re-keyed each cycle.",
+      },
+      {
+        title: "Administrative workflows",
+        body: "Routine officer tasks are handled in-system with a consistent process rather than ad-hoc per staff member.",
+      },
+    ],
+    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+    outcomes: [
+      "One current set of records instead of competing spreadsheet copies",
+      "Reporting assembled from source data rather than re-keyed",
+      "Access to sensitive records controlled by role",
+    ],
+  },
+  {
+    slug: "backhaul",
+    name: "BackHaul",
+    tagline: "Turning empty return trips into margin",
+    summary:
+      "An interactive margin model for trucking fleets — quantifying the revenue available from return trips that currently run empty, across two monetisation strategies.",
+    category: "Web App",
+    status: "Demo",
+    url: "https://backhaul-demo.vercel.app/",
+    icon: Truck,
+    accent: "var(--color-plasma-400)",
+    industry: "Logistics & freight",
+    facts: [
+      { label: "Type", value: "Interactive business model" },
+      { label: "Market", value: "Philippine trucking fleets" },
+      { label: "Focus", value: "Deadhead monetisation" },
+    ],
+    challenge:
+      "Fleets running dedicated routes — Metro Manila out to provincial branches — pay for the return leg whether or not anything is on the truck. That deadhead distance is a pure cost, but it's hard to argue for changing it without a number attached, and fleet operators rarely have the model to produce one.",
+    approach:
+      "An interactive calculator that makes the opportunity concrete. Because fuel and driver cost are already absorbed by the outbound job, backhaul revenue is close to pure margin — the tool lets an operator move sliders for distance, fuel, payload and pricing and see both per-trip and fleet-level annual figures for two different strategies.",
+    features: [
+      {
+        title: "Two monetisation paths",
+        body: "Model selling return cargo space to third-party shippers, or buying agricultural goods at origin to sell in Manila markets.",
+      },
+      {
+        title: "Interactive margin sliders",
+        body: "Distance, fuel cost, payload weight and pricing adjust live, with margin recalculating as assumptions change.",
+      },
+      {
+        title: "Fleet-level projection",
+        body: "Per-trip figures roll up across a 20-truck fleet into monthly and annual totals.",
+      },
+      {
+        title: "Risk framing",
+        body: "The higher-return path is presented alongside its working-capital needs and exposure to spoilage and price volatility.",
+      },
+    ],
+    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+    outcomes: [
+      "Deadhead cost converted into a defensible revenue number",
+      "Two strategies compared on return and on risk",
+      "Fleet-scale impact visible from per-trip assumptions",
+    ],
+  },
+];
+
+export function getProduct(slug: string) {
+  return products.find((product) => product.slug === slug);
+}
+
+export const productCategories = [
+  "All",
+  "Web App",
+  "AI Solution",
+  "Internal Tool",
+] as const;
