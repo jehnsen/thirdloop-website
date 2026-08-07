@@ -7,6 +7,8 @@ import {
   ScanBarcode,
   Sparkles,
   Truck,
+  Newspaper,
+  BrainCircuit,
 } from "lucide-react";
 
 export type ProductCategory =
@@ -145,7 +147,8 @@ export const products: Product[] = [
   {
     slug: "rag-chatbot",
     name: "RAG Customer Chatbot",
-    tagline: "A support assistant that answers from your documents, with citations",
+    tagline:
+      "A support assistant that answers from your documents, with citations",
     summary:
       "A retrieval-augmented chatbot tailored per business — it answers from your own knowledge base, cites its sources, and hands off to a human when it isn't confident.",
     category: "AI Solution",
@@ -184,17 +187,79 @@ export const products: Product[] = [
         body: "Tone, escalation rules, restricted topics and ingestion sources are configured to the specific operation.",
       },
     ],
-    stack: [
-      "Next.js",
-      "Python",
-      "OpenAI API",
-      "Vector database",
-      "PostgreSQL",
-    ],
+    stack: ["Next.js", "Python", "OpenAI API", "Vector database", "PostgreSQL"],
     outcomes: [
       "Repetitive questions handled without a human in the loop",
       "Answers traceable to a source, so mistakes are diagnosable",
       "Accuracy tracked against a fixed evaluation set over time",
+    ],
+  },
+  {
+    slug: "ikms",
+    name: "Internal Knowledge Management System",
+    tagline: "Semantic search over the documents a company already has",
+    summary:
+      "A backend platform that ingests internal documents — PDFs, Word, Excel, CSV — and makes them searchable by meaning rather than keywords, with audit trails, retention policies and GDPR tooling built in.",
+    category: "Internal Tool",
+    status: "In development",
+    icon: BrainCircuit,
+    accent: "var(--color-flux-600)",
+    industry: "Enterprise / internal tooling",
+    facts: [
+      { label: "Type", value: "Semantic search API" },
+      { label: "Users", value: "Internal teams + compliance officers" },
+      { label: "Focus", value: "Retrieval + auditability" },
+    ],
+    challenge:
+      "Company knowledge ends up scattered across policy PDFs, HR handbooks and spreadsheets on a shared drive, where the only way to find anything is to already know the filename. Keyword search misses documents that phrase the same idea differently, and once staff do find an answer there's no record of who read which policy — the exact thing compliance audits ask for.",
+    approach:
+      "Documents are chunked on upload, embedded with a sentence-transformer model and stored as vectors in PostgreSQL via pgvector, so a plain-language question matches on meaning. Every result carries its source filename back to the user for verification, and every view, search and upload writes to an audit log — treating traceability as part of the search flow rather than a bolt-on.",
+    features: [
+      {
+        title: "Semantic and hybrid search",
+        body: "Vector similarity over document chunks, combined with keyword matching, so natural-language questions return the right passage even when the wording differs.",
+      },
+      {
+        title: "Multi-format ingestion",
+        body: "PDF, Word, Excel and CSV files are parsed, chunked and embedded automatically on upload, with auto-suggested categories and tags.",
+      },
+      {
+        title: "Source-traceable results",
+        body: "Every result returns its original filename and file type, so staff can open the source document and verify an answer against the record.",
+      },
+      {
+        title: "Audit trail and access logs",
+        body: "Views, searches, uploads and deletions are logged with user, timestamp and IP address, queryable by administrators.",
+      },
+      {
+        title: "GDPR and retention tooling",
+        body: "Per-user data export and deletion endpoints, plus scheduled retention policies that archive or remove documents once they age past their category's limit.",
+      },
+      {
+        title: "Search analytics and knowledge gaps",
+        body: "Dashboards surface search trends, popular documents and zero-result queries — showing what people look for that the knowledgebase doesn't yet answer.",
+      },
+      {
+        title: "Conversational RAG",
+        body: "Optional retrieval-augmented chat sessions summarise and answer over the retrieved documents rather than returning a raw result list.",
+      },
+    ],
+    stack: [
+      "Python",
+      "FastAPI",
+      "PostgreSQL",
+      "pgvector",
+      "SQLAlchemy",
+      "Alembic",
+      "sentence-transformers",
+      "LangChain",
+      "Docker",
+    ],
+    outcomes: [
+      "Documents found by meaning instead of exact filename or keyword",
+      "Every document access logged and queryable for compliance review",
+      "Missing content identified from real zero-result searches",
+      "Stale documents archived automatically by policy instead of by hand",
     ],
   },
   {
@@ -245,6 +310,29 @@ export const products: Product[] = [
       "Expiry-dated stock flagged before it becomes a write-off",
       "Real margin visible per product line",
     ],
+  },
+  {
+    slug: "news-aggregation-fact-checking",
+    name: "News Aggregation & Fact Checking Platform",
+    tagline: "Turning News Coverage into Actionable Insight.",
+    summary:
+      "Every major story, tracked accross the country's newsrooms. see how outlets frame the day's biggest developments, where coverage clusters and what gets left out.",
+    category: "Web App",
+    status: "Live",
+    url: "https://batayan.ai",
+    icon: Newspaper,
+    accent: "var(--color-plasma-400)",
+    industry: "Journalism / Research",
+    facts: [
+      { label: "Type", value: "B2B/B2C" },
+      { label: "Market", value: "Philippines" },
+      { label: "Model", value: "Subscription" },
+    ],
+    challenge: "",
+    approach: "",
+    features: [],
+    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "PostgreSQL"],
+    outcomes: [],
   },
   {
     slug: "agrivia",
