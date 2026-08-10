@@ -105,6 +105,43 @@ export const team: TeamMember[] = [
     ],
     links: [],
   },
+  {
+    slug: "rosario-leido",
+    name: "Rosario Leido",
+    role: "Managing Partner",
+    tagline:
+      "Business Analyst/Product Manager/Business Strategy Lead",
+    initials: "RL",
+    photo: "/team/rose-leido.jpg",
+    accent: "var(--color-loop-500)",
+    facts: [
+      { label: "Role", value: "Managing Partner" },
+      { label: "Background", value: "Financial Business Operations, Commercial and Retail Banking Digital Transformation, Product Management" },
+      { label: "Discipline", value: "Business Analyst/Product Manager/Business Strategy Lead" },
+    ],
+    bio: [
+      `
+      With over a decade of experience in Financial Business Operation, Commercial and Retail Banking Digital Transformation and product management.  Proven expertise in requirements analysis, system integration, regulatory compliance, and stakeholder collaboration across global financial institutions. 
+      Specialized in translating complex business needs into technical solutions, driving digital products delivery, and ensuring seamless integration with core banking, risk, and reporting systems.
+      `
+    ],
+    focus: [
+      "Product Management",
+      "Business Strategy and Analysis",
+    ],
+    expertise: [
+      "Business Requirements Analysis",
+      "Regulatory Compliance",
+      "Stakeholder Collaboration",
+      "System Integration",
+      "Digital Transformation",
+      "Product Delivery",
+      "Core Banking Systems",
+      "Risk and Reporting Systems",
+
+    ],
+    links: [],
+  },
 ];
 
 export function getTeamMember(slug: string) {
