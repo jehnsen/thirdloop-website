@@ -67,7 +67,7 @@ export const team: TeamMember[] = [
     name: "Jehnsen Enrique",
     role: "Chief Technology Officer",
     tagline:
-      "15+ years building software and API integrations, 2+ years in applied AI — the architecture and codebase behind every system we ship.",
+      "Leads the technology strategy and architecture, building scalable products, reliable systems and AI-powered solutions that turn business needs into production-ready technology.",
     initials: "JE",
     photo: "/team/jehnsen-enrique.jpg",
     accent: "var(--color-flux-500)",

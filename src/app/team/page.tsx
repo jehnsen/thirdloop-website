@@ -47,7 +47,7 @@ export default function TeamPage() {
               </Reveal>
               <Reveal delay={0.12}>
                 <p className="text-base leading-relaxed text-pretty text-white/55 sm:text-lg">
-                  Two practitioners covering the whole span of an engagement —
+                  Three practitioners covering the whole span of an engagement —
                   the business analysis that works out what should be built, and
                   the engineering that builds it. The people you meet on the
                   first call are the people who do the work.
