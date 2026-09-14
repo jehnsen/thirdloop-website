@@ -5,19 +5,16 @@ import { ArrowUpRight, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { EASE, Reveal } from "@/components/ui/motion-primitives";
+import { ProductIcon } from "@/components/ui/product-icon";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
-import { productCategories, products, type Product } from "@/lib/products";
+import {
+  productCategoryOptions,
+  productStatusStyles,
+  type Product,
+} from "@/lib/products";
 import { cn } from "@/lib/utils";
 
-const statusStyles: Record<Product["status"], string> = {
-  Live: "border-flux-400/40 bg-flux-500/12 text-flux-300",
-  Demo: "border-loop-400/40 bg-loop-500/12 text-loop-200",
-  "In development": "border-white/15 bg-white/5 text-white/55",
-};
-
 function ProductCard({ product }: { product: Product }) {
-  const Icon = product.icon;
-
   return (
     <SpotlightCard glowColor={product.accent} className="h-full">
       <Link
@@ -31,13 +28,17 @@ function ProductCard({ product }: { product: Product }) {
               background: `color-mix(in oklab, ${product.accent} 16%, transparent)`,
             }}
           >
-            <Icon className="size-5" style={{ color: product.accent }} />
+            <ProductIcon
+              icon={product.icon}
+              className="size-5"
+              style={{ color: product.accent }}
+            />
           </div>
 
           <span
             className={cn(
               "rounded-full border px-2.5 py-1 text-[0.62rem] font-medium whitespace-nowrap",
-              statusStyles[product.status],
+              productStatusStyles[product.status],
             )}
           >
             {product.status}
@@ -96,15 +97,26 @@ function ProductCard({ product }: { product: Product }) {
   );
 }
 
-export function ProductsGrid() {
+export function ProductsGrid({ products }: { products: Product[] }) {
   const [category, setCategory] = useState<string>("All");
+
+  // Only offer filter tabs for categories that currently have products.
+  const categories = useMemo(
+    () => [
+      "All",
+      ...productCategoryOptions.filter((option) =>
+        products.some((product) => product.category === option),
+      ),
+    ],
+    [products],
+  );
 
   const filtered = useMemo(
     () =>
       category === "All"
         ? products
         : products.filter((product) => product.category === category),
-    [category],
+    [category, products],
   );
 
   return (
@@ -115,7 +127,7 @@ export function ProductsGrid() {
           aria-label="Filter products by category"
           className="flex flex-wrap justify-center gap-2"
         >
-          {productCategories.map((option) => {
+          {categories.map((option) => {
             const isActive = option === category;
             const count =
               option === "All"

@@ -6,7 +6,7 @@ import { PageBackdrop } from "@/components/ui/backdrop";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { Reveal } from "@/components/ui/motion-primitives";
 import { Container, Eyebrow, Section } from "@/components/ui/section";
-import { products } from "@/lib/products";
+import { getPublishedProducts } from "@/lib/product-store";
 
 export const metadata: Metadata = {
   title: "Products",
@@ -19,7 +19,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ProductsPage() {
+export default async function ProductsPage() {
+  const products = await getPublishedProducts();
   const liveCount = products.filter((p) => p.url).length;
 
   return (
@@ -53,7 +54,7 @@ export default function ProductsPage() {
 
         <Section className="pt-4 pb-24 sm:pt-6 sm:pb-32">
           <Container>
-            <ProductsGrid />
+            <ProductsGrid products={products} />
 
             <Reveal delay={0.15}>
               <div className="mt-20 flex flex-col items-center gap-6 rounded-3xl border border-white/10 bg-ink-900/60 px-8 py-14 text-center backdrop-blur-sm">

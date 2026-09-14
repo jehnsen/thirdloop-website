@@ -8,19 +8,25 @@ import { PageBackdrop } from "@/components/ui/backdrop";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { Reveal, StaggerGroup, StaggerItem } from "@/components/ui/motion-primitives";
 import { Container, Section } from "@/components/ui/section";
+import { ProductIcon } from "@/components/ui/product-icon";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
-import { getProduct, products } from "@/lib/products";
+import {
+  getPublishedProduct,
+  getPublishedProducts,
+} from "@/lib/product-store";
+import { productStatusStyles } from "@/lib/products";
 import { cn } from "@/lib/utils";
 
 type Params = { params: Promise<{ slug: string }> };
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const products = await getPublishedProducts();
   return products.map((product) => ({ slug: product.slug }));
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProduct(slug);
+  const product = await getPublishedProduct(slug);
 
   if (!product) return { title: "Product not found" };
 
@@ -34,20 +40,14 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   };
 }
 
-const statusStyles = {
-  Live: "border-flux-400/40 bg-flux-500/12 text-flux-300",
-  Demo: "border-loop-400/40 bg-loop-500/12 text-loop-200",
-  "In development": "border-white/15 bg-white/5 text-white/55",
-} as const;
-
 export default async function ProductDetailPage({ params }: Params) {
   const { slug } = await params;
-  const product = getProduct(slug);
-
-  if (!product) notFound();
-
-  const Icon = product.icon;
+  const products = await getPublishedProducts();
   const index = products.findIndex((p) => p.slug === slug);
+
+  if (index === -1) notFound();
+
+  const product = products[index];
   const next = products[(index + 1) % products.length];
 
   return (
@@ -78,7 +78,8 @@ export default async function ProductDetailPage({ params }: Params) {
                         background: `color-mix(in oklab, ${product.accent} 16%, transparent)`,
                       }}
                     >
-                      <Icon
+                      <ProductIcon
+                        icon={product.icon}
                         className="size-6"
                         style={{ color: product.accent }}
                       />
@@ -86,7 +87,7 @@ export default async function ProductDetailPage({ params }: Params) {
                     <span
                       className={cn(
                         "rounded-full border px-3 py-1 text-xs font-medium",
-                        statusStyles[product.status],
+                        productStatusStyles[product.status],
                       )}
                     >
                       {product.status}

@@ -20,10 +20,16 @@ npm run lint     # eslint
 npx tsc --noEmit # typecheck
 ```
 
+To use the admin dashboard, also copy `.env.example` to `.env.local` and fill
+it in — see [Admin dashboard](#admin-dashboard).
+
 ## Structure
 
 ```
+data/
+└── products.json         # product catalogue — edited through /admin
 src/
+├── proxy.ts              # sends signed-out visitors from /admin to the login page
 ├── app/
 │   ├── layout.tsx        # metadata, fonts, JSON-LD, skip link
 │   ├── page.tsx          # home — section composition order
@@ -31,15 +37,23 @@ src/
 │   │   ├── page.tsx      # products index (filterable grid)
 │   │   └── [slug]/
 │   │       └── page.tsx  # product detail (statically generated)
+│   ├── admin/
+│   │   ├── actions.ts    # server actions: sign in/out, save, delete, show/hide
+│   │   ├── login/        # sign-in page
+│   │   └── (panel)/      # dashboard, product list, new/edit pages
 │   ├── team/
 │   │   └── page.tsx      # team page
 │   └── globals.css       # design tokens, keyframes, custom utilities
 ├── components/
+│   ├── admin/            # admin UI: nav, products table, product form
 │   ├── layout/           # navbar, footer
 │   ├── sections/         # one file per page section
 │   └── ui/               # reusable primitives
 └── lib/
-    ├── products.ts       # product catalogue — single source for both routes
+    ├── admin/            # session signing, auth checks, form validation
+    ├── product-store.ts  # reads and writes data/products.json
+    ├── products.ts       # Product type + category/status/accent options
+    ├── product-icons.ts  # icons a product can use
     ├── team.ts           # team members + working principles
     ├── site.ts           # business info, nav links
     └── utils.ts          # cn() class merger
@@ -47,21 +61,72 @@ src/
 
 ## Products
 
-`/products` lists everything in `src/lib/products.ts`; `/products/[slug]`
-renders the detail page. Both read from that one file, and detail pages are
-statically generated via `generateStaticParams` — **to add a product, append an
-entry to the `products` array**. No route files need touching. An unknown slug
-404s.
+The catalogue lives in `data/products.json` and is managed from the admin
+dashboard at `/admin`. `/products` lists every **visible** product and
+`/products/[slug]` renders its detail page. Both are statically generated and
+revalidated whenever a product is saved, shown, hidden or deleted, so changes
+go live without a rebuild. A hidden or unknown slug 404s.
 
 Each entry drives the whole detail page: `challenge` / `approach` prose,
 `features`, `stack`, `outcomes`, and the `facts` panel. `url` is optional —
-omit it and the "Visit site" button disappears.
+leave it empty and the "Visit site" button disappears. The dashboard lists
+products whose detail page still has empty sections.
 
 Note on nav links: `navLinks` in `site.ts` marks each entry `hash` or `route`.
 Hash links get a `/` prefix when rendered off the home page so they still
 resolve — keep that flag correct when adding links. "Stack" was moved out of
 the main nav into `footerExtraLinks` to keep the nav on one row — it's still
 reachable from the home page and the footer.
+
+## Admin dashboard
+
+`/admin` is a password-protected area for managing products:
+
+- **Dashboard** — catalogue totals, breakdowns by status and category, and the
+  products whose detail pages have gaps.
+- **Products** — search and filter the catalogue, show or hide a product with
+  a switch, and delete one (with a confirm step).
+- **Add / edit** — every field that appears on the product pages, with a live
+  icon and accent preview. Input is validated on the server.
+
+Hiding a product keeps all of its content. It just stops appearing on
+`/products`, and its page returns 404 until it's switched back on.
+
+### Setup
+
+Copy `.env.example` to `.env.local`, fill in both values, and restart the
+server:
+
+| Variable | Purpose |
+| --- | --- |
+| `ADMIN_PASSWORD` | The sign-in password. Changing it signs out every session. |
+| `ADMIN_SESSION_SECRET` | 32+ random characters used to sign the session cookie. |
+
+If either is missing, the sign-in page says so and nobody can sign in.
+Sessions last 8 hours. In production the session cookie is `Secure`, so the
+site has to be served over HTTPS.
+
+### How access is checked
+
+`src/proxy.ts` redirects signed-out visitors to `/admin/login`, but that is
+only the first gate. Every admin page and every server action in
+`src/app/admin/actions.ts` checks the session again before it reads or changes
+anything. Server actions can be called directly, bypassing the UI, so keep
+that pattern when adding admin features.
+
+### Hosting constraint — read before deploying
+
+Changes are written to `data/products.json` on the server's disk. That works
+on a single long-running Node server (`npm run start` on a VPS, or Docker with
+`data/` on a persistent volume). It does **not** work on serverless hosts such
+as Vercel, where the filesystem is read-only and isn't shared between
+instances. To deploy there, replace the read/write functions in
+`src/lib/product-store.ts` with database calls — nothing else needs to change.
+
+Edits made against a local dev server change `data/products.json` in your
+working tree, so they can be reviewed and committed like any other change.
+
+To offer another icon in the picker, add it to `src/lib/product-icons.ts`.
 
 ## Team
 
@@ -94,7 +159,7 @@ and must be swapped before launch**:
 | Pricing | `src/components/sections/pricing.tsx` | Confirm the tiers and starting figures match your actual model. |
 | Email, phone, socials | `src/lib/site.ts` | Currently `hello@3rdloopsolutions.com` and placeholder social URLs. |
 | Domain | `src/lib/site.ts` (`url`) | Used for canonical URLs and OpenGraph metadata. |
-| Product descriptions | `src/lib/products.ts` | **Review every entry.** See below. |
+| Product descriptions | `/admin` (stored in `data/products.json`) | **Review every entry.** See below. |
 
 ### About the product copy
 
