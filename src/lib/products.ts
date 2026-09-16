@@ -58,7 +58,7 @@ export type Product = {
 };
 
 export const productStatusStyles: Record<ProductStatus, string> = {
-  Live: "border-flux-400/40 bg-flux-500/12 text-flux-300",
-  Demo: "border-loop-400/40 bg-loop-500/12 text-loop-200",
-  "In development": "border-white/15 bg-white/5 text-white/55",
+  Live: "border-flux-500/40 bg-flux-500/12 text-flux-300",
+  Demo: "border-loop-400/40 bg-loop-500/15 text-loop-200",
+  "In development": "border-hair/25 bg-white/5 text-mist",
 };

@@ -52,7 +52,7 @@ export default async function ProductDetailPage({ params }: Params) {
 
   return (
     <>
-      <PageBackdrop />
+      <PageBackdrop theme="products" />
       <Navbar />
       <main id="main">
         {/* Hero */}
@@ -61,7 +61,7 @@ export default async function ProductDetailPage({ params }: Params) {
             <Reveal>
               <Link
                 href="/products"
-                className="group inline-flex items-center gap-2 text-sm text-white/50 transition-colors hover:text-white"
+                className="group inline-flex items-center gap-2 text-sm text-mist transition-colors hover:text-cream"
               >
                 <ArrowLeft className="size-4 transition-transform duration-300 group-hover:-translate-x-0.5" />
                 All products
@@ -73,7 +73,7 @@ export default async function ProductDetailPage({ params }: Params) {
                 <Reveal delay={0.05}>
                   <div className="flex flex-wrap items-center gap-3">
                     <div
-                      className="inline-flex size-13 items-center justify-center rounded-xl border border-white/10"
+                      className="inline-flex size-13 items-center justify-center rounded-xl border border-hair/20"
                       style={{
                         background: `color-mix(in oklab, ${product.accent} 16%, transparent)`,
                       }}
@@ -92,20 +92,20 @@ export default async function ProductDetailPage({ params }: Params) {
                     >
                       {product.status}
                     </span>
-                    <span className="rounded-full border border-white/10 bg-white/4 px-3 py-1 text-xs text-white/55">
+                    <span className="rounded-full border border-hair/20 bg-white/4 px-3 py-1 text-xs text-mist">
                       {product.category}
                     </span>
                   </div>
                 </Reveal>
 
                 <Reveal delay={0.1}>
-                  <h1 className="mt-7 text-4xl font-semibold tracking-tight text-balance text-white sm:text-5xl sm:leading-[1.08]">
+                  <h1 className="mt-7 text-4xl font-display font-semibold tracking-tight text-balance text-cream sm:text-5xl sm:leading-[1.08]">
                     {product.name}
                   </h1>
                 </Reveal>
 
                 <Reveal delay={0.15}>
-                  <p className="mt-4 text-lg leading-relaxed text-pretty text-white/60 sm:text-xl">
+                  <p className="mt-4 text-lg leading-relaxed text-pretty text-mist sm:text-xl">
                     {product.tagline}
                   </p>
                 </Reveal>
@@ -129,25 +129,25 @@ export default async function ProductDetailPage({ params }: Params) {
 
               {/* Fact panel */}
               <Reveal delay={0.18}>
-                <dl className="glass-panel divide-y divide-white/8 rounded-2xl">
+                <dl className="glass-panel divide-y divide-hair/15 rounded-2xl">
                   {product.facts.map((fact) => (
                     <div
                       key={fact.label}
                       className="flex items-baseline justify-between gap-4 px-6 py-4"
                     >
-                      <dt className="text-xs tracking-wide text-white/40 uppercase">
+                      <dt className="text-xs tracking-wide text-mist/70 uppercase">
                         {fact.label}
                       </dt>
-                      <dd className="text-right text-sm font-medium text-white/85">
+                      <dd className="text-right text-sm font-medium text-cream">
                         {fact.value}
                       </dd>
                     </div>
                   ))}
                   <div className="flex items-baseline justify-between gap-4 px-6 py-4">
-                    <dt className="text-xs tracking-wide text-white/40 uppercase">
+                    <dt className="text-xs tracking-wide text-mist/70 uppercase">
                       Industry
                     </dt>
-                    <dd className="text-right text-sm font-medium text-white/85">
+                    <dd className="text-right text-sm font-medium text-cream">
                       {product.industry}
                     </dd>
                   </div>
@@ -164,10 +164,10 @@ export default async function ProductDetailPage({ params }: Params) {
               <Reveal>
                 <SpotlightCard className="h-full" glowColor={product.accent}>
                   <div className="p-8 sm:p-9">
-                    <h2 className="font-mono text-[0.68rem] tracking-[0.2em] text-white/40 uppercase">
+                    <h2 className="font-mono text-[11px] tracking-[0.25em] text-mist/70 uppercase">
                       The challenge
                     </h2>
-                    <p className="mt-5 leading-relaxed text-pretty text-white/65">
+                    <p className="mt-5 leading-relaxed text-pretty text-mist">
                       {product.challenge}
                     </p>
                   </div>
@@ -177,10 +177,10 @@ export default async function ProductDetailPage({ params }: Params) {
               <Reveal delay={0.08}>
                 <SpotlightCard className="h-full" glowColor={product.accent}>
                   <div className="p-8 sm:p-9">
-                    <h2 className="font-mono text-[0.68rem] tracking-[0.2em] text-white/40 uppercase">
+                    <h2 className="font-mono text-[11px] tracking-[0.25em] text-mist/70 uppercase">
                       Our approach
                     </h2>
-                    <p className="mt-5 leading-relaxed text-pretty text-white/65">
+                    <p className="mt-5 leading-relaxed text-pretty text-mist">
                       {product.approach}
                     </p>
                   </div>
@@ -194,7 +194,7 @@ export default async function ProductDetailPage({ params }: Params) {
         <Section className="py-14 sm:py-20">
           <Container>
             <Reveal>
-              <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+              <h2 className="text-2xl font-display font-semibold tracking-tight text-cream sm:text-3xl">
                 What it does
               </h2>
             </Reveal>
@@ -205,17 +205,17 @@ export default async function ProductDetailPage({ params }: Params) {
             >
               {product.features.map((feature, i) => (
                 <StaggerItem key={feature.title} className="h-full">
-                  <div className="glass-panel h-full rounded-2xl p-6 transition-colors duration-500 hover:border-white/18">
+                  <div className="glass-panel h-full rounded-2xl p-6 transition-colors duration-500 hover:border-hair/35">
                     <span
                       className="font-mono text-xs tracking-[0.2em]"
                       style={{ color: product.accent }}
                     >
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <h3 className="mt-3 text-base leading-snug font-semibold text-balance text-white">
+                    <h3 className="mt-3 text-base leading-snug font-semibold text-balance text-cream">
                       {feature.title}
                     </h3>
-                    <p className="mt-2.5 text-sm leading-relaxed text-pretty text-white/50">
+                    <p className="mt-2.5 text-sm leading-relaxed text-pretty text-mist">
                       {feature.body}
                     </p>
                   </div>
@@ -230,14 +230,14 @@ export default async function ProductDetailPage({ params }: Params) {
           <Container>
             <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
               <Reveal>
-                <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+                <h2 className="text-2xl font-display font-semibold tracking-tight text-cream sm:text-3xl">
                   What it changes
                 </h2>
                 <ul className="mt-7 space-y-4">
                   {product.outcomes.map((outcome) => (
                     <li
                       key={outcome}
-                      className="flex items-start gap-3 text-[0.95rem] leading-relaxed text-white/65"
+                      className="flex items-start gap-3 text-[0.95rem] leading-relaxed text-mist"
                     >
                       <Check
                         className="mt-1 size-4 shrink-0"
@@ -250,14 +250,14 @@ export default async function ProductDetailPage({ params }: Params) {
               </Reveal>
 
               <Reveal delay={0.08}>
-                <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+                <h2 className="text-2xl font-display font-semibold tracking-tight text-cream sm:text-3xl">
                   Built with
                 </h2>
                 <ul className="mt-7 flex flex-wrap gap-2">
                   {product.stack.map((tech) => (
                     <li
                       key={tech}
-                      className="glass-panel rounded-full px-4 py-2 text-sm text-white/65"
+                      className="glass-panel rounded-full px-4 py-2 text-sm text-mist"
                     >
                       {tech}
                     </li>
@@ -276,16 +276,16 @@ export default async function ProductDetailPage({ params }: Params) {
                 <SpotlightCard glowColor={next.accent} className="h-full">
                   <Link
                     href={`/products/${next.slug}`}
-                    className="flex h-full flex-col justify-between gap-6 p-8 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-loop-400"
+                    className="flex h-full flex-col justify-between gap-6 p-8 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-flux-400"
                   >
-                    <span className="font-mono text-[0.68rem] tracking-[0.2em] text-white/35 uppercase">
+                    <span className="font-mono text-[11px] tracking-[0.25em] text-mist/70 uppercase">
                       Next product
                     </span>
                     <div>
-                      <h3 className="text-xl font-semibold tracking-tight text-white">
+                      <h3 className="text-xl font-display font-semibold tracking-tight text-cream">
                         {next.name}
                       </h3>
-                      <p className="mt-2 text-sm leading-relaxed text-pretty text-white/50">
+                      <p className="mt-2 text-sm leading-relaxed text-pretty text-mist">
                         {next.tagline}
                       </p>
                     </div>
@@ -301,12 +301,12 @@ export default async function ProductDetailPage({ params }: Params) {
               </Reveal>
 
               <Reveal delay={0.08}>
-                <div className="flex h-full flex-col justify-between gap-6 rounded-2xl border border-white/10 bg-ink-900/60 p-8 backdrop-blur-sm">
+                <div className="flex h-full flex-col justify-between gap-6 rounded-2xl border border-hair/20 bg-ink-800/60 p-8 backdrop-blur-sm">
                   <div>
-                    <h3 className="text-xl font-semibold tracking-tight text-balance text-white">
+                    <h3 className="text-xl font-display font-semibold tracking-tight text-balance text-cream">
                       Want something like this built for you?
                     </h3>
-                    <p className="mt-2.5 text-sm leading-relaxed text-pretty text-white/55">
+                    <p className="mt-2.5 text-sm leading-relaxed text-pretty text-mist">
                       Tell us what you&apos;re running today and we&apos;ll
                       scope it — starting with a fixed-price discovery.
                     </p>

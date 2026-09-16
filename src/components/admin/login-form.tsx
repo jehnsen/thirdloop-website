@@ -16,7 +16,7 @@ export function LoginForm({ next }: { next?: string }) {
       {next ? <input type="hidden" name="next" value={next} /> : null}
 
       <div className="flex flex-col gap-1.5">
-        <label htmlFor="password" className="text-sm font-medium text-white/80">
+        <label htmlFor="password" className="text-sm font-medium text-cream">
           Password
         </label>
         <input

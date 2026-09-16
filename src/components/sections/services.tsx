@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
 import {
   ArrowRight,
   Bot,
@@ -10,11 +7,9 @@ import {
   Workflow,
   type LucideIcon,
 } from "lucide-react";
-import { useState } from "react";
-import { EASE, Reveal } from "@/components/ui/motion-primitives";
+import Link from "next/link";
+import { Reveal } from "@/components/ui/motion-primitives";
 import { Container, Section, SectionHeader } from "@/components/ui/section";
-import { SpotlightCard } from "@/components/ui/spotlight-card";
-import { cn } from "@/lib/utils";
 
 type Service = {
   id: string;
@@ -105,140 +100,95 @@ const services: Service[] = [
 ];
 
 export function Services() {
-  const [activeId, setActiveId] = useState(services[0].id);
-  const active = services.find((s) => s.id === activeId) ?? services[0];
-
   return (
-    <Section id="services">
+    <Section
+      id="services"
+      className="panel-light border-y border-slate-200 py-20 sm:py-24"
+    >
       <Container>
         <SectionHeader
-          eyebrow="What we do"
+          tone="light"
+          eyebrow="(A) — Service portfolio"
           title={
             <>
-              Five disciplines,{" "}
-              <span className="text-gradient">one delivery team</span>
+              Five disciplines, <span className="text-gradient">one team.</span>
             </>
           }
-          description="Most agencies hand you a build and walk away. We cover the strategy, the software and the automation that connects them — so the system you get keeps paying for itself."
+          meta="Strategy to execution"
+          description="Most agencies hand you a build and walk away. We cover the strategy, the software and the automation that connects them."
         />
 
-        {/* Tab rail */}
-        <Reveal delay={0.1} className="mt-14">
-          <div className="mask-fade-x -mx-6 overflow-x-auto px-6 pb-2 lg:mx-0 lg:overflow-visible lg:px-0">
-            <div
-              role="tablist"
-              aria-label="Services"
-              className="flex min-w-max gap-2 lg:min-w-0 lg:justify-center"
-            >
-              {services.map((service) => {
-                const Icon = service.icon;
-                const isActive = service.id === activeId;
-                return (
-                  <button
-                    key={service.id}
-                    role="tab"
-                    aria-selected={isActive}
-                    aria-controls={`panel-${service.id}`}
-                    id={`tab-${service.id}`}
-                    onClick={() => setActiveId(service.id)}
-                    className={cn(
-                      "relative inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm whitespace-nowrap transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-loop-400",
-                      isActive
-                        ? "text-white"
-                        : "text-white/50 hover:text-white/85",
-                    )}
-                  >
-                    {isActive ? (
-                      <motion.span
-                        layoutId="service-tab"
-                        className="absolute inset-0 rounded-full border border-white/12 bg-white/7"
-                        transition={{ duration: 0.4, ease: EASE }}
-                      />
-                    ) : null}
-                    <Icon
-                      className="relative z-10 size-4"
-                      style={{ color: isActive ? service.color : undefined }}
-                    />
-                    <span className="relative z-10">{service.title}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        </Reveal>
+        <Reveal delay={0.1}>
+          <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-slate-200 bg-slate-200 sm:grid-cols-2 lg:grid-cols-3">
+            {services.map((service, index) => {
+              const Icon = service.icon;
 
-        {/* Active service panel */}
-        <Reveal delay={0.16} className="mt-8">
-          <SpotlightCard glowColor={active.color} className="p-1">
-            <motion.div
-              key={active.id}
-              id={`panel-${active.id}`}
-              role="tabpanel"
-              aria-labelledby={`tab-${active.id}`}
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, ease: EASE }}
-              className="grid gap-10 p-8 sm:p-11 lg:grid-cols-[1fr_1px_1fr] lg:gap-12"
-            >
-              <div>
-                <div
-                  className="inline-flex size-12 items-center justify-center rounded-xl border border-white/10"
-                  style={{
-                    background: `color-mix(in oklab, ${active.color} 16%, transparent)`,
-                  }}
+              return (
+                <article
+                  key={service.id}
+                  className="group flex flex-col bg-white p-7 transition-colors duration-200 hover:bg-slate-50"
                 >
-                  <active.icon
-                    className="size-6"
-                    style={{ color: active.color }}
-                  />
-                </div>
-                <h3 className="mt-5 text-2xl font-semibold tracking-tight text-white">
-                  {active.title}
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-[11px] tracking-[0.2em] text-flux-600">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <Icon aria-hidden className="size-4 text-flux-600" />
+                  </div>
+
+                  <h3 className="mt-4 font-display text-base font-semibold tracking-tight text-panel-ink lg:text-lg">
+                    {service.title}
+                  </h3>
+                  <p className="mt-2 text-xs leading-relaxed text-panel-muted lg:text-sm">
+                    {service.summary}
+                  </p>
+
+                  <ul className="mt-5 space-y-2 border-t border-slate-200 pt-4">
+                    {service.deliverables.map((item) => (
+                      <li
+                        key={item}
+                        className="flex gap-2 text-xs leading-relaxed text-panel-muted"
+                      >
+                        <ArrowRight
+                          aria-hidden
+                          className="mt-0.5 size-3 shrink-0 text-flux-600"
+                        />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <p className="mt-auto pt-5 font-mono text-[10px] leading-relaxed tracking-[0.12em] text-slate-500 uppercase">
+                    {service.outcomes}
+                  </p>
+                </article>
+              );
+            })}
+
+            <article className="flex flex-col justify-between gap-6 bg-white p-7 transition-colors duration-200 hover:bg-slate-50">
+              <div>
+                <span className="font-mono text-[11px] tracking-[0.2em] text-flux-600">
+                  06
+                </span>
+                <h3 className="mt-4 font-display text-base font-semibold tracking-tight text-panel-ink lg:text-lg">
+                  Not sure which you need?
                 </h3>
-                <p className="mt-3.5 leading-relaxed text-pretty text-white/55">
-                  {active.summary}
-                </p>
-                <p
-                  className="mt-6 border-l-2 pl-4 text-sm leading-relaxed text-white/70"
-                  style={{ borderColor: active.color }}
-                >
-                  {active.outcomes}
+                <p className="mt-2 text-xs leading-relaxed text-panel-muted lg:text-sm">
+                  Most engagements start as a mix. Tell us what you&rsquo;re running
+                  today and we&rsquo;ll scope the shortest path to a result.
                 </p>
               </div>
-
-              <div
-                aria-hidden
-                className="hidden bg-linear-to-b from-transparent via-white/10 to-transparent lg:block"
-              />
-
-              <div>
-                <p className="font-mono text-[0.68rem] tracking-[0.22em] text-white/35 uppercase">
-                  What you get
-                </p>
-                <ul className="mt-5 space-y-3.5">
-                  {active.deliverables.map((item, index) => (
-                    <motion.li
-                      key={item}
-                      initial={{ opacity: 0, x: -12 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{
-                        duration: 0.5,
-                        ease: EASE,
-                        delay: 0.1 + index * 0.07,
-                      }}
-                      className="group flex items-start gap-3 text-[0.94rem] text-white/70"
-                    >
-                      <ArrowRight
-                        className="mt-1 size-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1"
-                        style={{ color: active.color }}
-                      />
-                      {item}
-                    </motion.li>
-                  ))}
-                </ul>
-              </div>
-            </motion.div>
-          </SpotlightCard>
+              <Link
+                href="#contact"
+                className="group/cta inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.15em] text-flux-600 uppercase transition-colors hover:text-flux-500"
+              >
+                Start a conversation
+                <ArrowRight
+                  aria-hidden
+                  className="size-3.5 transition-transform duration-200 group-hover/cta:translate-x-0.5"
+                />
+              </Link>
+            </article>
+          </div>
         </Reveal>
       </Container>
     </Section>

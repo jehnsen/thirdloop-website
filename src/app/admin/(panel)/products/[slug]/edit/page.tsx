@@ -43,8 +43,8 @@ export default async function EditProductPage({ params }: Props) {
 
       <section className="mt-10 flex flex-col gap-4 rounded-2xl border border-red-400/20 bg-red-500/5 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
         <div>
-          <h2 className="text-sm font-semibold text-white">Delete this product</h2>
-          <p className="mt-1 text-sm text-white/50">
+          <h2 className="text-sm font-semibold text-cream">Delete this product</h2>
+          <p className="mt-1 text-sm text-mist">
             Removes it from the catalogue for good. To take it off the site for
             now, switch off “Visible on site” instead.
           </p>

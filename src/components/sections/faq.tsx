@@ -57,8 +57,8 @@ function FaqItem({
         className={cn(
           "overflow-hidden rounded-2xl border transition-colors duration-500",
           isOpen
-            ? "border-white/15 bg-white/5"
-            : "border-white/8 bg-white/2 hover:border-white/14",
+            ? "border-hair/25 bg-white/5"
+            : "border-hair/20 bg-white/2 hover:border-hair/30",
         )}
       >
         <h3>
@@ -66,12 +66,12 @@ function FaqItem({
             type="button"
             onClick={onToggle}
             aria-expanded={isOpen}
-            className="flex w-full items-center justify-between gap-5 px-6 py-5 text-left focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-loop-400 sm:px-7"
+            className="flex w-full items-center justify-between gap-5 px-6 py-5 text-left focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-flux-400 sm:px-7"
           >
             <span
               className={cn(
                 "text-[0.98rem] font-medium transition-colors duration-300 sm:text-base",
-                isOpen ? "text-white" : "text-white/80",
+                isOpen ? "text-cream" : "text-cream",
               )}
             >
               {faq.question}
@@ -83,7 +83,7 @@ function FaqItem({
                 "flex size-7 shrink-0 items-center justify-center rounded-full border transition-colors duration-300",
                 isOpen
                   ? "border-loop-400/40 bg-loop-500/15 text-loop-200"
-                  : "border-white/12 text-white/50",
+                  : "border-hair/25 text-mist",
               )}
             >
               <Plus className="size-3.5" />
@@ -99,7 +99,7 @@ function FaqItem({
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.4, ease: EASE }}
             >
-              <p className="px-6 pb-6 text-sm leading-relaxed text-pretty text-white/55 sm:px-7 sm:pb-7">
+              <p className="px-6 pb-6 text-sm leading-relaxed text-pretty text-mist sm:px-7 sm:pb-7">
                 {faq.answer}
               </p>
             </motion.div>

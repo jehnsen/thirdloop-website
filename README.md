@@ -191,13 +191,42 @@ Web3Forms.
 
 ## Design system
 
-Tokens live in `src/app/globals.css` under `@theme`:
+Tokens live in `src/app/globals.css` under `@theme`.
 
-- **Colors** — `ink-*` (backgrounds), `loop-*` (primary blue), `flux-*` (teal
-  accent), `plasma-*` (violet accent)
-- **Animations** — `animate-marquee`, `animate-drift`, `animate-pulse-ring`,
-  `animate-float`, `animate-grid-fade`
-- **Utilities** — `text-gradient`, `glass-panel`, `mask-fade-x`, `mask-fade-b`
+**Type** — three faces, loaded in `layout.tsx` via `next/font`:
+
+| Utility | Face | Used for |
+| --- | --- | --- |
+| `font-display` | Space Grotesk | every headline |
+| `font-sans` | DM Sans | body copy (the default) |
+| `font-mono` | JetBrains Mono | eyebrows, nav, buttons, numerals, labels |
+
+Mono text is always uppercase with wide tracking (`tracking-[0.15em]` to
+`tracking-[0.3em]`) at small sizes — that letterspaced label is the signature
+of the look, so keep it for new labels rather than reaching for small sans.
+
+**Colour**
+
+- `ink-*` — the navy surface stack, darkest first (`ink-900` is the page)
+- `flux-*` — teal, the primary accent and default CTA colour
+- `loop-*` — signal blue, the secondary accent
+- `plasma-*` — indigo, used sparingly for product accents
+- `hair` — hairline borders, always at low opacity (`border-hair/20`)
+- `mist` — muted body copy on navy; `cream` — primary text on navy
+- `panel-ink` / `panel-muted` — heading and body text inside the white bands
+
+**Layout rhythm** — the page alternates: navy sections separated by hairline
+rules, with a pair of white bands (`panel-light`) breaking up the middle.
+Cards in the white bands sit in a hairline grid — `gap-px` over a
+`bg-slate-200` parent — so the 1px gaps read as rules rather than borders.
+
+**Utilities** — `page-bg` (the fixed three-radial wash), `panel-light`,
+`bg-brand-gradient`, `text-gradient`, `glass-panel`, `mask-fade-x`,
+`mask-fade-b`
+
+**Route tints** — `PageBackdrop` takes a `theme` prop (`home`, `products`,
+`team`, `admin`) that shifts the glow colours per route, so the palette moves
+as you navigate.
 
 Motion helpers (`Reveal`, `StaggerGroup`, `AnimatedHeadline`, shared `EASE`)
 live in `src/components/ui/motion-primitives.tsx`. All animation respects

@@ -3,6 +3,7 @@ import { Navbar } from "@/components/layout/navbar";
 import { Contact } from "@/components/sections/contact";
 import { Differentiators } from "@/components/sections/differentiators";
 import { Faq } from "@/components/sections/faq";
+import { Governance } from "@/components/sections/governance";
 import { Hero } from "@/components/sections/hero";
 import { Pricing } from "@/components/sections/pricing";
 import { Process } from "@/components/sections/process";
@@ -16,18 +17,18 @@ import { GlowDivider, PageBackdrop } from "@/components/ui/backdrop";
 export default function Home() {
   return (
     <>
-      <PageBackdrop />
+      <PageBackdrop theme="home" />
       <Navbar />
       <main id="main">
         <Hero />
-        <Services />
-        <GlowDivider />
+        {/* <Services /> */}
+        <Governance />
         <Differentiators />
         <Process />
         <GlowDivider />
         {/* <Work /> */}
         <Stack />
-        <GlowDivider />
+        
         <TeamTeaser />
         <Testimonials />
         <Pricing />

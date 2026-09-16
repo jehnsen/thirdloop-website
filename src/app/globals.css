@@ -1,34 +1,46 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ink-950: #05070d;
-  --color-ink-900: #080b14;
-  --color-ink-800: #0d111c;
-  --color-ink-700: #141926;
-  --color-ink-600: #1c2333;
+  /* Surfaces — deep navy stack, darkest first */
+  --color-ink-950: #071731;
+  --color-ink-900: #0b1f3a;
+  --color-ink-800: #10294c;
+  --color-ink-700: #16335e;
+  --color-ink-600: #1d3f72;
 
-  --color-loop-50: #eef6ff;
-  --color-loop-100: #d9ebff;
-  --color-loop-200: #bcdcff;
-  --color-loop-300: #8ec6ff;
-  --color-loop-400: #59a5ff;
-  --color-loop-500: #3381fb;
-  --color-loop-600: #1d60f0;
-  --color-loop-700: #164add;
-  --color-loop-800: #183eb3;
-  --color-loop-900: #19388d;
+  /* Signal blue */
+  --color-loop-50: #eef4ff;
+  --color-loop-100: #dbe7ff;
+  --color-loop-200: #bcd3ff;
+  --color-loop-300: #8fb5ff;
+  --color-loop-400: #5b93ff;
+  --color-loop-500: #2979ff;
+  --color-loop-600: #1a5fe0;
+  --color-loop-700: #164ab4;
+  --color-loop-800: #163f92;
+  --color-loop-900: #173876;
 
-  --color-flux-300: #a5f3e4;
-  --color-flux-400: #5fe3cb;
-  --color-flux-500: #22ccb2;
-  --color-flux-600: #0fa593;
+  /* Teal — the primary accent */
+  --color-flux-300: #7fe7dd;
+  --color-flux-400: #35d3c4;
+  --color-flux-500: #00b8a9;
+  --color-flux-600: #05958a;
 
-  --color-plasma-400: #b98cff;
-  --color-plasma-500: #9b5cff;
-  --color-plasma-600: #7c37f0;
+  /* Indigo — third accent, used sparingly */
+  --color-plasma-400: #8b96ff;
+  --color-plasma-500: #5064ff;
+  --color-plasma-600: #3a48e0;
 
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  /* Hairlines, muted copy, and the light-panel pair */
+  --color-hair: #9fb6d9;
+  --color-mist: #a4bcda;
+  --color-cream: #f2f7fd;
+  --color-panel-ink: #172033;
+  --color-panel-muted: #4a586e;
+
+  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
 
   --animate-marquee: marquee 40s linear infinite;
   --animate-marquee-slow: marquee 70s linear infinite;
@@ -118,9 +130,40 @@
 }
 
 :root {
-  --background: #05070d;
-  --foreground: #e9edf5;
+  --background: var(--color-ink-900);
+  --foreground: var(--color-cream);
+
+  /* Ambient wash behind every page; per-route tints override these. */
+  --glow-1: #00b8a959;
+  --glow-2: #2979ff52;
+  --glow-3: #082d5c99;
+
   color-scheme: dark;
+}
+
+/* Route tints, mirroring the section-by-section colour shifts of the brand. */
+.theme-home {
+  --glow-1: #00b8a959;
+  --glow-2: #2979ff52;
+  --glow-3: #082d5c99;
+}
+
+.theme-products {
+  --glow-1: #26c6f959;
+  --glow-2: #2979ff59;
+  --glow-3: #09285a99;
+}
+
+.theme-team {
+  --glow-1: #5064ff61;
+  --glow-2: #00b8a94d;
+  --glow-3: #0e1c5099;
+}
+
+.theme-admin {
+  --glow-1: #2979ff61;
+  --glow-2: #00b8a94d;
+  --glow-3: #08183c99;
 }
 
 html {
@@ -136,7 +179,7 @@ body {
 }
 
 ::selection {
-  background: color-mix(in oklab, var(--color-loop-500) 45%, transparent);
+  background: color-mix(in oklab, var(--color-flux-500) 35%, transparent);
   color: #fff;
 }
 
@@ -148,35 +191,44 @@ body {
   background: var(--color-ink-950);
 }
 ::-webkit-scrollbar-thumb {
-  background: color-mix(in oklab, var(--color-loop-500) 40%, #1c2333);
+  background: color-mix(in oklab, var(--color-flux-500) 40%, #16335e);
   border-radius: 999px;
   border: 2px solid var(--color-ink-950);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-loop-500);
+  background: var(--color-flux-500);
+}
+
+/* Fixed ambient wash: three soft radials over the ink base. */
+@utility page-bg {
+  background-color: var(--color-ink-900);
+  background-image:
+    radial-gradient(900px circle at 12% -5%, var(--glow-1), transparent 60%),
+    radial-gradient(800px circle at 92% 8%, var(--glow-2), transparent 60%),
+    radial-gradient(1000px circle at 50% 110%, var(--glow-3), transparent 65%);
+  background-attachment: fixed;
+}
+
+/* The white bands that break up the navy. */
+@utility panel-light {
+  background-color: #fff;
+  color: var(--color-panel-ink);
+}
+
+@utility bg-brand-gradient {
+  background-image: linear-gradient(135deg, #2979ff, #00b8a9);
 }
 
 @utility text-gradient {
-  background-image: linear-gradient(
-    100deg,
-    var(--color-loop-200) 0%,
-    #ffffff 35%,
-    var(--color-flux-300) 70%,
-    var(--color-plasma-400) 100%
-  );
+  background-image: linear-gradient(135deg, #2979ff 0%, #00b8a9 100%);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
 }
 
 @utility glass-panel {
-  background: linear-gradient(
-    160deg,
-    rgba(255, 255, 255, 0.07) 0%,
-    rgba(255, 255, 255, 0.02) 45%,
-    rgba(255, 255, 255, 0.04) 100%
-  );
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: color-mix(in oklab, var(--color-ink-800) 70%, transparent);
+  border: 1px solid color-mix(in oklab, var(--color-hair) 22%, transparent);
   backdrop-filter: blur(16px);
 }
 

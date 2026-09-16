@@ -43,14 +43,14 @@ function Breakdown({
             key={row.label}
             className="grid grid-cols-[8rem_minmax(0,1fr)] items-center gap-3 text-sm"
           >
-            <span className="truncate text-white/60">{row.label}</span>
-            <span className="flex h-6 items-center gap-2 border-l border-white/15">
+            <span className="truncate text-mist">{row.label}</span>
+            <span className="flex h-6 items-center gap-2 border-l border-hair/25">
               <span
                 aria-hidden
                 className="h-3 rounded-r-sm bg-loop-400"
                 style={{ width: `calc((100% - 2.5rem) * ${row.count / max})` }}
               />
-              <span className="font-medium text-white/85">
+              <span className="font-medium text-cream">
                 {row.count}
                 <span className="sr-only"> products</span>
               </span>
@@ -112,13 +112,13 @@ export default async function AdminDashboardPage() {
         {stats.map((stat) => (
           <div
             key={stat.label}
-            className="rounded-2xl border border-white/8 bg-ink-900/70 p-5"
+            className="rounded-2xl border border-hair/20 bg-ink-800/70 p-5"
           >
-            <dt className="text-xs text-white/50">{stat.label}</dt>
-            <dd className="mt-2 text-3xl font-semibold tracking-tight text-white">
+            <dt className="text-xs text-mist">{stat.label}</dt>
+            <dd className="mt-2 text-3xl font-display font-semibold tracking-tight text-cream">
               {stat.value}
             </dd>
-            <dd className="mt-1 text-xs text-white/40">{stat.detail}</dd>
+            <dd className="mt-1 text-xs text-mist/70">{stat.detail}</dd>
           </div>
         ))}
       </dl>
@@ -147,11 +147,11 @@ export default async function AdminDashboardPage() {
         className="mt-6"
       >
         {withGaps.length === 0 ? (
-          <p className="text-sm text-white/50">
+          <p className="text-sm text-mist">
             Every product has a complete detail page.
           </p>
         ) : (
-          <ul className="-my-3 divide-y divide-white/6">
+          <ul className="-my-3 divide-y divide-hair/15">
             {withGaps.map(({ product, missing }) => (
               <li
                 key={product.slug}
@@ -159,7 +159,7 @@ export default async function AdminDashboardPage() {
               >
                 <div className="flex min-w-0 items-center gap-3">
                   <span
-                    className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg border border-white/10"
+                    className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg border border-hair/20"
                     style={{
                       background: `color-mix(in oklab, ${product.accent} 16%, transparent)`,
                     }}
@@ -172,15 +172,15 @@ export default async function AdminDashboardPage() {
                     />
                   </span>
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-medium text-white">
+                    <p className="truncate text-sm font-medium text-cream">
                       {product.name}
                       {product.enabled ? null : (
-                        <span className="ml-2 text-xs font-normal text-white/40">
+                        <span className="ml-2 text-xs font-normal text-mist/70">
                           Hidden
                         </span>
                       )}
                     </p>
-                    <p className="text-xs text-white/45">
+                    <p className="text-xs text-mist/80">
                       Missing {listFormat.format(missing)}
                     </p>
                   </div>

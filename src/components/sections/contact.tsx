@@ -33,7 +33,7 @@ function Field({
 }) {
   return (
     <label className={cn("block", className)}>
-      <span className="mb-2 block text-xs font-medium tracking-wide text-white/50">
+      <span className="mb-2 block text-xs font-medium tracking-wide text-mist">
         {label}
       </span>
       {children}
@@ -42,7 +42,7 @@ function Field({
 }
 
 const inputClass =
-  "w-full rounded-xl border border-white/10 bg-white/4 px-4 py-3 text-sm text-white placeholder:text-white/25 transition-colors duration-300 focus:border-loop-400/60 focus:bg-white/6 focus:outline-none";
+  "w-full rounded-xl border border-hair/20 bg-white/4 px-4 py-3 text-sm text-cream placeholder:text-mist/70 transition-colors duration-300 focus:border-flux-400/60 focus:bg-white/6 focus:outline-none";
 
 export function Contact() {
   const [status, setStatus] = useState<Status>("idle");
@@ -68,7 +68,7 @@ export function Contact() {
   return (
     <Section id="contact" className="pb-16 sm:pb-24">
       <Container>
-        <div className="relative overflow-hidden rounded-3xl border border-white/10">
+        <div className="relative overflow-hidden rounded-3xl border border-hair/20">
           {/* animated gradient wash */}
           <div
             aria-hidden
@@ -82,13 +82,13 @@ export function Contact() {
             {/* Left: pitch */}
             <div>
               <Reveal>
-                <h2 className="text-3xl font-semibold tracking-tight text-balance text-white sm:text-4xl sm:leading-tight">
+                <h2 className="text-3xl font-display font-semibold tracking-tight text-balance text-cream sm:text-4xl sm:leading-tight">
                   Let&apos;s scope your{" "}
                   <span className="text-gradient">next loop</span>
                 </h2>
               </Reveal>
               <Reveal delay={0.08}>
-                <p className="mt-5 leading-relaxed text-pretty text-white/55">
+                <p className="mt-5 leading-relaxed text-pretty text-mist">
                   Tell us what you&apos;re trying to build or fix. You&apos;ll
                   hear back within one business day, and the first call is a
                   free 30-minute conversation — no deck, no pressure.
@@ -104,7 +104,7 @@ export function Contact() {
                       <dd>
                         <a
                           href={`mailto:${site.email}`}
-                          className="text-sm text-white/75 transition-colors hover:text-white"
+                          className="text-sm text-mist transition-colors hover:text-cream"
                         >
                           {site.email}
                         </a>
@@ -115,7 +115,7 @@ export function Contact() {
                     <MapPin className="mt-0.5 size-4 shrink-0 text-flux-400" />
                     <div>
                       <dt className="sr-only">Location</dt>
-                      <dd className="text-sm text-white/75">
+                      <dd className="text-sm text-mist">
                         {site.location}
                       </dd>
                     </div>
@@ -124,12 +124,12 @@ export function Contact() {
               </Reveal>
 
               <Reveal delay={0.22}>
-                <div className="mt-10 flex items-center gap-3 rounded-xl border border-white/8 bg-white/3 px-4 py-3.5">
+                <div className="mt-10 flex items-center gap-3 rounded-xl border border-hair/20 bg-white/3 px-4 py-3.5">
                   <span className="relative flex size-2">
                     <span className="absolute inline-flex size-full animate-pulse-ring rounded-full bg-flux-400" />
                     <span className="relative inline-flex size-2 rounded-full bg-flux-400" />
                   </span>
-                  <span className="text-xs text-white/55">
+                  <span className="text-xs text-mist">
                     Currently taking on projects for next quarter
                   </span>
                 </div>
@@ -148,10 +148,10 @@ export function Contact() {
                   <div className="flex size-14 items-center justify-center rounded-full bg-flux-500/15">
                     <Check className="size-7 text-flux-400" />
                   </div>
-                  <h3 className="mt-6 text-xl font-semibold text-white">
+                  <h3 className="mt-6 text-xl font-semibold text-cream">
                     Message received
                   </h3>
-                  <p className="mt-2.5 max-w-sm text-sm leading-relaxed text-white/55">
+                  <p className="mt-2.5 max-w-sm text-sm leading-relaxed text-mist">
                     Thanks for reaching out. We&apos;ll come back to you within
                     one business day with next steps.
                   </p>
@@ -192,7 +192,7 @@ export function Contact() {
                   </Field>
 
                   <fieldset className="mt-6">
-                    <legend className="mb-3 text-xs font-medium tracking-wide text-white/50">
+                    <legend className="mb-3 text-xs font-medium tracking-wide text-mist">
                       What do you need? (select any)
                     </legend>
                     <div className="flex flex-wrap gap-2">
@@ -208,7 +208,7 @@ export function Contact() {
                               "rounded-full border px-3.5 py-1.5 text-xs transition-all duration-300",
                               selected
                                 ? "border-loop-400/50 bg-loop-500/18 text-loop-100"
-                                : "border-white/10 bg-white/3 text-white/50 hover:border-white/20 hover:text-white/80",
+                                : "border-hair/20 bg-white/3 text-mist hover:border-hair/35 hover:text-cream",
                             )}
                           >
                             {service}
@@ -224,7 +224,7 @@ export function Contact() {
                   </fieldset>
 
                   <fieldset className="mt-6">
-                    <legend className="mb-3 text-xs font-medium tracking-wide text-white/50">
+                    <legend className="mb-3 text-xs font-medium tracking-wide text-mist">
                       Budget range
                     </legend>
                     <div className="flex flex-wrap gap-2">
@@ -238,7 +238,7 @@ export function Contact() {
                             "rounded-full border px-3.5 py-1.5 text-xs transition-all duration-300",
                             budget === option
                               ? "border-flux-400/50 bg-flux-500/18 text-flux-300"
-                              : "border-white/10 bg-white/3 text-white/50 hover:border-white/20 hover:text-white/80",
+                              : "border-hair/20 bg-white/3 text-mist hover:border-hair/35 hover:text-cream",
                           )}
                         >
                           {option}
@@ -278,7 +278,7 @@ export function Contact() {
                     </MagneticButton>
                   </div>
 
-                  <p className="mt-4 text-center text-[0.7rem] text-white/30">
+                  <p className="mt-4 text-center text-[0.7rem] text-mist/60">
                     We&apos;ll never share your details. No newsletter, no
                     follow-up sequence.
                   </p>

@@ -25,7 +25,7 @@ export default async function ProductsPage() {
 
   return (
     <>
-      <PageBackdrop />
+      <PageBackdrop theme="products" />
       <Navbar />
       <main id="main">
         <Section className="pt-36 pb-8 sm:pt-44 sm:pb-10">
@@ -35,13 +35,13 @@ export default async function ProductsPage() {
                 <Eyebrow>Our products</Eyebrow>
               </Reveal>
               <Reveal delay={0.06}>
-                <h1 className="text-4xl font-semibold tracking-tight text-balance text-white sm:text-5xl lg:text-[3.25rem] lg:leading-[1.08]">
+                <h1 className="text-4xl font-display font-semibold tracking-tight text-balance text-cream sm:text-5xl lg:text-[3.25rem] lg:leading-[1.08]">
                   Apps and solutions{" "}
                   <span className="text-gradient">we&apos;ve shipped</span>
                 </h1>
               </Reveal>
               <Reveal delay={0.12}>
-                <p className="text-base leading-relaxed text-pretty text-white/55 sm:text-lg">
+                <p className="text-base leading-relaxed text-pretty text-mist sm:text-lg">
                   Booking platforms, marketplaces, AI assistants and internal
                   tools — built for real operations across automotive,
                   agriculture, education and logistics. {liveCount} of them are
@@ -57,12 +57,12 @@ export default async function ProductsPage() {
             <ProductsGrid products={products} />
 
             <Reveal delay={0.15}>
-              <div className="mt-20 flex flex-col items-center gap-6 rounded-3xl border border-white/10 bg-ink-900/60 px-8 py-14 text-center backdrop-blur-sm">
-                <h2 className="max-w-xl text-2xl font-semibold tracking-tight text-balance text-white sm:text-3xl">
+              <div className="mt-20 flex flex-col items-center gap-6 rounded-3xl border border-hair/20 bg-ink-800/60 px-8 py-14 text-center backdrop-blur-sm">
+                <h2 className="max-w-xl text-2xl font-display font-semibold tracking-tight text-balance text-cream sm:text-3xl">
                   Need something like these for{" "}
                   <span className="text-gradient">your operation?</span>
                 </h2>
-                <p className="max-w-xl leading-relaxed text-pretty text-white/55">
+                <p className="max-w-xl leading-relaxed text-pretty text-mist">
                   Most of these started as a process someone was running on
                   spreadsheets and group chats. Tell us what yours looks like
                   and we&apos;ll scope it with you.

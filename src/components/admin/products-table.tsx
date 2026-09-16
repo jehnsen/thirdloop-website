@@ -51,15 +51,15 @@ export function ProductsTable({ products }: { products: Product[] }) {
   }, [products, query, filter]);
 
   return (
-    <div className="rounded-2xl border border-white/8 bg-ink-900/70">
-      <div className="flex flex-col gap-3 border-b border-white/6 p-4 sm:flex-row sm:items-center sm:justify-between">
+    <div className="rounded-2xl border border-hair/20 bg-ink-800/70">
+      <div className="flex flex-col gap-3 border-b border-hair/15 p-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="relative sm:w-80">
           <label htmlFor="product-search" className="sr-only">
             Search products
           </label>
           <Search
             aria-hidden
-            className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-white/35"
+            className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-mist/70"
           />
           <input
             id="product-search"
@@ -74,7 +74,7 @@ export function ProductsTable({ products }: { products: Product[] }) {
         <div
           role="group"
           aria-label="Filter by visibility"
-          className="inline-flex self-start rounded-full border border-white/10 bg-ink-950/60 p-1"
+          className="inline-flex self-start rounded-full border border-hair/20 bg-ink-950/60 p-1"
         >
           {filters.map((option) => {
             const active = option.value === filter;
@@ -87,12 +87,12 @@ export function ProductsTable({ products }: { products: Product[] }) {
                 aria-pressed={active}
                 onClick={() => setFilter(option.value)}
                 className={cn(
-                  "inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-loop-400",
-                  active ? "bg-white/10 text-white" : "text-white/50 hover:text-white",
+                  "inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-flux-400",
+                  active ? "bg-white/10 text-cream" : "text-mist hover:text-cream",
                 )}
               >
                 {option.label}
-                <span className="text-white/35">{count}</span>
+                <span className="text-mist/70">{count}</span>
               </button>
             );
           })}
@@ -101,7 +101,7 @@ export function ProductsTable({ products }: { products: Product[] }) {
 
       {rows.length === 0 ? (
         <div className="flex flex-col items-center gap-3 px-6 py-16 text-center">
-          <p className="text-sm text-white/55">
+          <p className="text-sm text-mist">
             {products.length === 0
               ? "No products yet."
               : "No products match those filters."}
@@ -128,7 +128,7 @@ export function ProductsTable({ products }: { products: Product[] }) {
           <table className="w-full text-left text-sm">
             <caption className="sr-only">Products</caption>
             <thead>
-              <tr className="border-b border-white/6 text-xs text-white/40">
+              <tr className="border-b border-hair/15 text-xs text-mist/70">
                 <th scope="col" className="px-3 py-3 font-medium sm:px-5">
                   Product
                 </th>
@@ -146,13 +146,13 @@ export function ProductsTable({ products }: { products: Product[] }) {
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/6">
+            <tbody className="divide-y divide-hair/15">
               {rows.map((product) => (
                 <tr key={product.slug} className="transition-colors hover:bg-white/2">
                   <td className="px-3 py-3 sm:px-5">
                     <div className="flex items-center gap-3">
                       <span
-                        className="hidden size-9 shrink-0 items-center justify-center rounded-lg border border-white/10 sm:inline-flex"
+                        className="hidden size-9 shrink-0 items-center justify-center rounded-lg border border-hair/20 sm:inline-flex"
                         style={{
                           background: `color-mix(in oklab, ${product.accent} 16%, transparent)`,
                         }}
@@ -167,11 +167,11 @@ export function ProductsTable({ products }: { products: Product[] }) {
                       <div className="min-w-0">
                         <Link
                           href={`/admin/products/${product.slug}/edit`}
-                          className="font-medium text-white hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-loop-400"
+                          className="font-medium text-cream hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-flux-400"
                         >
                           {product.name}
                         </Link>
-                        <div className="hidden max-w-56 truncate font-mono text-xs text-white/35 sm:block">
+                        <div className="hidden max-w-56 truncate font-mono text-xs text-mist/70 sm:block">
                           /products/{product.slug}
                         </div>
                         <div className="mt-1.5 md:hidden">
@@ -180,7 +180,7 @@ export function ProductsTable({ products }: { products: Product[] }) {
                       </div>
                     </div>
                   </td>
-                  <td className="hidden px-4 py-3 whitespace-nowrap text-white/60 xl:table-cell">
+                  <td className="hidden px-4 py-3 whitespace-nowrap text-mist xl:table-cell">
                     {product.category}
                   </td>
                   <td className="hidden px-4 py-3 md:table-cell">

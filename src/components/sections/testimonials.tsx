@@ -55,14 +55,14 @@ export function Testimonials() {
                     className="size-7 shrink-0 opacity-40"
                     style={{ color: testimonial.accent }}
                   />
-                  <blockquote className="mt-5 flex-1 leading-relaxed text-pretty text-white/70">
+                  <blockquote className="mt-5 flex-1 leading-relaxed text-pretty text-mist">
                     {testimonial.quote}
                   </blockquote>
-                  <figcaption className="mt-7 border-t border-white/8 pt-5">
-                    <div className="text-sm font-medium text-white">
+                  <figcaption className="mt-7 border-t border-hair/20 pt-5">
+                    <div className="text-sm font-medium text-cream">
                       {testimonial.name}
                     </div>
-                    <div className="mt-0.5 text-xs text-white/40">
+                    <div className="mt-0.5 text-xs text-mist/70">
                       {testimonial.company}
                     </div>
                   </figcaption>

@@ -97,28 +97,28 @@ export function Pricing() {
                     </span>
                   ) : null}
 
-                  <h3 className="text-lg font-semibold tracking-tight text-white">
+                  <h3 className="text-lg font-display font-semibold tracking-tight text-cream">
                     {tier.name}
                   </h3>
 
                   <div className="mt-4 flex items-baseline gap-2">
-                    <span className="text-3xl font-semibold tracking-tight text-white">
+                    <span className="text-3xl font-display font-semibold tracking-tight text-cream">
                       {tier.price}
                     </span>
-                    <span className="text-sm text-white/40">
+                    <span className="text-sm text-mist/70">
                       {tier.cadence}
                     </span>
                   </div>
 
-                  <p className="mt-4 text-sm leading-relaxed text-pretty text-white/55">
+                  <p className="mt-4 text-sm leading-relaxed text-pretty text-mist">
                     {tier.description}
                   </p>
 
-                  <ul className="mt-7 space-y-3 border-t border-white/8 pt-6">
+                  <ul className="mt-7 space-y-3 border-t border-hair/20 pt-6">
                     {tier.features.map((feature) => (
                       <li
                         key={feature}
-                        className="flex items-start gap-2.5 text-sm text-white/65"
+                        className="flex items-start gap-2.5 text-sm text-mist"
                       >
                         <Check
                           className="mt-0.5 size-4 shrink-0"
@@ -144,7 +144,7 @@ export function Pricing() {
           ))}
         </StaggerGroup>
 
-        <p className="mt-8 text-center text-sm text-white/35">
+        <p className="mt-8 text-center text-sm text-mist/70">
           Not sure which fits? Book a free 30-minute call and we&apos;ll tell you
           straight — including if we&apos;re not the right team.
         </p>

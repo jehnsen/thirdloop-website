@@ -6,12 +6,12 @@ import { cn } from "@/lib/utils";
 
 type Variant = "primary" | "secondary" | "ghost";
 
+/** Pill buttons with mono, letterspaced labels — the house CTA style. */
 const variantStyles: Record<Variant, string> = {
-  primary:
-    "bg-loop-500 text-white shadow-[0_10px_40px_-12px_var(--color-loop-500)] hover:bg-loop-400",
+  primary: "bg-flux-500 text-ink-950 hover:bg-flux-400",
   secondary:
-    "glass-panel text-white/90 hover:text-white hover:border-white/20",
-  ghost: "text-white/70 hover:text-white",
+    "border border-hair/35 text-cream hover:border-hair/60 hover:bg-white/5",
+  ghost: "text-mist hover:text-cream",
 };
 
 type MagneticButtonProps = {
@@ -59,21 +59,9 @@ export function MagneticButton({
   }
 
   const classes = cn(
-    "group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-6 py-3 text-sm font-medium tracking-tight transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-loop-400",
+    "group relative inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-mono text-[12px] tracking-[0.15em] uppercase transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-flux-400",
     variantStyles[variant],
     className,
-  );
-
-  const inner = (
-    <>
-      <span
-        aria-hidden
-        className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 group-hover:translate-x-full"
-      />
-      <span className="relative z-10 inline-flex items-center gap-2">
-        {children}
-      </span>
-    </>
   );
 
   const { onClick, ...buttonProps } = props;
@@ -94,11 +82,11 @@ export function MagneticButton({
           target={target}
           rel={rel}
         >
-          {inner}
+          {children}
         </a>
       ) : (
         <button className={classes} onClick={onClick} {...buttonProps}>
-          {inner}
+          {children}
         </button>
       )}
     </motion.div>

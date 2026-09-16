@@ -27,7 +27,7 @@ export function OrbitDiagram() {
       {[100, 78, 56].map((size, i) => (
         <div
           key={size}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/8"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-hair/20"
           style={{
             width: `${size}%`,
             height: `${size}%`,
@@ -37,8 +37,8 @@ export function OrbitDiagram() {
           }}
         />
       ))}
-      <div className="absolute top-1/2 left-1/2 size-[78%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-white/10" />
-      <div className="absolute top-1/2 left-1/2 size-full -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/6" />
+      <div className="absolute top-1/2 left-1/2 size-[78%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-hair/20" />
+      <div className="absolute top-1/2 left-1/2 size-full -translate-x-1/2 -translate-y-1/2 rounded-full border border-hair/15" />
 
       {/* rotating node ring */}
       <motion.div
@@ -114,7 +114,7 @@ export function OrbitDiagram() {
                 className="glass-panel flex size-[4.6rem] flex-col items-center justify-center gap-1 rounded-2xl"
               >
                 <Icon className="size-5" style={{ color: node.color }} />
-                <span className="text-[0.62rem] font-medium tracking-wide text-white/65">
+                <span className="text-[0.62rem] font-medium tracking-wide text-mist">
                   {node.label}
                 </span>
               </motion.div>
@@ -127,13 +127,13 @@ export function OrbitDiagram() {
       <motion.div
         animate={{ scale: [1, 1.04, 1] }}
         transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/2 left-1/2 flex size-[38%] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-full border border-white/12 bg-linear-to-br from-loop-600/35 via-ink-800 to-plasma-600/25 backdrop-blur-md"
+        className="absolute top-1/2 left-1/2 flex size-[38%] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-full border border-hair/25 bg-linear-to-br from-loop-600/35 via-ink-800 to-plasma-600/25 backdrop-blur-md"
       >
         <div className="absolute inset-0 rounded-full bg-loop-500/12 blur-2xl" />
-        <span className="relative z-10 font-mono text-[0.6rem] tracking-[0.3em] text-white/45 uppercase">
+        <span className="relative z-10 font-mono text-[0.6rem] tracking-[0.3em] text-mist/80 uppercase">
           3rdLoop
         </span>
-        <span className="relative z-10 mt-1 text-center text-[0.78rem] leading-tight font-semibold text-white">
+        <span className="relative z-10 mt-1 text-center text-[0.78rem] leading-tight font-semibold text-cream">
           Systems
           <br />
           that learn

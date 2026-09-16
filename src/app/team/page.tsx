@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 export default function TeamPage() {
   return (
     <>
-      <PageBackdrop />
+      <PageBackdrop theme="team" />
       <Navbar />
       <main id="main">
         {/* Intro */}
@@ -40,13 +40,13 @@ export default function TeamPage() {
                 <Eyebrow>The team</Eyebrow>
               </Reveal>
               <Reveal delay={0.06}>
-                <h1 className="text-4xl font-semibold tracking-tight text-balance text-white sm:text-5xl lg:text-[3.25rem] lg:leading-[1.08]">
+                <h1 className="text-4xl font-display font-semibold tracking-tight text-balance text-cream sm:text-5xl lg:text-[3.25rem] lg:leading-[1.08]">
                   Small by design,{" "}
                   <span className="text-gradient">senior by default</span>
                 </h1>
               </Reveal>
               <Reveal delay={0.12}>
-                <p className="text-base leading-relaxed text-pretty text-white/55 sm:text-lg">
+                <p className="text-base leading-relaxed text-pretty text-mist sm:text-lg">
                   Three practitioners covering the whole span of an engagement —
                   the business analysis that works out what should be built, and
                   the engineering that builds it. The people you meet on the
@@ -79,12 +79,12 @@ export default function TeamPage() {
                           {member.facts.map((fact) => (
                             <div
                               key={fact.label}
-                              className="flex items-baseline justify-between gap-4 border-b border-white/8 pb-2.5"
+                              className="flex items-baseline justify-between gap-4 border-b border-hair/20 pb-2.5"
                             >
-                              <dt className="text-[0.68rem] tracking-wide text-white/35 uppercase">
+                              <dt className="text-[0.68rem] tracking-wide text-mist/70 uppercase">
                                 {fact.label}
                               </dt>
-                              <dd className="text-right text-xs font-medium text-white/80">
+                              <dd className="text-right text-xs font-medium text-cream">
                                 {fact.value}
                               </dd>
                             </div>
@@ -99,7 +99,7 @@ export default function TeamPage() {
                                   href={link.href}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="group inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/4 px-3 py-1.5 text-xs text-white/60 transition-colors hover:border-white/20 hover:text-white"
+                                  className="group inline-flex items-center gap-1.5 rounded-full border border-hair/20 bg-white/4 px-3 py-1.5 text-xs text-mist transition-colors hover:border-hair/35 hover:text-cream"
                                 >
                                   {link.label}
                                   <ArrowUpRight className="size-3 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -113,39 +113,39 @@ export default function TeamPage() {
                       {/* Body */}
                       <div>
                         <span
-                          className="font-mono text-[0.68rem] tracking-[0.2em] uppercase"
+                          className="font-mono text-[11px] tracking-[0.25em] uppercase"
                           style={{ color: member.accent }}
                         >
                           {member.role}
                         </span>
-                        <h2 className="mt-2.5 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+                        <h2 className="mt-2.5 text-3xl font-display font-semibold tracking-tight text-cream sm:text-4xl">
                           {member.name}
                         </h2>
-                        <p className="mt-3.5 text-base leading-relaxed text-pretty text-white/60 sm:text-lg">
+                        <p className="mt-3.5 text-base leading-relaxed text-pretty text-mist sm:text-lg">
                           {member.tagline}
                         </p>
 
-                        <div className="mt-7 space-y-4 border-t border-white/8 pt-7">
+                        <div className="mt-7 space-y-4 border-t border-hair/20 pt-7">
                           {member.bio.map((paragraph) => (
                             <p
                               key={paragraph.slice(0, 40)}
-                              className="text-[0.95rem] leading-relaxed text-pretty text-white/55"
+                              className="text-[0.95rem] leading-relaxed text-pretty text-mist"
                             >
                               {paragraph}
                             </p>
                           ))}
                         </div>
 
-                        <div className="mt-8 grid gap-8 border-t border-white/8 pt-7 sm:grid-cols-2">
+                        <div className="mt-8 grid gap-8 border-t border-hair/20 pt-7 sm:grid-cols-2">
                           <div>
-                            <h3 className="font-mono text-[0.66rem] tracking-[0.2em] text-white/35 uppercase">
+                            <h3 className="font-mono text-[0.66rem] tracking-[0.2em] text-mist/70 uppercase">
                               Owns
                             </h3>
                             <ul className="mt-4 space-y-2.5">
                               {member.focus.map((item) => (
                                 <li
                                   key={item}
-                                  className="flex items-start gap-2.5 text-sm leading-snug text-white/65"
+                                  className="flex items-start gap-2.5 text-sm leading-snug text-mist"
                                 >
                                   <Check
                                     className="mt-0.5 size-3.5 shrink-0"
@@ -158,14 +158,14 @@ export default function TeamPage() {
                           </div>
 
                           <div>
-                            <h3 className="font-mono text-[0.66rem] tracking-[0.2em] text-white/35 uppercase">
+                            <h3 className="font-mono text-[0.66rem] tracking-[0.2em] text-mist/70 uppercase">
                               Expertise
                             </h3>
                             <ul className="mt-4 flex flex-wrap gap-1.5">
                               {member.expertise.map((skill) => (
                                 <li
                                   key={skill}
-                                  className="rounded-full border border-white/8 bg-white/4 px-2.5 py-1 text-[0.68rem] text-white/55"
+                                  className="rounded-full border border-hair/20 bg-white/4 px-2.5 py-1 text-[0.68rem] text-mist"
                                 >
                                   {skill}
                                 </li>
@@ -186,7 +186,7 @@ export default function TeamPage() {
         <Section className="py-16 sm:py-24">
           <Container>
             <Reveal>
-              <h2 className="max-w-2xl text-2xl font-semibold tracking-tight text-balance text-white sm:text-3xl">
+              <h2 className="max-w-2xl text-2xl font-display font-semibold tracking-tight text-balance text-cream sm:text-3xl">
                 What working with a team this size{" "}
                 <span className="text-gradient">actually means</span>
               </h2>
@@ -198,14 +198,14 @@ export default function TeamPage() {
             >
               {teamPrinciples.map((principle, i) => (
                 <StaggerItem key={principle.title} className="h-full">
-                  <div className="glass-panel h-full rounded-2xl p-7 transition-colors duration-500 hover:border-white/18">
+                  <div className="glass-panel h-full rounded-2xl p-7 transition-colors duration-500 hover:border-hair/35">
                     <span className="font-mono text-xs tracking-[0.2em] text-loop-300">
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <h3 className="mt-3.5 text-lg leading-snug font-semibold text-balance text-white">
+                    <h3 className="mt-3.5 text-lg leading-snug font-semibold text-balance text-cream">
                       {principle.title}
                     </h3>
-                    <p className="mt-2.5 text-sm leading-relaxed text-pretty text-white/50">
+                    <p className="mt-2.5 text-sm leading-relaxed text-pretty text-mist">
                       {principle.body}
                     </p>
                   </div>
@@ -219,12 +219,12 @@ export default function TeamPage() {
         <Section className="pt-4 pb-24 sm:pb-32">
           <Container>
             <Reveal>
-              <div className="flex flex-col items-center gap-6 rounded-3xl border border-white/10 bg-ink-900/60 px-8 py-14 text-center backdrop-blur-sm">
-                <h2 className="max-w-xl text-2xl font-semibold tracking-tight text-balance text-white sm:text-3xl">
+              <div className="flex flex-col items-center gap-6 rounded-3xl border border-hair/20 bg-ink-800/60 px-8 py-14 text-center backdrop-blur-sm">
+                <h2 className="max-w-xl text-2xl font-display font-semibold tracking-tight text-balance text-cream sm:text-3xl">
                   Talk to the people who&apos;ll{" "}
                   <span className="text-gradient">do the work</span>
                 </h2>
-                <p className="max-w-xl leading-relaxed text-pretty text-white/55">
+                <p className="max-w-xl leading-relaxed text-pretty text-mist">
                   The first call is a free 30-minute conversation with both of
                   us — no account manager in between, no deck.
                 </p>
@@ -235,7 +235,7 @@ export default function TeamPage() {
                   </MagneticButton>
                   <Link
                     href="/products"
-                    className="glass-panel inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-medium text-white/85 transition-colors hover:border-white/20 hover:text-white"
+                    className="glass-panel inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-medium text-cream transition-colors hover:border-hair/35 hover:text-cream"
                   >
                     See what we&apos;ve built
                   </Link>

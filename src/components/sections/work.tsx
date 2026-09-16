@@ -73,10 +73,10 @@ const caseStudies: CaseStudy[] = [
 function Metric({ value, label }: { value: string; label: string }) {
   return (
     <div>
-      <div className="text-xl font-semibold tracking-tight text-white sm:text-2xl">
+      <div className="text-xl font-display font-semibold tracking-tight text-cream sm:text-2xl">
         {value}
       </div>
-      <div className="mt-1 text-[0.68rem] leading-snug text-white/40">
+      <div className="mt-1 text-[0.68rem] leading-snug text-mist/70">
         {label}
       </div>
     </div>
@@ -89,7 +89,7 @@ function Tags({ tags }: { tags: string[] }) {
       {tags.map((tag) => (
         <li
           key={tag}
-          className="rounded-full border border-white/8 bg-white/4 px-2.5 py-1 text-[0.66rem] text-white/50"
+          className="rounded-full border border-hair/20 bg-white/4 px-2.5 py-1 text-[0.66rem] text-mist"
         >
           {tag}
         </li>
@@ -121,16 +121,16 @@ export function Work() {
             <div className="grid gap-8 p-8 sm:p-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12 lg:p-12">
               <div>
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
-                  <span className="font-medium text-white">
+                  <span className="font-medium text-cream">
                     {featured.client}
                   </span>
-                  <span className="text-white/25">·</span>
-                  <span className="text-white/45">{featured.sector}</span>
+                  <span className="text-mist/70">·</span>
+                  <span className="text-mist/80">{featured.sector}</span>
                 </div>
-                <h3 className="mt-4 text-2xl font-semibold tracking-tight text-balance text-white sm:text-3xl sm:leading-tight">
+                <h3 className="mt-4 text-2xl font-display font-semibold tracking-tight text-balance text-cream sm:text-3xl sm:leading-tight">
                   {featured.title}
                 </h3>
-                <p className="mt-4 leading-relaxed text-pretty text-white/55">
+                <p className="mt-4 leading-relaxed text-pretty text-mist">
                   {featured.body}
                 </p>
                 <div className="mt-7">
@@ -138,7 +138,7 @@ export function Work() {
                 </div>
               </div>
 
-              <div className="flex flex-col justify-between gap-8 lg:border-l lg:border-white/8 lg:pl-12">
+              <div className="flex flex-col justify-between gap-8 lg:border-l lg:border-hair/20 lg:pl-12">
                 <div className="grid grid-cols-3 gap-5 lg:grid-cols-1 lg:gap-7">
                   {featured.metrics.map((metric) => (
                     <Metric key={metric.label} {...metric} />
@@ -169,20 +169,20 @@ export function Work() {
                   transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                   className="flex h-full flex-col p-7"
                 >
-                  <div className="text-[0.7rem] tracking-wide text-white/40 uppercase">
+                  <div className="text-[0.7rem] tracking-wide text-mist/70 uppercase">
                     {study.sector}
                   </div>
-                  <div className="mt-1.5 text-sm font-medium text-white">
+                  <div className="mt-1.5 text-sm font-medium text-cream">
                     {study.client}
                   </div>
-                  <h3 className="mt-4 text-lg leading-snug font-semibold text-balance text-white/90">
+                  <h3 className="mt-4 text-lg leading-snug font-semibold text-balance text-cream">
                     {study.title}
                   </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-pretty text-white/50">
+                  <p className="mt-3 text-sm leading-relaxed text-pretty text-mist">
                     {study.body}
                   </p>
 
-                  <div className="mt-6 flex gap-6 border-t border-white/8 pt-5">
+                  <div className="mt-6 flex gap-6 border-t border-hair/20 pt-5">
                     {study.metrics.map((metric) => (
                       <Metric key={metric.label} {...metric} />
                     ))}

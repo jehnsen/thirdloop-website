@@ -7,15 +7,17 @@ import {
   useScroll,
   useSpring,
 } from "framer-motion";
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { ArrowRight, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Logo } from "@/components/ui/logo";
-import { MagneticButton } from "@/components/ui/magnetic-button";
 import { EASE } from "@/components/ui/motion-primitives";
 import { navLinks } from "@/lib/site";
 import { cn } from "@/lib/utils";
+
+const ctaClass =
+  "group inline-flex items-center gap-2 rounded-full border border-flux-500/40 bg-flux-500/5 px-4 py-2 font-mono text-[11px] tracking-[0.18em] text-flux-500 uppercase transition-colors duration-200 hover:bg-flux-500/15 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-flux-400";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -81,63 +83,58 @@ export function Navbar() {
 
   return (
     <>
-      <motion.header
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: EASE, delay: 0.1 }}
-        className="fixed inset-x-0 top-0 z-50"
-      >
+      <header className="fixed inset-x-0 top-0 z-50">
         <div
           className={cn(
-            "transition-all duration-500",
+            "border-b transition-colors duration-300",
             scrolled
-              ? "border-b border-white/8 bg-ink-950/70 backdrop-blur-xl"
-              : "border-b border-transparent",
+              ? "border-hair/20 bg-ink-800/70 backdrop-blur-xl"
+              : "border-transparent",
           )}
         >
-          <nav className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6 sm:h-18 lg:px-8">
+          <nav className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
             <Logo />
 
-            <ul className="hidden items-center gap-1 lg:flex">
+            <ul className="hidden items-center gap-7 lg:flex">
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={resolveHref(link)}
                     className={cn(
-                      "relative rounded-full px-4 py-2 text-sm transition-colors duration-300",
+                      "relative py-1 font-mono text-[11px] tracking-[0.18em] uppercase transition-colors duration-200",
                       active === link.href
-                        ? "text-white"
-                        : "text-white/55 hover:text-white",
+                        ? "text-cream"
+                        : "text-mist hover:text-cream",
                     )}
                   >
+                    {link.label}
                     {active === link.href ? (
                       <motion.span
-                        layoutId="nav-pill"
-                        className="absolute inset-0 rounded-full border border-white/10 bg-white/6"
-                        transition={{ duration: 0.45, ease: EASE }}
+                        layoutId="nav-underline"
+                        className="absolute -bottom-0.5 left-0 h-px w-full bg-flux-500"
+                        transition={{ duration: 0.4, ease: EASE }}
                       />
                     ) : null}
-                    <span className="relative z-10">{link.label}</span>
                   </Link>
                 </li>
               ))}
             </ul>
 
             <div className="flex items-center gap-3">
-              <MagneticButton
+              <Link
                 href={onHome ? "#contact" : "/#contact"}
-                className="hidden px-5 py-2.5 text-[0.83rem] sm:inline-flex"
+                className={cn(ctaClass, "hidden sm:inline-flex")}
               >
                 Start a project
-                <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </MagneticButton>
+                <ArrowRight className="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
+              </Link>
 
               <button
                 type="button"
                 onClick={() => setOpen((value) => !value)}
                 aria-label={open ? "Close menu" : "Open menu"}
                 aria-expanded={open}
-                className="glass-panel inline-flex size-10 items-center justify-center rounded-full text-white lg:hidden"
+                className="inline-flex size-10 items-center justify-center rounded-full border border-hair/25 text-cream transition-colors hover:bg-white/5 lg:hidden"
               >
                 {open ? <X className="size-5" /> : <Menu className="size-5" />}
               </button>
@@ -147,9 +144,9 @@ export function Navbar() {
 
         <motion.div
           style={{ scaleX: progress }}
-          className="h-px origin-left bg-linear-to-r from-loop-500 via-flux-400 to-plasma-500"
+          className="h-px origin-left bg-linear-to-r from-loop-500 to-flux-500"
         />
-      </motion.header>
+      </header>
 
       <AnimatePresence>
         {open ? (
@@ -176,9 +173,9 @@ export function Navbar() {
                     <Link
                       href={resolveHref(link)}
                       onClick={() => setOpen(false)}
-                      className="flex items-baseline gap-4 border-b border-white/6 py-4 text-3xl font-medium tracking-tight text-white/80 transition-colors hover:text-white"
+                      className="flex items-baseline gap-4 border-b border-hair/15 py-4 font-display text-3xl font-semibold tracking-tight text-cream/90 transition-colors hover:text-cream"
                     >
-                      <span className="font-mono text-xs text-loop-400">
+                      <span className="font-mono text-xs text-flux-500">
                         0{index + 1}
                       </span>
                       {link.label}
@@ -192,14 +189,14 @@ export function Navbar() {
                 transition={{ duration: 0.5, ease: EASE, delay: 0.45 }}
                 className="mt-10"
               >
-                <MagneticButton
+                <Link
                   href={onHome ? "#contact" : "/#contact"}
-                  className="w-full"
                   onClick={() => setOpen(false)}
+                  className={cn(ctaClass, "w-full justify-center py-3")}
                 >
                   Start a project
-                  <ArrowUpRight className="size-4" />
-                </MagneticButton>
+                  <ArrowRight className="size-3.5" />
+                </Link>
               </motion.div>
             </div>
           </motion.div>

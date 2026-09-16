@@ -60,7 +60,7 @@ function Marquee({ reverse = false }: { reverse?: boolean }) {
         {[...marqueeItems, ...marqueeItems].map((item, index) => (
           <span
             key={`${item}-${index}`}
-            className="glass-panel rounded-full px-5 py-2.5 text-sm whitespace-nowrap text-white/60"
+            className="glass-panel rounded-full px-5 py-2.5 text-sm whitespace-nowrap text-mist"
           >
             {item}
           </span>
@@ -91,15 +91,15 @@ export function Stack() {
         >
           {groups.map((group) => (
             <StaggerItem key={group.label}>
-              <div className="glass-panel h-full rounded-2xl p-6 transition-colors duration-500 hover:border-white/18">
-                <h3 className="font-mono text-[0.68rem] tracking-[0.2em] text-loop-300 uppercase">
+              <div className="glass-panel h-full rounded-2xl p-6 transition-colors duration-500 hover:border-hair/35">
+                <h3 className="font-mono text-[11px] tracking-[0.25em] text-loop-300 uppercase">
                   {group.label}
                 </h3>
                 <ul className="mt-4 space-y-2.5">
                   {group.items.map((item) => (
                     <li
                       key={item}
-                      className="flex items-center gap-2.5 text-sm text-white/60"
+                      className="flex items-center gap-2.5 text-sm text-mist"
                     >
                       <span className="size-1 rounded-full bg-white/25" />
                       {item}

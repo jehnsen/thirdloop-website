@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 export function SpotlightCard({
   children,
   className,
-  glowColor = "var(--color-loop-500)",
+  glowColor = "var(--color-flux-500)",
   radius = 340,
 }: {
   children: ReactNode;
@@ -44,7 +44,7 @@ export function SpotlightCard({
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
       className={cn(
-        "group relative overflow-hidden rounded-2xl border border-white/8 bg-ink-800/60 backdrop-blur-sm transition-colors duration-500",
+        "group relative overflow-hidden rounded-2xl border border-hair/20 bg-ink-800/60 backdrop-blur-sm transition-colors duration-500",
         className,
       )}
     >
@@ -54,7 +54,7 @@ export function SpotlightCard({
         style={{ background: borderBackground }}
         className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
       />
-      <div className="absolute inset-px rounded-[calc(var(--radius-2xl)-1px)] bg-ink-800/90" />
+      <div className="absolute inset-px rounded-[calc(var(--radius-2xl)-1px)] bg-ink-800/85" />
       {/* inner glow */}
       <motion.div
         aria-hidden

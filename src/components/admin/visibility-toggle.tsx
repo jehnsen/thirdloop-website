@@ -33,7 +33,7 @@ export function VisibilityToggle({
       aria-label={`Show ${name} on the public site`}
       onClick={toggle}
       disabled={pending}
-      className="inline-flex items-center gap-2.5 rounded-full focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-loop-400 disabled:cursor-wait"
+      className="inline-flex items-center gap-2.5 rounded-full focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-flux-400 disabled:cursor-wait"
     >
       <span
         aria-hidden
@@ -41,7 +41,7 @@ export function VisibilityToggle({
           "inline-flex h-5.5 w-10 shrink-0 items-center rounded-full border transition-colors",
           optimisticEnabled
             ? "border-flux-400/50 bg-flux-500/70"
-            : "border-white/15 bg-white/8",
+            : "border-hair/25 bg-white/8",
         )}
       >
         <span
@@ -55,7 +55,7 @@ export function VisibilityToggle({
         aria-hidden
         className={cn(
           "hidden w-12 text-left text-xs xl:inline-block",
-          optimisticEnabled ? "text-flux-300" : "text-white/45",
+          optimisticEnabled ? "text-flux-300" : "text-mist/80",
         )}
       >
         {optimisticEnabled ? "Visible" : "Hidden"}

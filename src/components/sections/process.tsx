@@ -91,7 +91,7 @@ export function Process() {
                           : "sm:col-start-1 sm:row-start-1 sm:pr-12 sm:text-right"
                       }`}
                     >
-                      <div className="glass-panel rounded-2xl p-6 transition-colors duration-500 hover:border-white/18 sm:p-7">
+                      <div className="glass-panel rounded-2xl p-6 transition-colors duration-500 hover:border-hair/35 sm:p-7">
                         <div
                           className={`flex items-baseline gap-3 ${
                             isRight ? "" : "sm:flex-row-reverse"
@@ -100,19 +100,19 @@ export function Process() {
                           <span className="font-mono text-xs tracking-[0.2em] text-loop-300">
                             {step.number}
                           </span>
-                          <h3 className="text-xl font-semibold tracking-tight text-white">
+                          <h3 className="text-xl font-display font-semibold tracking-tight text-cream">
                             {step.title}
                           </h3>
                           {/* pushed to the outer edge on whichever side the card sits */}
                           <span
-                            className={`rounded-full border border-white/10 px-2.5 py-0.5 text-[0.65rem] whitespace-nowrap text-white/45 ${
+                            className={`rounded-full border border-hair/20 px-2.5 py-0.5 text-[0.65rem] whitespace-nowrap text-mist/80 ${
                               isRight ? "ml-auto" : "ml-auto sm:mr-auto sm:ml-0"
                             }`}
                           >
                             {step.duration}
                           </span>
                         </div>
-                        <p className="mt-3 text-sm leading-relaxed text-pretty text-white/55">
+                        <p className="mt-3 text-sm leading-relaxed text-pretty text-mist">
                           {step.body}
                         </p>
                         <ul
@@ -123,7 +123,7 @@ export function Process() {
                           {step.points.map((point) => (
                             <li
                               key={point}
-                              className="rounded-full bg-white/5 px-2.5 py-1 text-[0.68rem] text-white/50"
+                              className="rounded-full bg-white/5 px-2.5 py-1 text-[0.68rem] text-mist"
                             >
                               {point}
                             </li>

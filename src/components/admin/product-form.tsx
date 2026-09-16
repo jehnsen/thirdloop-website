@@ -49,7 +49,7 @@ function nextKey(items: { key: number }[]) {
 
 function EmptyRows({ children }: { children: ReactNode }) {
   return (
-    <p className="rounded-xl border border-dashed border-white/10 px-4 py-6 text-center text-sm text-white/40">
+    <p className="rounded-xl border border-dashed border-hair/20 px-4 py-6 text-center text-sm text-mist/70">
       {children}
     </p>
   );
@@ -174,10 +174,10 @@ export function ProductForm({ product }: { product?: Product }) {
                 }
                 className="sm:col-span-2"
               >
-                <div className="flex rounded-xl border border-white/10 bg-ink-900/80 transition-colors focus-within:border-loop-400 focus-within:ring-2 focus-within:ring-loop-400/30 hover:border-white/20 has-[[aria-invalid=true]]:border-red-400/70">
+                <div className="flex rounded-xl border border-hair/20 bg-ink-800/80 transition-colors focus-within:border-flux-400 focus-within:ring-2 focus-within:ring-flux-400/30 hover:border-hair/35 has-[[aria-invalid=true]]:border-red-400/70">
                   <span
                     aria-hidden
-                    className="flex items-center pl-3.5 font-mono text-xs text-white/35 select-none"
+                    className="flex items-center pl-3.5 font-mono text-xs text-mist/70 select-none"
                   >
                     /products/
                   </span>
@@ -195,7 +195,7 @@ export function ProductForm({ product }: { product?: Product }) {
                     spellCheck={false}
                     autoCapitalize="none"
                     autoComplete="off"
-                    className="min-w-0 flex-1 bg-transparent py-2.5 pr-3.5 pl-0.5 font-mono text-sm text-white focus:outline-none"
+                    className="min-w-0 flex-1 bg-transparent py-2.5 pr-3.5 pl-0.5 font-mono text-sm text-cream focus:outline-none"
                   />
                 </div>
               </Field>
@@ -324,11 +324,11 @@ export function ProductForm({ product }: { product?: Product }) {
                 {features.map((feature, index) => (
                   <li
                     key={feature.key}
-                    className="flex gap-3 rounded-xl border border-white/6 bg-white/2 p-3 sm:p-4"
+                    className="flex gap-3 rounded-xl border border-hair/15 bg-white/2 p-3 sm:p-4"
                   >
                     <span
                       aria-hidden
-                      className="w-5 shrink-0 pt-3 font-mono text-xs text-white/35"
+                      className="w-5 shrink-0 pt-3 font-mono text-xs text-mist/70"
                     >
                       {String(index + 1).padStart(2, "0")}
                     </span>
@@ -482,10 +482,10 @@ export function ProductForm({ product }: { product?: Product }) {
             <div className="flex flex-col gap-5">
               <label className="flex cursor-pointer items-start justify-between gap-4">
                 <span>
-                  <span className="block text-sm font-medium text-white/85">
+                  <span className="block text-sm font-medium text-cream">
                     Visible on site
                   </span>
-                  <span className="mt-1 block text-xs leading-relaxed text-white/40">
+                  <span className="mt-1 block text-xs leading-relaxed text-mist/70">
                     {enabled
                       ? "Listed on /products with its own page."
                       : "Hidden from visitors — its page returns 404."}
@@ -501,7 +501,7 @@ export function ProductForm({ product }: { product?: Product }) {
                 />
                 <span
                   aria-hidden
-                  className="mt-0.5 inline-flex h-5.5 w-10 shrink-0 items-center rounded-full border border-white/15 bg-white/8 transition-colors peer-checked:border-flux-400/50 peer-checked:bg-flux-500/70 peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-loop-400 after:size-4 after:translate-x-0.5 after:rounded-full after:bg-white after:shadow after:transition-transform peer-checked:after:translate-x-5"
+                  className="mt-0.5 inline-flex h-5.5 w-10 shrink-0 items-center rounded-full border border-hair/30 bg-white/8 transition-colors peer-checked:border-flux-400/50 peer-checked:bg-flux-500/70 peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-flux-400 after:size-4 after:translate-x-0.5 after:rounded-full after:bg-white after:shadow after:transition-transform peer-checked:after:translate-x-5"
                 />
               </label>
 
@@ -542,10 +542,10 @@ export function ProductForm({ product }: { product?: Product }) {
             <div className="flex flex-col gap-6">
               <div
                 aria-hidden
-                className="flex items-center gap-3 rounded-xl border border-white/8 bg-white/3 p-3.5"
+                className="flex items-center gap-3 rounded-xl border border-hair/20 bg-white/3 p-3.5"
               >
                 <span
-                  className="inline-flex size-11 shrink-0 items-center justify-center rounded-xl border border-white/10"
+                  className="inline-flex size-11 shrink-0 items-center justify-center rounded-xl border border-hair/20"
                   style={{
                     background: `color-mix(in oklab, ${accent} 16%, transparent)`,
                   }}
@@ -553,7 +553,7 @@ export function ProductForm({ product }: { product?: Product }) {
                   <ProductIcon icon={icon} className="size-5" style={{ color: accent }} />
                 </span>
                 <div className="min-w-0">
-                  <div className="truncate text-sm font-semibold text-white">
+                  <div className="truncate text-sm font-semibold text-cream">
                     {name || "Product name"}
                   </div>
                   <div className="mt-1.5">
@@ -563,7 +563,7 @@ export function ProductForm({ product }: { product?: Product }) {
               </div>
 
               <fieldset>
-                <legend className="text-sm font-medium text-white/80">Icon</legend>
+                <legend className="text-sm font-medium text-cream">Icon</legend>
                 <div className="mt-2.5 grid grid-cols-8 gap-1.5 sm:grid-cols-12 lg:grid-cols-6">
                   {productIconNames.map((option) => (
                     <label key={option} title={option}>
@@ -575,7 +575,7 @@ export function ProductForm({ product }: { product?: Product }) {
                         onChange={() => setIcon(option)}
                         className="peer sr-only"
                       />
-                      <span className="flex aspect-square cursor-pointer items-center justify-center rounded-lg border border-white/8 text-white/45 transition-colors peer-checked:border-loop-400/70 peer-checked:bg-loop-500/15 peer-checked:text-white peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-loop-400 hover:border-white/20 hover:text-white">
+                      <span className="flex aspect-square cursor-pointer items-center justify-center rounded-lg border border-hair/20 text-mist/80 transition-colors peer-checked:border-loop-400/70 peer-checked:bg-loop-500/15 peer-checked:text-cream peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-flux-400 hover:border-hair/35 hover:text-cream">
                         <ProductIcon icon={option} aria-hidden className="size-4" />
                       </span>
                       <span className="sr-only">{option}</span>
@@ -588,7 +588,7 @@ export function ProductForm({ product }: { product?: Product }) {
               </fieldset>
 
               <fieldset>
-                <legend className="text-sm font-medium text-white/80">
+                <legend className="text-sm font-medium text-cream">
                   Accent colour
                 </legend>
                 <div className="mt-2.5 flex flex-wrap gap-2.5">
@@ -604,7 +604,7 @@ export function ProductForm({ product }: { product?: Product }) {
                       />
                       <span
                         aria-hidden
-                        className="block size-7 cursor-pointer rounded-full ring-offset-2 ring-offset-ink-900 transition-shadow peer-checked:ring-2 peer-checked:ring-white/80 peer-focus-visible:outline-2 peer-focus-visible:outline-offset-4 peer-focus-visible:outline-loop-400"
+                        className="block size-7 cursor-pointer rounded-full ring-offset-2 ring-offset-ink-900 transition-shadow peer-checked:ring-2 peer-checked:ring-white/80 peer-focus-visible:outline-2 peer-focus-visible:outline-offset-4 peer-focus-visible:outline-flux-400"
                         style={{ background: option.value }}
                       />
                       <span className="sr-only">{option.label}</span>
@@ -620,12 +620,12 @@ export function ProductForm({ product }: { product?: Product }) {
         </div>
       </div>
 
-      <div className="sticky bottom-4 z-20 flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-ink-800/90 px-4 py-3 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.8)] backdrop-blur-xl">
-        <p className="min-w-0 truncate text-xs text-white/45">
+      <div className="sticky bottom-4 z-20 flex items-center justify-between gap-3 rounded-2xl border border-hair/20 bg-ink-800/90 px-4 py-3 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.8)] backdrop-blur-xl">
+        <p className="min-w-0 truncate text-xs text-mist/80">
           {product ? (
             <>
               Editing{" "}
-              <span className="font-mono text-white/65">/products/{product.slug}</span>
+              <span className="font-mono text-mist">/products/{product.slug}</span>
             </>
           ) : (
             "New product"

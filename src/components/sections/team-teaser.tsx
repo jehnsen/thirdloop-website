@@ -27,7 +27,7 @@ export function TeamTeaser() {
               <SpotlightCard glowColor={member.accent} className="h-full">
                 <Link
                   href="/team"
-                  className="flex h-full items-start gap-6 p-7 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-loop-400"
+                  className="flex h-full items-start gap-6 p-7 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-flux-400"
                 >
                   <AvatarMonogram
                     initials={member.initials}
@@ -44,10 +44,10 @@ export function TeamTeaser() {
                     >
                       {member.role}
                     </span>
-                    <h3 className="mt-2 text-xl font-semibold tracking-tight text-white">
+                    <h3 className="mt-2 text-xl font-display font-semibold tracking-tight text-cream">
                       {member.name}
                     </h3>
-                    <p className="mt-2.5 text-sm leading-relaxed text-pretty text-white/50">
+                    <p className="mt-2.5 text-sm leading-relaxed text-pretty text-mist">
                       {member.tagline}
                     </p>
                     <span

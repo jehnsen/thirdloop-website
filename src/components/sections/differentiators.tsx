@@ -1,9 +1,9 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { useInView } from "framer-motion";
 import { GitBranch, Layers, LineChart, ShieldCheck } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { Reveal, StaggerGroup, StaggerItem } from "@/components/ui/motion-primitives";
+import { Reveal } from "@/components/ui/motion-primitives";
 import { Container, Section, SectionHeader } from "@/components/ui/section";
 
 const pillars = [
@@ -78,69 +78,69 @@ function Counter({
 
 export function Differentiators() {
   return (
-    <Section>
+    <Section className="panel-light border-b border-slate-200 py-20 sm:py-24">
       <Container>
-        <div className="grid gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-          <SectionHeader
-            align="left"
-            eyebrow="Why 3rdLoop"
-            title={
-              <>
-                The third loop is where{" "}
-                <span className="text-gradient">compounding starts</span>
-              </>
-            }
-            description="First you build it. Then you refine it. The third pass is where a system starts giving time back instead of consuming it — that's the loop we're named for, and the one we optimise for."
-            className="lg:sticky lg:top-28 lg:self-start"
-          />
-
-          <StaggerGroup className="grid gap-5 sm:grid-cols-2" staggerChildren={0.1}>
-            {pillars.map((pillar) => {
-              const Icon = pillar.icon;
-              return (
-                <StaggerItem key={pillar.title} className="h-full">
-                  <motion.div
-                    whileHover={{ y: -4 }}
-                    transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                    className="glass-panel h-full rounded-2xl p-6 transition-colors duration-500 hover:border-white/18"
-                  >
-                    <div className="inline-flex size-10 items-center justify-center rounded-lg border border-white/10 bg-loop-500/12">
-                      <Icon className="size-5 text-loop-300" />
-                    </div>
-                    <h3 className="mt-5 text-[0.98rem] leading-snug font-semibold text-balance text-white">
-                      {pillar.title}
-                    </h3>
-                    <p className="mt-2.5 text-sm leading-relaxed text-pretty text-white/50">
-                      {pillar.body}
-                    </p>
-                  </motion.div>
-                </StaggerItem>
-              );
-            })}
-          </StaggerGroup>
-        </div>
+        <SectionHeader
+          tone="light"
+          eyebrow="Core values"
+          title={
+            <>
+              What guides <span className="text-gradient">every loop.</span>
+            </>
+          }
+          meta="Principles over process"
+          description="First you build it. Then you refine it. The third pass is where a system starts giving time back instead of consuming it."
+        />
 
         <Reveal delay={0.1}>
-          <dl className="mt-16 grid grid-cols-2 gap-8 border-t border-white/8 pt-12 lg:grid-cols-4">
+          <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-slate-200 bg-slate-200 sm:grid-cols-2">
+            {pillars.map((pillar, index) => {
+              const Icon = pillar.icon;
+
+              return (
+                <article
+                  key={pillar.title}
+                  className="group bg-white p-7 transition-colors duration-200 hover:bg-slate-50 lg:p-8"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-[11px] tracking-[0.2em] text-flux-600">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <Icon aria-hidden className="size-4 text-flux-600" />
+                  </div>
+                  <h3 className="mt-4 font-display text-base font-semibold tracking-tight text-balance text-panel-ink lg:text-lg">
+                    {pillar.title}
+                  </h3>
+                  <p className="mt-2 text-xs leading-relaxed text-pretty text-panel-muted lg:text-sm">
+                    {pillar.body}
+                  </p>
+                </article>
+              );
+            })}
+          </div>
+        </Reveal>
+
+        {/* <Reveal delay={0.16}>
+          <dl className="mt-12 grid grid-cols-2 gap-8 border-t border-slate-200 pt-10 lg:grid-cols-4">
             {counters.map((counter) => (
               <div key={counter.label}>
                 <dt className="sr-only">{counter.label}</dt>
                 <dd>
-                  <span className="block text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+                  <span className="block font-display text-3xl font-bold tracking-tight text-panel-ink sm:text-4xl">
                     <Counter
                       value={counter.value}
                       suffix={counter.suffix}
                       decimals={counter.decimals}
                     />
                   </span>
-                  <span className="mt-2 block text-xs leading-snug text-white/45">
+                  <span className="mt-2 block font-mono text-[10px] leading-snug tracking-[0.15em] text-slate-500 uppercase">
                     {counter.label}
                   </span>
                 </dd>
               </div>
             ))}
           </dl>
-        </Reveal>
+        </Reveal> */}
       </Container>
     </Section>
   );

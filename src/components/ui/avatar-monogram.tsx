@@ -27,7 +27,7 @@ export function AvatarMonogram({
   return (
     <div
       className={cn(
-        "relative flex aspect-square items-center justify-center overflow-hidden rounded-2xl border border-white/10",
+        "relative flex aspect-square items-center justify-center overflow-hidden rounded-2xl border border-hair/20",
         className,
       )}
       style={{
@@ -103,7 +103,7 @@ export function AvatarMonogram({
           />
 
           <span
-            className="relative z-10 text-4xl font-semibold tracking-tight text-white/85 sm:text-5xl"
+            className="relative z-10 text-4xl font-display font-semibold tracking-tight text-cream sm:text-5xl"
             aria-hidden
           >
             {initials}
