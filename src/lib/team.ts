@@ -142,6 +142,42 @@ export const team: TeamMember[] = [
     ],
     links: [],
   },
+    {
+    slug: "ron-asistores",
+    name: "Ron Asistores",
+    role: "Product Solutions Manager",
+    tagline:
+      "Versatile IT supervisor with 8+ years leading full-stack delivery, managing Linux server infrastructure, and architecting scalable AI-powered applications.",
+    initials: "RA",
+    accent: "var(--color-flux-400)",
+    facts: [
+      { label: "Role", value: "Product Solutions Manager" },
+      { label: "Experience", value: "8+ years" },
+    ],
+    photo: "/team/ron-asistores.png",
+    bio: [],
+    focus: [],
+    expertise: ["Full-stack Architecture", "DevOps", "AI & RAG Integration"],
+    links: [],
+  },
+  {
+    slug: "renz-belardo",
+    name: "Renz Belardo",
+    role: "Project Manager",
+    tagline:
+      "A seasoned project manager with experience across diverse industries, including retail, banking, logistics, and gaming.",
+    initials: "RB",
+    accent: "var(--color-plasma-500)",
+    facts: [
+      { label: "Role", value: "Project Manager" },
+      { label: "Industries", value: "Retail, banking, logistics, gaming" },
+    ],
+    photo: "/team/renz-belardo.png",
+    bio: [],
+    focus: [],
+    expertise: ["Project Management", "Vendor Management", "Project Governance"],
+    links: [],
+  },
 ];
 
 export function getTeamMember(slug: string) {

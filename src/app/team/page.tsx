@@ -47,7 +47,7 @@ export default function TeamPage() {
               </Reveal>
               <Reveal delay={0.12}>
                 <p className="text-base leading-relaxed text-pretty text-mist sm:text-lg">
-                  Three practitioners covering the whole span of an engagement —
+                  Five practitioners covering the whole span of an engagement —
                   the business analysis that works out what should be built, and
                   the engineering that builds it. The people you meet on the
                   first call are the people who do the work.
@@ -125,6 +125,7 @@ export default function TeamPage() {
                           {member.tagline}
                         </p>
 
+                        {member.bio.length > 0 ? (
                         <div className="mt-7 space-y-4 border-t border-hair/20 pt-7">
                           {member.bio.map((paragraph) => (
                             <p
@@ -135,8 +136,11 @@ export default function TeamPage() {
                             </p>
                           ))}
                         </div>
+                        ) : null}
 
+                        {member.focus.length > 0 || member.expertise.length > 0 ? (
                         <div className="mt-8 grid gap-8 border-t border-hair/20 pt-7 sm:grid-cols-2">
+                          {member.focus.length > 0 ? (
                           <div>
                             <h3 className="font-mono text-[0.66rem] tracking-[0.2em] text-mist/70 uppercase">
                               Owns
@@ -156,7 +160,9 @@ export default function TeamPage() {
                               ))}
                             </ul>
                           </div>
+                          ) : null}
 
+                          {member.expertise.length > 0 ? (
                           <div>
                             <h3 className="font-mono text-[0.66rem] tracking-[0.2em] text-mist/70 uppercase">
                               Expertise
@@ -172,7 +178,9 @@ export default function TeamPage() {
                               ))}
                             </ul>
                           </div>
+                          ) : null}
                         </div>
+                        ) : null}
                       </div>
                     </article>
                   </SpotlightCard>
