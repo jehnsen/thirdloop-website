@@ -1,5 +1,72 @@
 [
   {
+    "slug": "batayan",
+    "name": "Batayan",
+    "tagline": "Everyday legal & compliance AI for Philippine businesses and individuals",
+    "summary": "A legal case platform for the Philippines that puts research, document intelligence, drafting and matter management in one connected place — cited answers, auto-filed documents and tracked deadlines, all against a single case.",
+    "category": "AI Solution",
+    "status": "Live",
+    "enabled": true,
+    "url": "https://batayan.co",
+    "icon": "Scale",
+    "accent": "var(--color-plasma-600)",
+    "industry": "Legal / compliance",
+    "facts": [
+      {
+        "label": "Type",
+        "value": "B2B/B2C"
+      },
+      {
+        "label": "Market",
+        "value": "Philippines"
+      }
+    ],
+    "challenge": "Legal work in the Philippines is scattered across disconnected tools — research pulled from one place, documents drafted in another, deadlines tracked in a notebook or spreadsheet, and every new matter starting from a blank page. Nothing stays connected to the case it belongs to, so context gets re-explained and files go missing or unfiled.",
+    "approach": "Batayan puts research, documents, drafting and deadlines inside a single case matter, so nothing has to be re-explained or re-filed. Questions are answered in plain language or Taglish and grounded in verified Philippine legal sources with live citations; uploaded documents are OCR-scanned and indexed straight into the matter they belong to; drafts start from a library built for Philippine business and enforce their required attachments; and deadlines and to-dos are extracted automatically from the conversation, keeping research, drafts and team activity in one place through to close.",
+    "features": [
+      {
+        "title": "Legal research with live citations",
+        "body": "Ask naturally and get grounded answers that reason claim by claim, built on authorities like the Civil Code and Supreme Court decisions with live checks for what's changed."
+      },
+      {
+        "title": "Document intelligence",
+        "body": "Bring in documents you already have, including scans and photos — OCR indexes them into the right matter and lets you question your own files with answers that point back to the page."
+      },
+      {
+        "title": "Document drafting",
+        "body": "Draft from a library built for Philippine business — contracts, HR documents and notarial forms — with required attachments enforced so drafts leave complete, and every export carries a note for lawyer review."
+      },
+      {
+        "title": "Case matter hub",
+        "body": "Every research thread, draft and deadline lives inside its matter, with an active-case view and a calendar of upcoming dates like renewals and hearings."
+      },
+      {
+        "title": "Auto-extracted deadlines and to-dos",
+        "body": "Payment dates, renewal deadlines and other to-dos are pulled automatically from the conversation and tracked against the matter, no manual entry required."
+      },
+      {
+        "title": "Built-in lawyer-review note",
+        "body": "Every generated draft ships ready for lawyer review before signing, so the business signs with confidence rather than treating AI output as final."
+      },
+      {
+        "title": "Five-step workflow",
+        "body": "Upload, ask, draft, manage and close — each step stays connected to the same case, then loops back for the next matter."
+      }
+    ],
+    "stack": [
+      "Vue",
+      "JavaScript",
+      "Tailwind CSS",
+      "PostgreSQL"
+    ],
+    "outcomes": [
+      "Research, drafts and deadlines held in one place per matter instead of scattered across tools",
+      "Answers grounded in cited, verifiable Philippine legal sources",
+      "Uploaded documents OCR-scanned and searchable within their case automatically",
+      "Deadlines and to-dos tracked without manual entry"
+    ]
+  },
+  {
     "slug": "samahuzai",
     "name": "Samahuzai Detailing",
     "tagline": "Appointment-only booking for a premium auto detailing studio",
@@ -8,7 +75,7 @@
     "status": "Live",
     "enabled": true,
     "url": "https://samahuzai.com",
-    "icon": "Sparkles",
+    "icon": "Car",
     "accent": "var(--color-loop-500)",
     "industry": "Automotive services",
     "facts": [
@@ -426,122 +493,6 @@
       "Direct farmer-to-buyer trade with transparent commission",
       "Produce traceable to a verified farm and harvest date",
       "Payouts that reach the farm gate on a next-day cycle"
-    ]
-  },
-  {
-    "slug": "admin-suite",
-    "name": "AdminSuite",
-    "tagline": "School management for DepEd administrative officers",
-    "summary": "A school management system for administrative officers — centralising the records, reporting and day-to-day operations that otherwise live across spreadsheets.",
-    "category": "Internal Tool",
-    "status": "Demo",
-    "enabled": true,
-    "url": "https://admin-suite-frontend.vercel.app",
-    "icon": "GraduationCap",
-    "accent": "var(--color-loop-400)",
-    "industry": "Education",
-    "facts": [
-      {
-        "label": "Type",
-        "value": "School management system"
-      },
-      {
-        "label": "Users",
-        "value": "School admin officers"
-      },
-      {
-        "label": "Context",
-        "value": "DepEd schools"
-      }
-    ],
-    "challenge": "Administrative officers in DepEd schools carry a heavy reporting load across enrolment, personnel and facilities — most of it assembled by hand from spreadsheets that live on individual machines. The same figures get re-keyed into multiple report formats, and nobody has a single current view of the school's records.",
-    "approach": "A management system that holds the records once and generates the reporting from them, so administrative staff stop rebuilding the same numbers. Access is role-gated behind a login, keeping personnel and student data restricted to the officers entitled to see it.",
-    "features": [
-      {
-        "title": "Centralised records",
-        "body": "School records live in one system rather than scattered spreadsheets on individual machines."
-      },
-      {
-        "title": "Role-based access",
-        "body": "Login-gated access keeps personnel and student information limited to authorised officers."
-      },
-      {
-        "title": "Reporting from source data",
-        "body": "Required reports generate from the underlying records instead of being re-keyed each cycle."
-      },
-      {
-        "title": "Administrative workflows",
-        "body": "Routine officer tasks are handled in-system with a consistent process rather than ad-hoc per staff member."
-      }
-    ],
-    "stack": [
-      "Next.js",
-      "React",
-      "TypeScript",
-      "Tailwind CSS"
-    ],
-    "outcomes": [
-      "One current set of records instead of competing spreadsheet copies",
-      "Reporting assembled from source data rather than re-keyed",
-      "Access to sensitive records controlled by role"
-    ]
-  },
-  {
-    "slug": "backhaul",
-    "name": "BackHaul",
-    "tagline": "Turning empty return trips into margin",
-    "summary": "An interactive margin model for trucking fleets — quantifying the revenue available from return trips that currently run empty, across two monetisation strategies.",
-    "category": "Web App",
-    "status": "Demo",
-    "enabled": true,
-    "url": "https://backhaul-demo.vercel.app/",
-    "icon": "Truck",
-    "accent": "var(--color-plasma-400)",
-    "industry": "Logistics & freight",
-    "facts": [
-      {
-        "label": "Type",
-        "value": "Interactive business model"
-      },
-      {
-        "label": "Market",
-        "value": "Philippine trucking fleets"
-      },
-      {
-        "label": "Focus",
-        "value": "Deadhead monetisation"
-      }
-    ],
-    "challenge": "Fleets running dedicated routes — Metro Manila out to provincial branches — pay for the return leg whether or not anything is on the truck. That deadhead distance is a pure cost, but it's hard to argue for changing it without a number attached, and fleet operators rarely have the model to produce one.",
-    "approach": "An interactive calculator that makes the opportunity concrete. Because fuel and driver cost are already absorbed by the outbound job, backhaul revenue is close to pure margin — the tool lets an operator move sliders for distance, fuel, payload and pricing and see both per-trip and fleet-level annual figures for two different strategies.",
-    "features": [
-      {
-        "title": "Two monetisation paths",
-        "body": "Model selling return cargo space to third-party shippers, or buying agricultural goods at origin to sell in Manila markets."
-      },
-      {
-        "title": "Interactive margin sliders",
-        "body": "Distance, fuel cost, payload weight and pricing adjust live, with margin recalculating as assumptions change."
-      },
-      {
-        "title": "Fleet-level projection",
-        "body": "Per-trip figures roll up across a 20-truck fleet into monthly and annual totals."
-      },
-      {
-        "title": "Risk framing",
-        "body": "The higher-return path is presented alongside its working-capital needs and exposure to spoilage and price volatility."
-      }
-    ],
-    "stack": [
-      "Next.js",
-      "React",
-      "TypeScript",
-      "Tailwind CSS"
-    ],
-    "outcomes": [
-      "Deadhead cost converted into a defensible revenue number",
-      "Two strategies compared on return and on risk",
-      "Fleet-scale impact visible from per-trip assumptions"
     ]
   }
 ]
