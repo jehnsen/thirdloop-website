@@ -1,5 +1,72 @@
 [
   {
+    "slug": "batayan",
+    "name": "Batayan",
+    "tagline": "Everyday legal & compliance AI for Philippine businesses and individuals",
+    "summary": "A legal case platform for the Philippines that puts research, document intelligence, drafting and matter management in one connected place — cited answers, auto-filed documents and tracked deadlines, all against a single case.",
+    "category": "AI Solution",
+    "status": "Live",
+    "enabled": true,
+    "url": "https://batayan.co",
+    "icon": "Scale",
+    "accent": "var(--color-plasma-600)",
+    "industry": "Legal / compliance",
+    "facts": [
+      {
+        "label": "Type",
+        "value": "B2B/B2C"
+      },
+      {
+        "label": "Market",
+        "value": "Philippines"
+      }
+    ],
+    "challenge": "Legal work in the Philippines is scattered across disconnected tools — research pulled from one place, documents drafted in another, deadlines tracked in a notebook or spreadsheet, and every new matter starting from a blank page. Nothing stays connected to the case it belongs to, so context gets re-explained and files go missing or unfiled.",
+    "approach": "Batayan puts research, documents, drafting and deadlines inside a single case matter, so nothing has to be re-explained or re-filed. Questions are answered in plain language or Taglish and grounded in verified Philippine legal sources with live citations; uploaded documents are OCR-scanned and indexed straight into the matter they belong to; drafts start from a library built for Philippine business and enforce their required attachments; and deadlines and to-dos are extracted automatically from the conversation, keeping research, drafts and team activity in one place through to close.",
+    "features": [
+      {
+        "title": "Legal research with live citations",
+        "body": "Ask naturally and get grounded answers that reason claim by claim, built on authorities like the Civil Code and Supreme Court decisions with live checks for what's changed."
+      },
+      {
+        "title": "Document intelligence",
+        "body": "Bring in documents you already have, including scans and photos — OCR indexes them into the right matter and lets you question your own files with answers that point back to the page."
+      },
+      {
+        "title": "Document drafting",
+        "body": "Draft from a library built for Philippine business — contracts, HR documents and notarial forms — with required attachments enforced so drafts leave complete, and every export carries a note for lawyer review."
+      },
+      {
+        "title": "Case matter hub",
+        "body": "Every research thread, draft and deadline lives inside its matter, with an active-case view and a calendar of upcoming dates like renewals and hearings."
+      },
+      {
+        "title": "Auto-extracted deadlines and to-dos",
+        "body": "Payment dates, renewal deadlines and other to-dos are pulled automatically from the conversation and tracked against the matter, no manual entry required."
+      },
+      {
+        "title": "Built-in lawyer-review note",
+        "body": "Every generated draft ships ready for lawyer review before signing, so the business signs with confidence rather than treating AI output as final."
+      },
+      {
+        "title": "Five-step workflow",
+        "body": "Upload, ask, draft, manage and close — each step stays connected to the same case, then loops back for the next matter."
+      }
+    ],
+    "stack": [
+      "Vue",
+      "JavaScript",
+      "Tailwind CSS",
+      "PostgreSQL"
+    ],
+    "outcomes": [
+      "Research, drafts and deadlines held in one place per matter instead of scattered across tools",
+      "Answers grounded in cited, verifiable Philippine legal sources",
+      "Uploaded documents OCR-scanned and searchable within their case automatically",
+      "Deadlines and to-dos tracked without manual entry"
+    ]
+  },
+  {
     "slug": "samahuzai",
     "name": "Samahuzai Detailing",
     "tagline": "Appointment-only booking for a premium auto detailing studio",
@@ -8,7 +75,7 @@
     "status": "Live",
     "enabled": true,
     "url": "https://samahuzai.com",
-    "icon": "Sparkles",
+    "icon": "Car",
     "accent": "var(--color-loop-500)",
     "industry": "Automotive services",
     "facts": [
