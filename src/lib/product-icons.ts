@@ -58,7 +58,6 @@ export const productIcons = {
   Scale,
   Wallet,
   Receipt,
-  Scale,
   ChartColumn,
   Compass,
   CalendarCheck,
