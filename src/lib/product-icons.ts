@@ -22,7 +22,6 @@ import {
   Receipt,
   Scale,
   ScanBarcode,
-  Scale,
   ShieldCheck,
   ShoppingCart,
   Smartphone,
