@@ -13,10 +13,17 @@ import { TeamTeaser } from "@/components/sections/team-teaser";
 import { Testimonials } from "@/components/sections/testimonials";
 import { Work } from "@/components/sections/work";
 import { GlowDivider, PageBackdrop } from "@/components/ui/backdrop";
+import { getPublishedPricingTiers } from "@/lib/pricing-store";
 import { getPublishedServices } from "@/lib/service-store";
+import { getPublishedTestimonials } from "@/lib/testimonial-store";
 
 export default async function Home() {
-  const services = await getPublishedServices();
+  // One round trip each, in parallel — they don't depend on each other.
+  const [services, testimonials, tiers] = await Promise.all([
+    getPublishedServices(),
+    getPublishedTestimonials(),
+    getPublishedPricingTiers(),
+  ]);
 
   return (
     <>
@@ -33,8 +40,8 @@ export default async function Home() {
         <Stack />
         
         <TeamTeaser />
-        <Testimonials />
-        <Pricing />
+        <Testimonials testimonials={testimonials} />
+        <Pricing tiers={tiers} />
         <Faq />
         <Contact />
       </main>

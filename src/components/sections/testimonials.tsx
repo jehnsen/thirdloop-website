@@ -4,32 +4,16 @@ import { Quote } from "lucide-react";
 import { StaggerGroup, StaggerItem } from "@/components/ui/motion-primitives";
 import { Container, Section, SectionHeader } from "@/components/ui/section";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
+import type { Testimonial } from "@/lib/testimonials";
 
-const testimonials = [
-  {
-    quote:
-      "They spent the first two weeks understanding our operation instead of pitching us a stack. The architecture doc alone changed how we planned the next 18 months.",
-    name: "Operations Director",
-    company: "Freight & logistics client",
-    accent: "var(--color-loop-500)",
-  },
-  {
-    quote:
-      "The automation work paid for itself in under five months. What impressed me more was the handover — my team runs and extends it without calling them.",
-    name: "Head of Technology",
-    company: "Clinical SaaS client",
-    accent: "var(--color-flux-500)",
-  },
-  {
-    quote:
-      "Genuinely honest about what AI would and wouldn't solve for us. They talked us out of two features we'd budgeted for. That built more trust than any demo.",
-    name: "Managing Partner",
-    company: "Financial services client",
-    accent: "var(--color-plasma-500)",
-  },
-];
+export function Testimonials({
+  testimonials,
+}: {
+  testimonials: Testimonial[];
+}) {
+  // Nothing to show while there is no feedback — don't render a bare heading.
+  if (testimonials.length === 0) return null;
 
-export function Testimonials() {
   return (
     <Section>
       <Container>
@@ -48,7 +32,7 @@ export function Testimonials() {
           staggerChildren={0.12}
         >
           {testimonials.map((testimonial) => (
-            <StaggerItem key={testimonial.company} className="h-full">
+            <StaggerItem key={testimonial.id} className="h-full">
               <SpotlightCard glowColor={testimonial.accent} className="h-full">
                 <figure className="flex h-full flex-col p-8">
                   <Quote
@@ -62,9 +46,11 @@ export function Testimonials() {
                     <div className="text-sm font-medium text-cream">
                       {testimonial.name}
                     </div>
-                    <div className="mt-0.5 text-xs text-mist/70">
-                      {testimonial.company}
-                    </div>
+                    {testimonial.company ? (
+                      <div className="mt-0.5 text-xs text-mist/70">
+                        {testimonial.company}
+                      </div>
+                    ) : null}
                   </figcaption>
                 </figure>
               </SpotlightCard>

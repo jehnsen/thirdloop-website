@@ -5,63 +5,13 @@ import { MagneticButton } from "@/components/ui/magnetic-button";
 import { StaggerGroup, StaggerItem } from "@/components/ui/motion-primitives";
 import { Container, Section, SectionHeader } from "@/components/ui/section";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
+import type { PricingTier } from "@/lib/pricing";
 import { cn } from "@/lib/utils";
 
-const tiers = [
-  {
-    name: "Advisory",
-    price: "From $3k",
-    cadence: "per engagement",
-    description:
-      "A fixed-scope architecture or operating-model review. You walk away with a written plan, whether or not we build it.",
-    features: [
-      "Discovery workshops",
-      "Target-state architecture doc",
-      "Sequenced roadmap & estimates",
-      "Build-vs-buy recommendations",
-      "Two follow-up sessions",
-    ],
-    cta: "Book a review",
-    accent: "var(--color-flux-500)",
-  },
-  {
-    name: "Build",
-    price: "From $13k",
-    cadence: "per project",
-    description:
-      "End-to-end delivery of a web platform, mobile app or automation suite — architected, built, deployed and documented.",
-    features: [
-      "Everything in Advisory",
-      "Full design & engineering team",
-      "Bi-weekly demos in staging",
-      "CI/CD, monitoring & tests",
-      "Handover docs + team training",
-      "30 days post-launch support",
-    ],
-    cta: "Start a project",
-    accent: "var(--color-loop-500)",
-    featured: true,
-  },
-  {
-    name: "Partner",
-    price: "From $7k",
-    cadence: "per month",
-    description:
-      "An embedded team on retainer. Continuous delivery across product, automation and AI with a roadmap we own together.",
-    features: [
-      "Dedicated squad allocation",
-      "Rolling quarterly roadmap",
-      "Priority support & SLAs",
-      "Ongoing automation buildout",
-      "Quarterly business reviews",
-      "Cancel with 30 days' notice",
-    ],
-    cta: "Talk retainer",
-    accent: "var(--color-plasma-500)",
-  },
-];
+export function Pricing({ tiers }: { tiers: PricingTier[] }) {
+  // Nothing to show while there are no tiers — don't render a bare heading.
+  if (tiers.length === 0) return null;
 
-export function Pricing() {
   return (
     <Section id="pricing">
       <Container>
@@ -81,7 +31,7 @@ export function Pricing() {
           staggerChildren={0.11}
         >
           {tiers.map((tier) => (
-            <StaggerItem key={tier.name} className="h-full">
+            <StaggerItem key={tier.id} className="h-full">
               <SpotlightCard
                 glowColor={tier.accent}
                 className={cn(
@@ -105,14 +55,18 @@ export function Pricing() {
                     <span className="text-3xl font-display font-semibold tracking-tight text-cream">
                       {tier.price}
                     </span>
-                    <span className="text-sm text-mist/70">
-                      {tier.cadence}
-                    </span>
+                    {tier.cadence ? (
+                      <span className="text-sm text-mist/70">
+                        {tier.cadence}
+                      </span>
+                    ) : null}
                   </div>
 
-                  <p className="mt-4 text-sm leading-relaxed text-pretty text-mist">
-                    {tier.description}
-                  </p>
+                  {tier.description ? (
+                    <p className="mt-4 text-sm leading-relaxed text-pretty text-mist">
+                      {tier.description}
+                    </p>
+                  ) : null}
 
                   <ul className="mt-7 space-y-3 border-t border-hair/20 pt-6">
                     {tier.features.map((feature) => (
@@ -129,15 +83,19 @@ export function Pricing() {
                     ))}
                   </ul>
 
-                  <div className="mt-8 pt-2">
-                    <MagneticButton
-                      href="#contact"
-                      variant={tier.featured ? "primary" : "secondary"}
-                      className="w-full"
-                    >
-                      {tier.cta}
-                    </MagneticButton>
-                  </div>
+                  {tier.cta ? (
+                    /* `mt-auto` keeps buttons aligned across tiers with
+                       different numbers of features. */
+                    <div className="mt-auto pt-10">
+                      <MagneticButton
+                        href="#contact"
+                        variant={tier.featured ? "primary" : "secondary"}
+                        className="w-full"
+                      >
+                        {tier.cta}
+                      </MagneticButton>
+                    </div>
+                  ) : null}
                 </div>
               </SpotlightCard>
             </StaggerItem>

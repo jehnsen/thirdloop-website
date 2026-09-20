@@ -46,6 +46,10 @@ async function readJson(file) {
 const products = (await readJson(path.join(root, "data", "products.json"))) ?? [];
 const services =
   (await readJson(path.join(import.meta.dirname, "seed-services.json"))) ?? [];
+const pricingTiers =
+  (await readJson(path.join(import.meta.dirname, "seed-pricing.json"))) ?? [];
+const testimonials =
+  (await readJson(path.join(import.meta.dirname, "seed-testimonials.json"))) ?? [];
 
 // ON CONFLICT turns the "already there" case into a no-op (or an overwrite
 // with --force), so seeding never half-fails partway through a list.
@@ -111,9 +115,68 @@ for (const [index, service] of services.entries()) {
   if (rows.length > 0) serviceCount++;
 }
 
+const onPricingConflict = force
+  ? sql.unsafe(`DO UPDATE SET
+      name = EXCLUDED.name, price = EXCLUDED.price,
+      cadence = EXCLUDED.cadence, description = EXCLUDED.description,
+      features = EXCLUDED.features, cta = EXCLUDED.cta,
+      accent = EXCLUDED.accent, featured = EXCLUDED.featured,
+      enabled = EXCLUDED.enabled, position = EXCLUDED.position,
+      updated_at = now()`)
+  : sql.unsafe("DO NOTHING");
+
+// Featured tiers are seeded last: the schema allows only one, so clearing the
+// flag first keeps a re-seed from colliding with whatever is already featured.
+if (pricingTiers.some((tier) => tier.featured)) {
+  await sql`UPDATE pricing_tiers SET featured = false WHERE featured`;
+}
+
+let pricingCount = 0;
+for (const [index, tier] of pricingTiers.entries()) {
+  const rows = await sql`
+    INSERT INTO pricing_tiers (
+      id, name, price, cadence, description, features, cta, accent,
+      featured, enabled, position
+    ) VALUES (
+      ${tier.id}, ${tier.name}, ${tier.price}, ${tier.cadence ?? ""},
+      ${tier.description ?? ""}, ${JSON.stringify(tier.features ?? [])}::jsonb,
+      ${tier.cta ?? ""}, ${tier.accent}, ${tier.featured ?? false},
+      ${tier.enabled ?? true}, ${index}
+    )
+    ON CONFLICT (id) ${onPricingConflict}
+    RETURNING id
+  `;
+  if (rows.length > 0) pricingCount++;
+}
+
+const onTestimonialConflict = force
+  ? sql.unsafe(`DO UPDATE SET
+      quote = EXCLUDED.quote, name = EXCLUDED.name,
+      company = EXCLUDED.company, accent = EXCLUDED.accent,
+      enabled = EXCLUDED.enabled, position = EXCLUDED.position,
+      updated_at = now()`)
+  : sql.unsafe("DO NOTHING");
+
+let testimonialCount = 0;
+for (const [index, item] of testimonials.entries()) {
+  const rows = await sql`
+    INSERT INTO testimonials (
+      id, quote, name, company, accent, enabled, position
+    ) VALUES (
+      ${item.id}, ${item.quote}, ${item.name}, ${item.company ?? ""},
+      ${item.accent}, ${item.enabled ?? true}, ${index}
+    )
+    ON CONFLICT (id) ${onTestimonialConflict}
+    RETURNING id
+  `;
+  if (rows.length > 0) testimonialCount++;
+}
+
 const verb = force ? "written" : "inserted";
 console.log(
-  `Products: ${productCount}/${products.length} ${verb}.\n` +
-    `Services: ${serviceCount}/${services.length} ${verb}.` +
+  `Products:     ${productCount}/${products.length} ${verb}.\n` +
+    `Services:     ${serviceCount}/${services.length} ${verb}.\n` +
+    `Pricing:      ${pricingCount}/${pricingTiers.length} ${verb}.\n` +
+    `Testimonials: ${testimonialCount}/${testimonials.length} ${verb}.` +
     (force ? "" : "\n\nRows that already existed were left untouched (--force overwrites)."),
 );

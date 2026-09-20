@@ -4,7 +4,9 @@ import {
   ExternalLink,
   LayoutDashboard,
   LogOut,
+  MessageSquare,
   Package,
+  Receipt,
   Workflow,
 } from "lucide-react";
 import Link from "next/link";
@@ -17,6 +19,8 @@ const links = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/products", label: "Products", icon: Package },
   { href: "/admin/services", label: "Services", icon: Workflow },
+  { href: "/admin/pricing", label: "Pricing", icon: Receipt },
+  { href: "/admin/testimonials", label: "Feedback", icon: MessageSquare },
 ];
 
 const itemClass =

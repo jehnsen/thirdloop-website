@@ -17,9 +17,29 @@ import {
   isAdminConfigured,
 } from "@/lib/admin/session";
 import {
+  parsePricingForm,
+  type PricingFormState,
+} from "@/lib/admin/pricing-form";
+import {
   parseServiceForm,
   type ServiceFormState,
 } from "@/lib/admin/service-form";
+import {
+  parseTestimonialForm,
+  type TestimonialFormState,
+} from "@/lib/admin/testimonial-form";
+import {
+  insertPricingTier,
+  removePricingTier,
+  replacePricingTier,
+  setPricingTierEnabled,
+} from "@/lib/pricing-store";
+import {
+  insertTestimonial,
+  removeTestimonial,
+  replaceTestimonial,
+  setTestimonialEnabled,
+} from "@/lib/testimonial-store";
 import {
   insertProduct,
   removeProduct,
@@ -193,4 +213,120 @@ export async function setServiceVisibility(id: string, enabled: boolean) {
 
   await setServiceEnabled(id, enabled);
   revalidateServices();
+}
+
+/* Pricing tiers — same shape as the actions above. */
+
+/** Pricing renders on the home page only. */
+function revalidatePricing() {
+  revalidatePath("/");
+  revalidatePath("/admin", "layout");
+}
+
+export async function savePricingTier(
+  _state: PricingFormState,
+  formData: FormData,
+): Promise<PricingFormState> {
+  await requireAdmin();
+
+  const parsed = parsePricingForm(formData);
+  if (!parsed.ok) {
+    return { errors: parsed.errors, message: "Some fields need attention." };
+  }
+
+  const originalId = formData.get("originalId");
+  const isEdit = typeof originalId === "string" && originalId !== "";
+  const result = isEdit
+    ? await replacePricingTier(originalId, parsed.tier)
+    : await insertPricingTier(parsed.tier);
+
+  if (!result.ok) {
+    return result.error === "id-taken"
+      ? {
+          errors: { id: "Another tier already uses this identifier." },
+          message: "Some fields need attention.",
+        }
+      : {
+          message:
+            "This tier no longer exists — it may have been deleted in another tab.",
+        };
+  }
+
+  revalidatePricing();
+  redirect(`/admin/pricing?notice=${isEdit ? "updated" : "created"}`);
+}
+
+export async function deletePricingTier(id: string) {
+  await requireAdmin();
+  if (typeof id !== "string") return;
+
+  await removePricingTier(id);
+  revalidatePricing();
+  redirect("/admin/pricing?notice=deleted");
+}
+
+export async function setPricingTierVisibility(id: string, enabled: boolean) {
+  await requireAdmin();
+  if (typeof id !== "string" || typeof enabled !== "boolean") return;
+
+  await setPricingTierEnabled(id, enabled);
+  revalidatePricing();
+}
+
+/* Testimonials — same shape as the actions above. */
+
+/** Testimonials render on the home page only. */
+function revalidateTestimonials() {
+  revalidatePath("/");
+  revalidatePath("/admin", "layout");
+}
+
+export async function saveTestimonial(
+  _state: TestimonialFormState,
+  formData: FormData,
+): Promise<TestimonialFormState> {
+  await requireAdmin();
+
+  const parsed = parseTestimonialForm(formData);
+  if (!parsed.ok) {
+    return { errors: parsed.errors, message: "Some fields need attention." };
+  }
+
+  const originalId = formData.get("originalId");
+  const isEdit = typeof originalId === "string" && originalId !== "";
+  const result = isEdit
+    ? await replaceTestimonial(originalId, parsed.testimonial)
+    : await insertTestimonial(parsed.testimonial);
+
+  if (!result.ok) {
+    return result.error === "id-taken"
+      ? {
+          errors: { id: "Another testimonial already uses this identifier." },
+          message: "Some fields need attention.",
+        }
+      : {
+          message:
+            "This testimonial no longer exists — it may have been deleted in another tab.",
+        };
+  }
+
+  revalidateTestimonials();
+  redirect(`/admin/testimonials?notice=${isEdit ? "updated" : "created"}`);
+}
+
+export async function deleteTestimonial(id: string) {
+  await requireAdmin();
+  if (typeof id !== "string") return;
+
+  await removeTestimonial(id);
+  revalidateTestimonials();
+  redirect("/admin/testimonials?notice=deleted");
+}
+
+export async function setTestimonialVisibility(id: string, enabled: boolean) {
+  await requireAdmin();
+  if (typeof id !== "string" || typeof enabled !== "boolean") return;
+
+  await setTestimonialEnabled(id, enabled);
+  revalidateTestimonials();
 }

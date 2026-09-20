@@ -1,0 +1,26 @@
+[
+  {
+    "id": "operations-director",
+    "quote": "They spent the first two weeks understanding our operation instead of pitching us a stack. The architecture doc alone changed how we planned the next 18 months.",
+    "name": "Operations Director",
+    "company": "Freight & logistics client",
+    "accent": "var(--color-loop-500)",
+    "enabled": true
+  },
+  {
+    "id": "head-of-technology",
+    "quote": "The automation work paid for itself in under five months. What impressed me more was the handover — my team runs and extends it without calling them.",
+    "name": "Head of Technology",
+    "company": "Clinical SaaS client",
+    "accent": "var(--color-flux-500)",
+    "enabled": true
+  },
+  {
+    "id": "managing-partner",
+    "quote": "Genuinely honest about what AI would and wouldn't solve for us. They talked us out of two features we'd budgeted for. That built more trust than any demo.",
+    "name": "Managing Partner",
+    "company": "Financial services client",
+    "accent": "var(--color-plasma-500)",
+    "enabled": true
+  }
+]

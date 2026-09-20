@@ -51,3 +51,44 @@ CREATE TABLE IF NOT EXISTS services (
 
 CREATE INDEX IF NOT EXISTS services_enabled_position_idx
   ON services (enabled, position, title);
+
+CREATE TABLE IF NOT EXISTS pricing_tiers (
+  id           text PRIMARY KEY,
+  name         text        NOT NULL,
+  price        text        NOT NULL,
+  cadence      text        NOT NULL DEFAULT '',
+  description  text        NOT NULL DEFAULT '',
+  features     jsonb       NOT NULL DEFAULT '[]'::jsonb,
+  cta          text        NOT NULL DEFAULT '',
+  accent       text        NOT NULL,
+  -- The "Most requested" badge. Only one tier carries it; enforced by the
+  -- partial unique index below rather than by application code.
+  featured     boolean     NOT NULL DEFAULT false,
+  enabled      boolean     NOT NULL DEFAULT true,
+  position     integer     NOT NULL DEFAULT 0,
+  created_at   timestamptz NOT NULL DEFAULT now(),
+  updated_at   timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS pricing_tiers_enabled_position_idx
+  ON pricing_tiers (enabled, position, name);
+
+-- At most one featured tier, database-side: a second one is rejected rather
+-- than silently rendering two "Most requested" badges.
+CREATE UNIQUE INDEX IF NOT EXISTS pricing_tiers_single_featured_idx
+  ON pricing_tiers ((featured)) WHERE featured;
+
+CREATE TABLE IF NOT EXISTS testimonials (
+  id          text PRIMARY KEY,
+  quote       text        NOT NULL,
+  name        text        NOT NULL,
+  company     text        NOT NULL DEFAULT '',
+  accent      text        NOT NULL,
+  enabled     boolean     NOT NULL DEFAULT true,
+  position    integer     NOT NULL DEFAULT 0,
+  created_at  timestamptz NOT NULL DEFAULT now(),
+  updated_at  timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS testimonials_enabled_position_idx
+  ON testimonials (enabled, position, name);

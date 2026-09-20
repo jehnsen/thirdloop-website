@@ -39,7 +39,9 @@ db/
 ├── schema.sql            # products + services tables
 ├── migrate.mjs           # npm run db:migrate
 ├── seed.mjs              # npm run db:seed
-└── seed-services.json    # starting service portfolio
+├── seed-services.json    # starting service portfolio
+├── seed-pricing.json     # starting pricing tiers
+└── seed-testimonials.json # starting client feedback
 src/
 ├── proxy.ts              # sends signed-out visitors from /admin to the login page
 ├── app/
@@ -73,7 +75,8 @@ src/
 
 ## Database
 
-Products and services are stored in [Neon](https://neon.tech) (serverless
+Products, services, pricing tiers and testimonials are stored in
+[Neon](https://neon.tech) (serverless
 Postgres), reached over HTTP with `@neondatabase/serverless` — there is no
 connection pool to keep warm, which suits serverless hosting.
 
@@ -94,8 +97,9 @@ and ordered in SQL, and repeated sub-records (`facts`, `features`,
 `deliverables`) as `jsonb` — those are always read and written whole with
 their parent row.
 
-Reads go through `src/lib/product-store.ts` and `src/lib/service-store.ts`.
-Both return an **empty** catalogue when no `DATABASE_URL` is set, so
+Reads go through the `*-store.ts` modules in `src/lib` (`product-store`,
+`service-store`, `pricing-store`, `testimonial-store`).
+They return an **empty** catalogue when no `DATABASE_URL` is set, so
 `next build` still succeeds on a fresh clone or a preview deploy; writes and
 the admin dashboard require a real connection and fail loudly without one.
 
@@ -107,6 +111,26 @@ or hide one. Each service has a title, summary, icon, accent colour, a list of
 deliverables and a one-line outcome. Hiding a service keeps its content and
 just removes it from the home page; the trailing "Not sure which you need?"
 card numbers itself after the last visible service.
+
+## Pricing and client feedback
+
+Both sections on the home page are database-backed and managed from the admin
+dashboard — `/admin/pricing` and `/admin/testimonials` — with the same
+add / edit / delete / show-hide controls as products and services.
+
+Pricing tiers carry a name, price, cadence, description, feature list, button
+label and accent. One tier at a time can hold the **"Most requested"** badge:
+switching it on for a tier clears it from whichever tier had it, and the
+database enforces the rule with a partial unique index rather than trusting
+the application to get it right.
+
+Testimonials carry the quote, an attribution line, an optional company line
+and an accent. Prefer a role ("Operations Director") over a personal name
+unless you have permission to publish it.
+
+Hiding a tier or a testimonial keeps its content and just removes it from the
+home page. With every tier hidden the pricing section disappears entirely
+rather than rendering an empty heading; testimonials behave the same way.
 
 ## Products
 
@@ -129,13 +153,16 @@ reachable from the home page and the footer.
 
 ## Admin dashboard
 
-`/admin` is a password-protected area for managing products and services:
+`/admin` is a password-protected area for managing the site's content:
 
 - **Dashboard** — catalogue totals, breakdowns by status and category, and the
   products whose detail pages have gaps.
 - **Products** — search and filter the catalogue, show or hide a product with
   a switch, and delete one (with a confirm step).
 - **Services** — the same, for the service portfolio on the home page.
+- **Pricing** — engagement tiers, including which one carries the
+  "Most requested" badge.
+- **Feedback** — client testimonials shown on the home page.
 - **Add / edit** — every field that appears on the public pages, with a live
   icon and accent preview. Input is validated on the server.
 
