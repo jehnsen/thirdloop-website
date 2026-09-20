@@ -1,6 +1,8 @@
 import { Plus } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { setChatbotVisibility } from "@/app/admin/actions";
+import { EntityVisibilityToggle } from "@/components/admin/entity-controls";
 import { PageHeader, Panel, buttonClass } from "@/components/admin/ui";
 import { ProductIcon } from "@/components/ui/product-icon";
 import { requireAdmin } from "@/lib/admin/auth";
@@ -10,6 +12,7 @@ import {
   productStatusOptions,
   type Product,
 } from "@/lib/products";
+import { getSiteSettings } from "@/lib/settings-store";
 
 export const metadata: Metadata = { title: "Dashboard" };
 
@@ -65,7 +68,10 @@ function Breakdown({
 export default async function AdminDashboardPage() {
   await requireAdmin();
 
-  const products = await getAllProductsForAdmin();
+  const [products, settings] = await Promise.all([
+    getAllProductsForAdmin(),
+    getSiteSettings(),
+  ]);
   const visibleCount = products.filter((product) => product.enabled).length;
   const withGaps = products
     .map((product) => ({ product, missing: missingSections(product) }))
@@ -140,6 +146,28 @@ export default async function AdminDashboardPage() {
           }))}
         />
       </div>
+
+      <Panel
+        title="Site settings"
+        description="Global switches for the public site. Changes apply everywhere immediately."
+        className="mt-6"
+      >
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <p className="text-sm font-medium text-cream">Chatbot widget</p>
+            <p className="mt-0.5 text-xs text-mist/80">
+              The floating chat toggle shown in the corner of every public
+              page.
+            </p>
+          </div>
+          <EntityVisibilityToggle
+            id="chatbot"
+            label="the chatbot widget"
+            enabled={settings.chatbot_enabled}
+            action={setChatbotVisibility}
+          />
+        </div>
+      </Panel>
 
       <Panel
         title="Detail pages with gaps"

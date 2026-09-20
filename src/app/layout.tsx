@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Sans, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import { ChatbotWidget } from "@/components/layout/chatbot-widget";
+import { isChatbotEnabled } from "@/lib/settings-store";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -83,11 +84,13 @@ const jsonLd = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const chatbotEnabled = await isChatbotEnabled();
+
   return (
     <html
       lang="en"
@@ -101,7 +104,7 @@ export default function RootLayout({
           Skip to content
         </a>
         {children}
-        <ChatbotWidget />
+        {chatbotEnabled ? <ChatbotWidget /> : null}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

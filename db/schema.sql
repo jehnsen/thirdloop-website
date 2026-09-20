@@ -92,3 +92,13 @@ CREATE TABLE IF NOT EXISTS testimonials (
 
 CREATE INDEX IF NOT EXISTS testimonials_enabled_position_idx
   ON testimonials (enabled, position, name);
+
+-- Single-row table of site-wide switches the admin can flip without a
+-- deploy. Absent keys default to "on" in application code, so a fresh
+-- database (or one from before a given key existed) behaves as if nothing
+-- had been turned off.
+CREATE TABLE IF NOT EXISTS settings (
+  key         text        PRIMARY KEY,
+  value       boolean     NOT NULL,
+  updated_at  timestamptz NOT NULL DEFAULT now()
+);

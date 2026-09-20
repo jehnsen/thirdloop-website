@@ -52,6 +52,7 @@ import {
   replaceService,
   setServiceEnabled,
 } from "@/lib/service-store";
+import { setSetting } from "@/lib/settings-store";
 
 /*
  * Server actions are reachable by direct POST, not just through the admin UI,
@@ -329,4 +330,15 @@ export async function setTestimonialVisibility(id: string, enabled: boolean) {
 
   await setTestimonialEnabled(id, enabled);
   revalidateTestimonials();
+}
+
+/* Site settings — single global switches, not tied to a catalogue row. */
+
+/** The chatbot mounts in the root layout, so every route must revalidate. */
+export async function setChatbotVisibility(_id: string, enabled: boolean) {
+  await requireAdmin();
+  if (typeof enabled !== "boolean") return;
+
+  await setSetting("chatbot_enabled", enabled);
+  revalidatePath("/", "layout");
 }
