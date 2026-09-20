@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Sans, JetBrains_Mono, Space_Grotesk } from "next/font/google";
+import { ChatbotWidget } from "@/components/layout/chatbot-widget";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -100,6 +101,7 @@ export default function RootLayout({
           Skip to content
         </a>
         {children}
+        <ChatbotWidget />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
