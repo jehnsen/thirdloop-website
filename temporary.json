@@ -1,0 +1,118 @@
+[
+    {
+        "slug": "admin-suite",
+        "name": "AdminSuite",
+        "tagline": "School management for DepEd administrative officers",
+        "summary": "A school management system for administrative officers — centralising the records, reporting and day-to-day operations that otherwise live across spreadsheets.",
+        "category": "Internal Tool",
+        "status": "Demo",
+        "enabled": true,
+        "url": "https://admin-suite-frontend.vercel.app",
+        "icon": "GraduationCap",
+        "accent": "var(--color-loop-400)",
+        "industry": "Education",
+        "facts": [
+            {
+                "label": "Type",
+                "value": "School management system"
+            },
+            {
+                "label": "Users",
+                "value": "School admin officers"
+            },
+            {
+                "label": "Context",
+                "value": "DepEd schools"
+            }
+        ],
+        "challenge": "Administrative officers in DepEd schools carry a heavy reporting load across enrolment, personnel and facilities — most of it assembled by hand from spreadsheets that live on individual machines. The same figures get re-keyed into multiple report formats, and nobody has a single current view of the school's records.",
+        "approach": "A management system that holds the records once and generates the reporting from them, so administrative staff stop rebuilding the same numbers. Access is role-gated behind a login, keeping personnel and student data restricted to the officers entitled to see it.",
+        "features": [
+            {
+                "title": "Centralised records",
+                "body": "School records live in one system rather than scattered spreadsheets on individual machines."
+            },
+            {
+                "title": "Role-based access",
+                "body": "Login-gated access keeps personnel and student information limited to authorised officers."
+            },
+            {
+                "title": "Reporting from source data",
+                "body": "Required reports generate from the underlying records instead of being re-keyed each cycle."
+            },
+            {
+                "title": "Administrative workflows",
+                "body": "Routine officer tasks are handled in-system with a consistent process rather than ad-hoc per staff member."
+            }
+        ],
+        "stack": [
+            "Next.js",
+            "React",
+            "TypeScript",
+            "Tailwind CSS"
+        ],
+        "outcomes": [
+            "One current set of records instead of competing spreadsheet copies",
+            "Reporting assembled from source data rather than re-keyed",
+            "Access to sensitive records controlled by role"
+        ]
+    },
+    {
+        "slug": "backhaul",
+        "name": "BackHaul",
+        "tagline": "Turning empty return trips into margin",
+        "summary": "An interactive margin model for trucking fleets — quantifying the revenue available from return trips that currently run empty, across two monetisation strategies.",
+        "category": "Web App",
+        "status": "Demo",
+        "enabled": true,
+        "url": "https://backhaul-demo.vercel.app/",
+        "icon": "Truck",
+        "accent": "var(--color-plasma-400)",
+        "industry": "Logistics & freight",
+        "facts": [
+            {
+                "label": "Type",
+                "value": "Interactive business model"
+            },
+            {
+                "label": "Market",
+                "value": "Philippine trucking fleets"
+            },
+            {
+                "label": "Focus",
+                "value": "Deadhead monetisation"
+            }
+        ],
+        "challenge": "Fleets running dedicated routes — Metro Manila out to provincial branches — pay for the return leg whether or not anything is on the truck. That deadhead distance is a pure cost, but it's hard to argue for changing it without a number attached, and fleet operators rarely have the model to produce one.",
+        "approach": "An interactive calculator that makes the opportunity concrete. Because fuel and driver cost are already absorbed by the outbound job, backhaul revenue is close to pure margin — the tool lets an operator move sliders for distance, fuel, payload and pricing and see both per-trip and fleet-level annual figures for two different strategies.",
+        "features": [
+            {
+                "title": "Two monetisation paths",
+                "body": "Model selling return cargo space to third-party shippers, or buying agricultural goods at origin to sell in Manila markets."
+            },
+            {
+                "title": "Interactive margin sliders",
+                "body": "Distance, fuel cost, payload weight and pricing adjust live, with margin recalculating as assumptions change."
+            },
+            {
+                "title": "Fleet-level projection",
+                "body": "Per-trip figures roll up across a 20-truck fleet into monthly and annual totals."
+            },
+            {
+                "title": "Risk framing",
+                "body": "The higher-return path is presented alongside its working-capital needs and exposure to spoilage and price volatility."
+            }
+        ],
+        "stack": [
+            "Next.js",
+            "React",
+            "TypeScript",
+            "Tailwind CSS"
+        ],
+        "outcomes": [
+            "Deadhead cost converted into a defensible revenue number",
+            "Two strategies compared on return and on risk",
+            "Fleet-scale impact visible from per-trip assumptions"
+        ]
+    }
+]

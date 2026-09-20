@@ -4,7 +4,7 @@ import Link from "next/link";
 import { PageHeader, Panel, buttonClass } from "@/components/admin/ui";
 import { ProductIcon } from "@/components/ui/product-icon";
 import { requireAdmin } from "@/lib/admin/auth";
-import { getAllProducts } from "@/lib/product-store";
+import { getAllProductsForAdmin } from "@/lib/product-store";
 import {
   productCategoryOptions,
   productStatusOptions,
@@ -65,7 +65,7 @@ function Breakdown({
 export default async function AdminDashboardPage() {
   await requireAdmin();
 
-  const products = await getAllProducts();
+  const products = await getAllProductsForAdmin();
   const visibleCount = products.filter((product) => product.enabled).length;
   const withGaps = products
     .map((product) => ({ product, missing: missingSections(product) }))
