@@ -117,6 +117,9 @@ export function Contact() {
                       <dt className="sr-only">Location</dt>
                       <dd className="text-sm text-mist">
                         {site.location}
+                        <span className="mt-1 block text-xs text-mist/70">
+                          {site.officeAddress}
+                        </span>
                       </dd>
                     </div>
                   </div>

@@ -8,6 +8,7 @@ export const site = {
   email: "hello@3rdloopsolutions.com",
   phone: "+63 917 000 0000",
   location: "Remote-first · Serving clients worldwide",
+  officeAddress: "Level 24, PSE Tower, 28th St. corner 5th Avenue, BGC, Taguig City",
   socials: [
     { label: "LinkedIn", href: "https://linkedin.com" },
     { label: "GitHub", href: "https://github.com" },
@@ -24,7 +25,7 @@ export const navLinks = [
   { label: "Products", href: "/products", kind: "route" },
   { label: "Team", href: "/team", kind: "route" },
   { label: "Process", href: "#process", kind: "hash" },
-  { label: "Work", href: "#work", kind: "hash" },
+  // { label: "Work", href: "#work", kind: "hash" },
   { label: "Pricing", href: "#pricing", kind: "hash" },
   { label: "FAQ", href: "#faq", kind: "hash" },
 ] as const;

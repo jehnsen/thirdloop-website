@@ -34,6 +34,9 @@ export function Footer() {
               {site.email}
               <ArrowUpRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
+            <p className="mt-3 text-xs leading-relaxed text-pretty text-mist/70">
+              {site.officeAddress}
+            </p>
           </div>
 
           <div>

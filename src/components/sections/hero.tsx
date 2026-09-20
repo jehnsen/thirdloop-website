@@ -129,9 +129,9 @@ export function Hero() {
                 Book a discovery call
                 <ArrowRight className="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
               </MagneticButton>
-              <MagneticButton href="#services" variant="secondary">
+              {/* <MagneticButton href="#services" variant="secondary">
                 Explore capabilities
-              </MagneticButton>
+              </MagneticButton> */}
             </motion.div>
 
             {/* <motion.dl
