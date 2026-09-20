@@ -1,0 +1,77 @@
+[
+  {
+    "id": "web",
+    "title": "Web Development",
+    "summary": "Marketing sites, SaaS dashboards and internal platforms built on modern React — fast, accessible, and made to be extended.",
+    "icon": "Globe",
+    "color": "var(--color-loop-500)",
+    "deliverables": [
+      "Next.js / React application builds",
+      "Design systems & component libraries",
+      "Headless CMS + commerce integrations",
+      "Performance, SEO & accessibility passes"
+    ],
+    "outcomes": "Sub-second loads, Lighthouse 95+, zero-downtime deploys.",
+    "enabled": true
+  },
+  {
+    "id": "mobile",
+    "title": "Mobile Apps",
+    "summary": "Cross-platform iOS and Android products that feel native — one codebase, shipped to both stores with confidence.",
+    "icon": "Smartphone",
+    "color": "var(--color-flux-500)",
+    "deliverables": [
+      "React Native & Expo applications",
+      "Offline-first sync and local storage",
+      "Push, deep links & in-app payments",
+      "App Store / Play Store release pipelines"
+    ],
+    "outcomes": "Native-feel UX with a single team and one release cadence.",
+    "enabled": true
+  },
+  {
+    "id": "automation",
+    "title": "Intelligent Automation",
+    "summary": "We find the repetitive work draining your team and replace it with reliable, observable pipelines that run themselves.",
+    "icon": "Workflow",
+    "color": "var(--color-plasma-500)",
+    "deliverables": [
+      "Workflow mapping & bottleneck analysis",
+      "API integrations across your tool stack",
+      "Document, data & reporting pipelines",
+      "Monitoring, alerting and audit trails"
+    ],
+    "outcomes": "Thousands of manual hours removed from the calendar each year.",
+    "enabled": true
+  },
+  {
+    "id": "ai",
+    "title": "AI Solutions",
+    "summary": "Applied AI that earns its place — retrieval assistants, document intelligence and agents wired into your real systems.",
+    "icon": "Bot",
+    "color": "var(--color-loop-400)",
+    "deliverables": [
+      "RAG assistants over your own knowledge base",
+      "Document extraction & classification",
+      "Agentic workflows with human checkpoints",
+      "Evaluation harnesses and guardrails"
+    ],
+    "outcomes": "Measurable accuracy, traceable answers, controlled cost.",
+    "enabled": true
+  },
+  {
+    "id": "consulting",
+    "title": "Business & Technical Consultancy",
+    "summary": "How your business should run: operating model, system architecture, workflows and the roadmap that connects them.",
+    "icon": "Compass",
+    "color": "var(--color-flux-400)",
+    "deliverables": [
+      "Architecture reviews & target-state design",
+      "Operating model and workflow redesign",
+      "Tooling strategy and build-vs-buy calls",
+      "Team structure, rituals & delivery process"
+    ],
+    "outcomes": "A written plan your team can execute without us in the room.",
+    "enabled": true
+  }
+]

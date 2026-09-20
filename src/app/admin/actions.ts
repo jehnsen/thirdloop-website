@@ -17,11 +17,21 @@ import {
   isAdminConfigured,
 } from "@/lib/admin/session";
 import {
+  parseServiceForm,
+  type ServiceFormState,
+} from "@/lib/admin/service-form";
+import {
   insertProduct,
   removeProduct,
   replaceProduct,
   setProductEnabled,
 } from "@/lib/product-store";
+import {
+  insertService,
+  removeService,
+  replaceService,
+  setServiceEnabled,
+} from "@/lib/service-store";
 
 /*
  * Server actions are reachable by direct POST, not just through the admin UI,
@@ -71,6 +81,7 @@ export async function logout() {
 
 /** Public product pages are prerendered, so every change must invalidate them. */
 function revalidateCatalogue() {
+  revalidatePath("/");
   revalidatePath("/products");
   revalidatePath("/products/[slug]", "page");
   revalidatePath("/admin", "layout");
@@ -124,4 +135,62 @@ export async function setProductVisibility(slug: string, enabled: boolean) {
 
   await setProductEnabled(slug, enabled);
   revalidateCatalogue();
+}
+
+/* Services — same shape as the product actions above. */
+
+/** The services section is rendered on the home page, so that must revalidate too. */
+function revalidateServices() {
+  revalidatePath("/");
+  revalidatePath("/admin", "layout");
+}
+
+export async function saveService(
+  _state: ServiceFormState,
+  formData: FormData,
+): Promise<ServiceFormState> {
+  await requireAdmin();
+
+  const parsed = parseServiceForm(formData);
+  if (!parsed.ok) {
+    return { errors: parsed.errors, message: "Some fields need attention." };
+  }
+
+  const originalId = formData.get("originalId");
+  const isEdit = typeof originalId === "string" && originalId !== "";
+  const result = isEdit
+    ? await replaceService(originalId, parsed.service)
+    : await insertService(parsed.service);
+
+  if (!result.ok) {
+    return result.error === "id-taken"
+      ? {
+          errors: { id: "Another service already uses this identifier." },
+          message: "Some fields need attention.",
+        }
+      : {
+          message:
+            "This service no longer exists — it may have been deleted in another tab.",
+        };
+  }
+
+  revalidateServices();
+  redirect(`/admin/services?notice=${isEdit ? "updated" : "created"}`);
+}
+
+export async function deleteService(id: string) {
+  await requireAdmin();
+  if (typeof id !== "string") return;
+
+  await removeService(id);
+  revalidateServices();
+  redirect("/admin/services?notice=deleted");
+}
+
+export async function setServiceVisibility(id: string, enabled: boolean) {
+  await requireAdmin();
+  if (typeof id !== "string" || typeof enabled !== "boolean") return;
+
+  await setServiceEnabled(id, enabled);
+  revalidateServices();
 }

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ProductsTable } from "@/components/admin/products-table";
 import { Notice, PageHeader, buttonClass } from "@/components/admin/ui";
 import { requireAdmin } from "@/lib/admin/auth";
-import { getAllProducts } from "@/lib/product-store";
+import { getAllProductsForAdmin } from "@/lib/product-store";
 
 export const metadata: Metadata = { title: "Products" };
 
@@ -19,7 +19,7 @@ type Props = { searchParams: Promise<{ notice?: string | string[] }> };
 export default async function AdminProductsPage({ searchParams }: Props) {
   await requireAdmin();
 
-  const [{ notice }, products] = await Promise.all([searchParams, getAllProducts()]);
+  const [{ notice }, products] = await Promise.all([searchParams, getAllProductsForAdmin()]);
   const message =
     typeof notice === "string" && Object.hasOwn(notices, notice)
       ? notices[notice as keyof typeof notices]

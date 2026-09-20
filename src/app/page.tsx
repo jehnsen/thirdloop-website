@@ -13,15 +13,18 @@ import { TeamTeaser } from "@/components/sections/team-teaser";
 import { Testimonials } from "@/components/sections/testimonials";
 import { Work } from "@/components/sections/work";
 import { GlowDivider, PageBackdrop } from "@/components/ui/backdrop";
+import { getPublishedServices } from "@/lib/service-store";
 
-export default function Home() {
+export default async function Home() {
+  const services = await getPublishedServices();
+
   return (
     <>
       <PageBackdrop theme="home" />
       <Navbar />
       <main id="main">
         <Hero />
-        {/* <Services /> */}
+        <Services services={services} />
         <Governance />
         <Differentiators />
         <Process />

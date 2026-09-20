@@ -20,14 +20,26 @@ npm run lint     # eslint
 npx tsc --noEmit # typecheck
 ```
 
-To use the admin dashboard, also copy `.env.example` to `.env.local` and fill
-it in — see [Admin dashboard](#admin-dashboard).
+Copy `.env.example` to `.env.local` and fill it in, then create the tables
+and load the starting catalogue:
+
+```bash
+npm run db:migrate   # apply db/schema.sql
+npm run db:seed      # load products + services (skips rows already there)
+```
+
+See [Database](#database) and [Admin dashboard](#admin-dashboard).
 
 ## Structure
 
 ```
 data/
-└── products.json         # product catalogue — edited through /admin
+└── products.json         # original catalogue — seed data only, not read at runtime
+db/
+├── schema.sql            # products + services tables
+├── migrate.mjs           # npm run db:migrate
+├── seed.mjs              # npm run db:seed
+└── seed-services.json    # starting service portfolio
 src/
 ├── proxy.ts              # sends signed-out visitors from /admin to the login page
 ├── app/
@@ -59,9 +71,46 @@ src/
     └── utils.ts          # cn() class merger
 ```
 
+## Database
+
+Products and services are stored in [Neon](https://neon.tech) (serverless
+Postgres), reached over HTTP with `@neondatabase/serverless` — there is no
+connection pool to keep warm, which suits serverless hosting.
+
+| Variable | Purpose |
+| --- | --- |
+| `DATABASE_URL` | Neon connection string. Vercel's Neon integration sets this for you. |
+
+`POSTGRES_URL` and `DATABASE_URL_UNPOOLED` are accepted as fallbacks.
+
+```bash
+npm run db:migrate          # create tables and indexes (safe to re-run)
+npm run db:seed             # insert starting rows, skipping any already there
+npm run db:seed -- --force  # overwrite existing rows from the seed files
+```
+
+`db/schema.sql` keeps scalar fields as real columns so they can be filtered
+and ordered in SQL, and repeated sub-records (`facts`, `features`,
+`deliverables`) as `jsonb` — those are always read and written whole with
+their parent row.
+
+Reads go through `src/lib/product-store.ts` and `src/lib/service-store.ts`.
+Both return an **empty** catalogue when no `DATABASE_URL` is set, so
+`next build` still succeeds on a fresh clone or a preview deploy; writes and
+the admin dashboard require a real connection and fail loudly without one.
+
+## Services
+
+The service portfolio on the home page is database-backed and managed at
+`/admin/services`, mirroring products: add, edit, delete, and a switch to show
+or hide one. Each service has a title, summary, icon, accent colour, a list of
+deliverables and a one-line outcome. Hiding a service keeps its content and
+just removes it from the home page; the trailing "Not sure which you need?"
+card numbers itself after the last visible service.
+
 ## Products
 
-The catalogue lives in `data/products.json` and is managed from the admin
+The catalogue lives in Postgres (Neon) and is managed from the admin
 dashboard at `/admin`. `/products` lists every **visible** product and
 `/products/[slug]` renders its detail page. Both are statically generated and
 revalidated whenever a product is saved, shown, hidden or deleted, so changes
@@ -80,29 +129,32 @@ reachable from the home page and the footer.
 
 ## Admin dashboard
 
-`/admin` is a password-protected area for managing products:
+`/admin` is a password-protected area for managing products and services:
 
 - **Dashboard** — catalogue totals, breakdowns by status and category, and the
   products whose detail pages have gaps.
 - **Products** — search and filter the catalogue, show or hide a product with
   a switch, and delete one (with a confirm step).
-- **Add / edit** — every field that appears on the product pages, with a live
+- **Services** — the same, for the service portfolio on the home page.
+- **Add / edit** — every field that appears on the public pages, with a live
   icon and accent preview. Input is validated on the server.
 
 Hiding a product keeps all of its content. It just stops appearing on
-`/products`, and its page returns 404 until it's switched back on.
+`/products`, and its page returns 404 until it's switched back on. Hiding a
+service removes it from the home page and keeps its content.
 
 ### Setup
 
-Copy `.env.example` to `.env.local`, fill in both values, and restart the
-server:
+Copy `.env.example` to `.env.local`, fill it in, and restart the server:
 
 | Variable | Purpose |
 | --- | --- |
 | `ADMIN_PASSWORD` | The sign-in password. Changing it signs out every session. |
 | `ADMIN_SESSION_SECRET` | 32+ random characters used to sign the session cookie. |
+| `DATABASE_URL` | Neon connection string — see [Database](#database). |
 
-If either is missing, the sign-in page says so and nobody can sign in.
+If either admin value is missing, the sign-in page says so and nobody can
+sign in.
 Sessions last 8 hours. In production the session cookie is `Secure`, so the
 site has to be served over HTTPS.
 
@@ -114,17 +166,16 @@ only the first gate. Every admin page and every server action in
 anything. Server actions can be called directly, bypassing the UI, so keep
 that pattern when adding admin features.
 
-### Hosting constraint — read before deploying
+### Deploying
 
-Changes are written to `data/products.json` on the server's disk. That works
-on a single long-running Node server (`npm run start` on a VPS, or Docker with
-`data/` on a persistent volume). It does **not** work on serverless hosts such
-as Vercel, where the filesystem is read-only and isn't shared between
-instances. To deploy there, replace the read/write functions in
-`src/lib/product-store.ts` with database calls — nothing else needs to change.
+Changes are written to Postgres, so the dashboard works on serverless hosts
+such as Vercel — no persistent filesystem required. Set the environment
+variables from [Database](#database) on the host, and run `npm run db:migrate`
+against the production database once before the first deploy.
 
-Edits made against a local dev server change `data/products.json` in your
-working tree, so they can be reviewed and committed like any other change.
+Because the dashboard writes to whichever database `DATABASE_URL` points at, a
+local dev server pointed at the production database edits the live catalogue.
+Use a separate Neon branch for development if that isn't what you want.
 
 To offer another icon in the picker, add it to `src/lib/product-icons.ts`.
 

@@ -1,37 +1,99 @@
-import { readFile, rename, unlink, writeFile } from "node:fs/promises";
-import path from "node:path";
 import { cache } from "react";
+import {
+  DatabaseNotConfiguredError,
+  getSql,
+  isDatabaseConfigured,
+} from "@/lib/db";
 import type { Product } from "@/lib/products";
 
 /**
- * The catalogue lives in a JSON file so the admin dashboard can edit it at
- * runtime. That needs a writable filesystem and a single server process —
- * replace these functions with database calls before deploying to serverless
- * hosting, where the filesystem is read-only.
+ * The product catalogue, stored in Neon. The admin dashboard edits it at
+ * runtime, so this must not rely on a writable filesystem or on two requests
+ * landing on the same instance.
+ *
+ * Public reads go through `getAllProducts`, which returns an empty catalogue
+ * when no database is configured — that keeps `next build` working on a fresh
+ * clone or a preview deploy where the integration hasn't been added yet.
+ * Writes always demand a real connection.
  */
-const DATA_FILE = path.join(process.cwd(), "data", "products.json");
 
-async function readProducts(): Promise<Product[]> {
-  return JSON.parse(await readFile(DATA_FILE, "utf8")) as Product[];
+/** A row as Postgres hands it back: snake_case, jsonb already parsed. */
+type ProductRow = {
+  slug: string;
+  name: string;
+  tagline: string;
+  summary: string;
+  category: string;
+  status: string;
+  enabled: boolean;
+  url: string | null;
+  icon: string;
+  accent: string;
+  industry: string;
+  facts: Product["facts"];
+  challenge: string;
+  approach: string;
+  features: Product["features"];
+  stack: string[];
+  outcomes: string[];
+};
+
+/**
+ * `url` is optional on Product rather than nullable, so a NULL column has to
+ * become an absent key — otherwise `url: null` would reach components that
+ * expect `string | undefined`.
+ */
+function toProduct(row: ProductRow): Product {
+  return {
+    slug: row.slug,
+    name: row.name,
+    tagline: row.tagline,
+    summary: row.summary,
+    category: row.category as Product["category"],
+    status: row.status as Product["status"],
+    enabled: row.enabled,
+    ...(row.url ? { url: row.url } : {}),
+    icon: row.icon as Product["icon"],
+    accent: row.accent,
+    industry: row.industry,
+    facts: row.facts ?? [],
+    challenge: row.challenge,
+    approach: row.approach,
+    features: row.features ?? [],
+    stack: row.stack ?? [],
+    outcomes: row.outcomes ?? [],
+  };
 }
 
-async function writeProducts(products: Product[]) {
-  const json = `${JSON.stringify(products, null, 2)}\n`;
-  const temp = `${DATA_FILE}.tmp`;
+async function selectProducts(): Promise<Product[]> {
+  const sql = getSql();
+  const rows = (await sql`
+    SELECT slug, name, tagline, summary, category, status, enabled, url, icon,
+           accent, industry, facts, challenge, approach, features, stack, outcomes
+      FROM products
+     ORDER BY position, name
+  `) as ProductRow[];
 
-  // Write-then-rename so a crash mid-write can't leave a truncated catalogue.
-  await writeFile(temp, json, "utf8");
-  try {
-    await rename(temp, DATA_FILE);
-  } catch {
-    // Windows refuses to replace a file another process has open.
-    await writeFile(DATA_FILE, json, "utf8");
-    await unlink(temp).catch(() => {});
-  }
+  return rows.map(toProduct);
 }
 
-/** Memoised per request, so metadata and page renders share one read. */
-export const getAllProducts = cache(readProducts);
+/**
+ * Memoised per request, so metadata and the page body share a single query.
+ *
+ * Without a database this resolves to an empty catalogue instead of throwing:
+ * `generateStaticParams` and the page bodies run during `next build`, which
+ * happens before the runtime environment exists on some hosts.
+ */
+export const getAllProducts = cache(async (): Promise<Product[]> => {
+  if (!isDatabaseConfigured()) return [];
+  return selectProducts();
+});
+
+/** Reads for the admin dashboard, where an empty list must not be a guess. */
+export async function getAllProductsForAdmin(): Promise<Product[]> {
+  if (!isDatabaseConfigured()) throw new DatabaseNotConfiguredError();
+  return getAllProducts();
+}
 
 export async function getProductBySlug(slug: string) {
   return (await getAllProducts()).find((product) => product.slug === slug);
@@ -50,57 +112,110 @@ type MutationError = "not-found" | "slug-taken";
 
 export type MutationResult = { ok: true } | { ok: false; error: MutationError };
 
-let queue: Promise<unknown> = Promise.resolve();
+/** Postgres raises this when a statement violates a unique constraint. */
+const UNIQUE_VIOLATION = "23505";
 
-/**
- * Runs read-modify-write cycles one at a time, so two saves landing together
- * can't silently overwrite each other.
- */
-function mutate(
-  change: (products: Product[]) => Product[] | MutationError,
-): Promise<MutationResult> {
-  const run = queue.then(async (): Promise<MutationResult> => {
-    const next = change(await readProducts());
-    if (typeof next === "string") return { ok: false, error: next };
-    await writeProducts(next);
-    return { ok: true };
-  });
-  queue = run.catch(() => {});
-  return run;
+function isUniqueViolation(error: unknown) {
+  return (
+    typeof error === "object" &&
+    error !== null &&
+    (error as { code?: string }).code === UNIQUE_VIOLATION
+  );
 }
 
-export function insertProduct(product: Product) {
-  return mutate((products) =>
-    products.some((p) => p.slug === product.slug)
-      ? "slug-taken"
-      : [...products, product],
-  );
+/**
+ * `sql` is typed as returning one of several shapes depending on how it is
+ * configured, so a `RETURNING` result needs narrowing before it can be counted.
+ */
+function affected(rows: unknown): number {
+  return Array.isArray(rows) ? rows.length : 0;
+}
+
+export async function insertProduct(product: Product): Promise<MutationResult> {
+  const sql = getSql();
+  try {
+    await sql`
+      INSERT INTO products (
+        slug, name, tagline, summary, category, status, enabled, url, icon,
+        accent, industry, facts, challenge, approach, features, stack, outcomes,
+        position
+      ) VALUES (
+        ${product.slug}, ${product.name}, ${product.tagline}, ${product.summary},
+        ${product.category}, ${product.status}, ${product.enabled},
+        ${product.url ?? null}, ${product.icon}, ${product.accent},
+        ${product.industry}, ${JSON.stringify(product.facts)}::jsonb,
+        ${product.challenge}, ${product.approach},
+        ${JSON.stringify(product.features)}::jsonb,
+        ${JSON.stringify(product.stack)}::jsonb,
+        ${JSON.stringify(product.outcomes)}::jsonb,
+        -- New products land at the end of the catalogue.
+        (SELECT COALESCE(MAX(position), 0) + 1 FROM products)
+      )
+    `;
+    return { ok: true };
+  } catch (error) {
+    // The slug is the primary key, so a duplicate is a user error, not a fault.
+    if (isUniqueViolation(error)) return { ok: false, error: "slug-taken" };
+    throw error;
+  }
 }
 
 /** Replaces the product currently at `slug`; the new data may rename it. */
-export function replaceProduct(slug: string, product: Product) {
-  return mutate((products) => {
-    const index = products.findIndex((p) => p.slug === slug);
-    if (index === -1) return "not-found";
-    if (products.some((p, i) => i !== index && p.slug === product.slug)) {
-      return "slug-taken";
-    }
-    return products.map((p, i) => (i === index ? product : p));
-  });
+export async function replaceProduct(
+  slug: string,
+  product: Product,
+): Promise<MutationResult> {
+  const sql = getSql();
+  try {
+    const rows = await sql`
+      UPDATE products SET
+        slug       = ${product.slug},
+        name       = ${product.name},
+        tagline    = ${product.tagline},
+        summary    = ${product.summary},
+        category   = ${product.category},
+        status     = ${product.status},
+        enabled    = ${product.enabled},
+        url        = ${product.url ?? null},
+        icon       = ${product.icon},
+        accent     = ${product.accent},
+        industry   = ${product.industry},
+        facts      = ${JSON.stringify(product.facts)}::jsonb,
+        challenge  = ${product.challenge},
+        approach   = ${product.approach},
+        features   = ${JSON.stringify(product.features)}::jsonb,
+        stack      = ${JSON.stringify(product.stack)}::jsonb,
+        outcomes   = ${JSON.stringify(product.outcomes)}::jsonb,
+        updated_at = now()
+      WHERE slug = ${slug}
+      RETURNING slug
+    `;
+    return affected(rows) > 0 ? { ok: true } : { ok: false, error: "not-found" };
+  } catch (error) {
+    // Renaming onto a slug another product already holds.
+    if (isUniqueViolation(error)) return { ok: false, error: "slug-taken" };
+    throw error;
+  }
 }
 
-export function removeProduct(slug: string) {
-  return mutate((products) =>
-    products.some((p) => p.slug === slug)
-      ? products.filter((p) => p.slug !== slug)
-      : "not-found",
-  );
+export async function removeProduct(slug: string): Promise<MutationResult> {
+  const sql = getSql();
+  const rows = await sql`
+    DELETE FROM products WHERE slug = ${slug} RETURNING slug
+  `;
+  return affected(rows) > 0 ? { ok: true } : { ok: false, error: "not-found" };
 }
 
-export function setProductEnabled(slug: string, enabled: boolean) {
-  return mutate((products) =>
-    products.some((p) => p.slug === slug)
-      ? products.map((p) => (p.slug === slug ? { ...p, enabled } : p))
-      : "not-found",
-  );
+export async function setProductEnabled(
+  slug: string,
+  enabled: boolean,
+): Promise<MutationResult> {
+  const sql = getSql();
+  const rows = await sql`
+    UPDATE products
+       SET enabled = ${enabled}, updated_at = now()
+     WHERE slug = ${slug}
+    RETURNING slug
+  `;
+  return affected(rows) > 0 ? { ok: true } : { ok: false, error: "not-found" };
 }
