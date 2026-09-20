@@ -5,7 +5,8 @@ import { MessageCircle, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-const CHATBOT_URL = "http://localhost:3001";
+const CHATBOT_URL =
+  process.env.NEXT_PUBLIC_CHATBOT_URL ?? "http://localhost:3001";
 
 /** Floating toggle that reveals an embedded chatbot iframe, house pill style.
  * Kept off the admin panel — mounted once in the root layout otherwise. */
