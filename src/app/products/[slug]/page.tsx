@@ -19,6 +19,10 @@ import { cn } from "@/lib/utils";
 
 type Params = { params: Promise<{ slug: string }> };
 
+// Same reasoning as the products index: without this, a product added after
+// the last deploy has no static page and DB edits never reach the site.
+export const revalidate = 300;
+
 export async function generateStaticParams() {
   const products = await getPublishedProducts();
   return products.map((product) => ({ slug: product.slug }));

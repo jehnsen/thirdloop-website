@@ -8,6 +8,11 @@ import { Reveal } from "@/components/ui/motion-primitives";
 import { Container, Eyebrow, Section } from "@/components/ui/section";
 import { getPublishedProducts } from "@/lib/product-store";
 
+// Statically rendered by default, so admin edits to the catalogue wouldn't
+// otherwise reach this page until the next deploy. Revalidate on a timer
+// instead of rebuilding the whole site for a product toggle.
+export const revalidate = 300;
+
 export const metadata: Metadata = {
   title: "Products",
   description:
