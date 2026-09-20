@@ -5,7 +5,7 @@ export const site = {
   description:
     "3rdLoop Solutions designs and ships web platforms, mobile apps, intelligent automations and AI systems — backed by the architecture and operating consultancy that makes them last.",
   url: "https://3rdloopsolutions.com",
-  email: "support@3rdloopsolutions.com",
+  email: "contact@3rdloopsolutions.com",
   phone: "+63 917 000 0000",
   location: "Remote-first · Serving clients worldwide",
   officeAddress: "Level 24, PSE Tower, 28th St. corner 5th Avenue, BGC, Taguig City",
